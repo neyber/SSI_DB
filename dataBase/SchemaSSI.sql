@@ -27,7 +27,7 @@ BEGIN
 					,createdOn DATETIME NOT NULL
 					,updatedOn DATETIME NOT NULL
 					,isDeleted BIT
-					,version BIGINT
+					,version BIGINT DEFAULT 1
 					,description VARCHAR(100) NOT NULL
 
 					CONSTRAINT PK_DepartmentId PRIMARY KEY (Id)
@@ -56,7 +56,7 @@ BEGIN
 				,createdOn DATETIME NOT NULL
 				,updatedOn DATETIME NOT NULL
                 ,isDeleted BIT
-                ,version BIGINT
+                ,version BIGINT DEFAULT 1
 				,description VARCHAR(100) NOT NULL
 				,name VARCHAR(50) NOT NULL
 
@@ -87,7 +87,7 @@ BEGIN
 					,createdOn DATETIME NOT NULL
 					,updatedOn DATETIME NOT NULL
 					,isDeleted BIT
-					,version BIGINT
+					,version BIGINT DEFAULT 1
 					,dateOfBirt DATE NOT NULL
 					,firstName VARCHAR(50) NOT NULL
 					,gender VARCHAR(50) NOT NULL
@@ -127,7 +127,7 @@ BEGIN
 				,createdOn DATETIME NOT NULL
 				,updatedOn DATETIME NOT NULL
                 ,isDeleted BIT
-                ,version BIGINT
+                ,version BIGINT DEFAULT 1
 				,auditCode INT NOT NULL
 				,auditCriteria VARCHAR(100) NOT NULL
 				,auditName VARCHAR(50) NOT NULL
@@ -164,7 +164,7 @@ BEGIN
 						,createdOn DATETIME NOT NULL
 						,updatedOn DATETIME NOT NULL
 						,isDeleted BIT
-						,version BIGINT
+						,version BIGINT DEFAULT 1
 						,accomplishment VARCHAR(50) NOT NULL
 						,auditId VARCHAR(50) NOT NULL
 						,complianceMetric VARCHAR(50) NOT NULL
@@ -198,7 +198,7 @@ BEGIN
 							,createdOn DATETIME NOT NULL
 							,updatedOn DATETIME NOT NULL
 							,isDeleted BIT
-							,version BIGINT
+							,version BIGINT DEFAULT 1
 							,dependentPersonal VARCHAR(200) NOT NULL
 							,externalRelation VARCHAR(200) NOT NULL
 							,generalActivity VARCHAR(100) NOT NULL
@@ -235,7 +235,7 @@ BEGIN
 						,createdOn DATETIME NOT NULL
 						,updatedOn DATETIME NOT NULL
 						,isDeleted BIT
-						,version BIGINT
+						,version BIGINT DEFAULT 1
 						,contentType VARCHAR(50) NOT NULL
 						,data VARCHAR(250) NOT NULL
 						,fileName VARCHAR(50) NOT NULL
@@ -271,7 +271,7 @@ CREATE TABLE SaCategory (Id INT IDENTITY(1,1) NOT NULL
                     , createdOn DATETIME NOT NULL
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
-                    , version BIGINT
+                    , version BIGINT DEFAULT 1
                     CONSTRAINT PK_SaCategory PRIMARY KEY(
                         [Id]
                     ));
@@ -301,7 +301,7 @@ CREATE TABLE SaType (Id INT IDENTITY(1,1) NOT NULL
                     , createdOn DATETIME NOT NULL
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
-                    , version BIGINT
+                    , version BIGINT DEFAULT 1
                     CONSTRAINT PK_SaType PRIMARY KEY(
                         [Id]
                     ));
@@ -338,7 +338,7 @@ CREATE TABLE Accident (Id INT IDENTITY(1,1) NOT NULL
 					          , createdOn DATETIME NOT NULL
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
-                    , version BIGINT
+                    , version BIGINT DEFAULT 1
                     CONSTRAINT PK_Accident PRIMARY KEY(
                         [Id]
                     ));
@@ -376,7 +376,7 @@ CREATE TABLE Sickness (Id INT IDENTITY(1,1) NOT NULL
                     , createdOn DATETIME NOT NULL
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
-                    , version BIGINT
+                    , version BIGINT DEFAULT 1
                     CONSTRAINT PK_Sickness PRIMARY KEY(
                         [Id]
                     ));
@@ -407,7 +407,7 @@ CREATE TABLE PpeClassification (Id INT IDENTITY(1,1) NOT NULL
                     , createdOn DATETIME NOT NULL
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
-                    , version BIGINT
+                    , version BIGINT DEFAULT 1
                     CONSTRAINT PK_PpeClassification PRIMARY KEY(
                         [Id]
                     ));
@@ -438,7 +438,7 @@ CREATE TABLE Ppe (Id INT IDENTITY(1,1) NOT NULL
                     , createdOn DATETIME NOT NULL
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
-                    , version BIGINT
+                    , version BIGINT DEFAULT 1
                     CONSTRAINT PK_Ppe PRIMARY KEY(
                         [Id]
                     ));
@@ -471,7 +471,7 @@ CREATE TABLE ExistingPpe (Id INT IDENTITY(1,1) NOT NULL
                     , createdOn DATETIME NOT NULL
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
-                    , version BIGINT
+                    , version BIGINT DEFAULT 1
                     CONSTRAINT PK_ExistingPpe PRIMARY KEY(
                         [Id]
                     ));
@@ -505,7 +505,7 @@ CREATE TABLE ExistingPpeAssigned (Id INT IDENTITY(1,1) NOT NULL
                     , createdOn DATETIME NOT NULL
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
-                    , version BIGINT
+                    , version BIGINT DEFAULT 1
                     CONSTRAINT PK_ExistingPpeAssigned PRIMARY KEY(
                         [Id]
                     ));
@@ -537,7 +537,7 @@ CREATE TABLE WorkItemClassification (Id INT IDENTITY(1,1) NOT NULL
                     , createdOn DATETIME NOT NULL
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
-                    , version BIGINT
+                    , version BIGINT DEFAULT 1
                     CONSTRAINT PK_WorkItemClassification PRIMARY KEY(
                         [Id]
                     ));
@@ -568,7 +568,7 @@ CREATE TABLE WorkItem (Id INT IDENTITY(1,1) NOT NULL
                     , createdOn DATETIME NOT NULL
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
-                    , version BIGINT
+                    , version BIGINT DEFAULT 1
                     CONSTRAINT PK_WorkItem PRIMARY KEY(
                         [Id]
                     ));
@@ -600,7 +600,7 @@ CREATE TABLE ExistingWorkItem (Id INT IDENTITY(1,1) NOT NULL
                     , createdOn DATETIME NOT NULL
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
-                    , version BIGINT
+                    , version BIGINT DEFAULT 1
                     CONSTRAINT PK_ExistingWorkItem PRIMARY KEY(
                         [Id]
                     ));
@@ -632,7 +632,7 @@ CREATE TABLE ExistingWorkItemAssigned (Id INT IDENTITY(1,1) NOT NULL
 							, createdOn DATETIME NOT NULL
 							, updatedOn DATETIME NOT NULL
 							, isDeleted BIT
-							, version BIGINT
+							, version BIGINT DEFAULT 1
 							, employeeId INT NOT NULL
 							, existingWorkItemId INT NOT NULL
 							CONSTRAINT PK_ExistingWorkItemAssignedId PRIMARY KEY(
