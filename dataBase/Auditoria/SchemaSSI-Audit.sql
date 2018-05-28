@@ -98,14 +98,20 @@ CREATE TABLE WorkItem (Id INT IDENTITY(1,1) NOT NULL
                     , createdOn DATETIME NOT NULL
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
+					, [CreatedBy] [int]         NOT NULL
+					, [CreatedDate] [datetime]  NOT NULL
+					, [ModifiedBy] [int]        NOT NULL
+					, [ModifiedDate] [datetime] NOT NULL
                     , version BIGINT DEFAULT 1
                     CONSTRAINT PK_WorkItem PRIMARY KEY(
                         [Id]
                     ));
 
                     ALTER TABLE [dbo].[WorkItem] ADD CONSTRAINT [DF_WorkItem_CreatedOn]  DEFAULT (GETUTCDATE()) FOR [createdOn];
-		                ALTER TABLE [dbo].[WorkItem] ADD CONSTRAINT [DF_WorkItem_UpdatedOn]  DEFAULT (GETUTCDATE()) FOR [updatedOn];
+					ALTER TABLE [dbo].[WorkItem] ADD CONSTRAINT [DF_WorkItem_UpdatedOn]  DEFAULT (GETUTCDATE()) FOR [updatedOn];
                     ALTER TABLE [dbo].[WorkItem] ADD CONSTRAINT [DF_WorkItem_IsDeleted]  DEFAULT (0) FOR [isDeleted]
+					ALTER TABLE [dbo].[Department] ADD CONSTRAINT [DF_Department_CreatedDate]  DEFAULT (GETUTCDATE()) FOR [CreatedDate];
+					ALTER TABLE [dbo].[Department] ADD CONSTRAINT [DF_Department_ModifiedDate]  DEFAULT (GETUTCDATE()) FOR [ModifiedDate]
 					PRINT 'Table WorkItem created!';
 END
 ELSE
