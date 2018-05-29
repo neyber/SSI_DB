@@ -76,7 +76,7 @@ IF EXISTS (SELECT *
 				 WHERE COLUMN_NAME = 'ModifiedBy' AND TABLE_NAME = 'WorkItemClassification'
 				)
 				BEGIN
-				 ALTER TABLE dbo.WorkItemClassification ADD [ModifiedBy] [int]        NOT NULL;
+				 ALTER TABLE dbo.WorkItemClassification ADD [ModifiedBy] [int]  NOT NULL;
 				END
 				GO
 
@@ -86,3 +86,13 @@ IF EXISTS (SELECT *
 	END
 GO
 
+/******************************************************************************
+**  Name: Alter Table WorkItemClassification
+**  Desc: Adding columns CreatedBy and ModifiedBy
+**
+**  Author: Linet Torrico 
+**  Description: Table AuditHistory_SSI
+**  Date: 05/27/2018
+*******************************************************************************/
+
+	
