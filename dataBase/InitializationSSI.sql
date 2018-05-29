@@ -9,10 +9,108 @@
 **  Date: 05/26/2018
 *******************************************************************************/
 
+/******************************************************************************
+**  Name: script to initialize table with values - team A
+**  Desc: add initialization of next tables Accident, Sickness, SaCategory, SaType
+          , ExistingPpeAssigned, ExistingPpe, Ppe, PpeClassification, ExistingWorkItem
+          , WorkItem and  WorkItemClassification
+**
+ Modified: Marcelo Loayza
+**  Added: Department, Role, Employee, Function Manual
+**  Date: 05/26/2018
+*******************************************************************************/
+
 SET XACT_ABORT ON;
 SET NOCOUNT ON;
 
 BEGIN TRANSACTION;
+
+PRINT 'Insert data into the Department table...';
+--SET IDENTITY_INSERT dbo.Department ON
+INSERT INTO [dbo].[Department]([name],[createdOn],[updatedOn],[isDeleted],[version],[description])
+VALUES ('HHRR','2005-09-01', '2005-09-02', 0, 1, 'departament of HHRR');
+INSERT INTO [dbo].[Department]([name],[createdOn],[updatedOn],[isDeleted],[version],[description])
+VALUES ('SALES', '2005-09-01', '2005-09-02', 0, 1, 'department of Sales');
+INSERT INTO [dbo].[Department]([name],[createdOn],[updatedOn],[isDeleted],[version],[description])
+VALUES ('ACCOUNTING', '2005-09-01', '2005-09-02', 0, 1, 'departament of Accounting');
+INSERT INTO [dbo].[Department]([name],[createdOn],[updatedOn],[isDeleted],[version],[description])
+VALUES ('PLANIFICATION','2005-09-01', '2005-09-02', 0, 1, 'departament of Planification');
+INSERT INTO [dbo].[Department]([name],[createdOn],[updatedOn],[isDeleted],[version],[description])
+VALUES ('CONSTRUCTION','2005-09-01', '2005-09-02', 0, 1, 'departament of construction');
+INSERT INTO [dbo].[Department]([name],[createdOn],[updatedOn],[isDeleted],[version],[description])
+VALUES ('AUDIT','2005-09-01', '2005-09-02', 0, 1, 'departament of Audit');
+INSERT INTO [dbo].[Department]([name],[createdOn],[updatedOn],[isDeleted],[version],[description])
+VALUES ('INGENIERY','2005-09-01', '2005-09-02', 0, 1, 'departament of Ingeniery');
+INSERT INTO [dbo].[Department]([name],[createdOn],[updatedOn],[isDeleted],[version],[description])
+VALUES ('TRANSACTIONS', '2005-09-01', '2005-09-02', 0, 1, 'departament of Transactions');
+INSERT INTO [dbo].[Department]([name],[createdOn],[updatedOn],[isDeleted],[version],[description])
+VALUES ('TRANSPORT','2005-09-01', '2005-09-02', 0, 1, 'departament of transport');
+INSERT INTO [dbo].[Department]([name],[createdOn],[updatedOn],[isDeleted],[version],[description])
+VALUES ('IMPORTATIONS','2005-09-01', '2005-09-02', 0, 1, 'departament of Import');
+--SET IDENTITY_INSERT dbo.Department OFF;
+PRINT 'Department table done...';
+
+PRINT 'Insert data into the Role table...';
+--SET IDENTITY_INSERT dbo.Role ON
+INSERT INTO [dbo].[Role]([createdOn],[updatedOn],[isDeleted],[version],[description],[name])
+VALUES ('2005-08-10', '2005-09-03', 0, 1, 'Administrator','Admin' );
+INSERT INTO [dbo].[Role]([createdOn],[updatedOn],[isDeleted],[version],[description],[name])
+VALUES ('2005-08-11', '2005-09-04', 0, 1, 'Accounting','Account' );
+INSERT INTO [dbo].[Role]([createdOn],[updatedOn],[isDeleted],[version],[description],[name])
+VALUES ('2005-08-11', '2005-09-04', 0, 1, 'Worker level 1','Worker 1' );
+INSERT INTO [dbo].[Role]([createdOn],[updatedOn],[isDeleted],[version],[description],[name])
+VALUES ('2005-08-11', '2005-09-04', 0, 1, 'Worker level 2','Worker 2' );
+INSERT INTO [dbo].[Role]([createdOn],[updatedOn],[isDeleted],[version],[description],[name])
+VALUES ('2005-08-11', '2005-09-04', 0, 1, 'transportation Manager','ManargerT' );
+INSERT INTO [dbo].[Role]([createdOn],[updatedOn],[isDeleted],[version],[description],[name])
+VALUES ('2005-08-11', '2005-09-04', 0, 1, 'Support Worker','Support' );
+INSERT INTO [dbo].[Role]([createdOn],[updatedOn],[isDeleted],[version],[description],[name])
+VALUES ('2005-08-11', '2005-09-04', 0, 1, 'Sales man','Sales' );
+INSERT INTO [dbo].[Role]([createdOn],[updatedOn],[isDeleted],[version],[description],[name])
+VALUES ('2005-08-11', '2005-09-04', 0, 1, 'Sales man','Sales' );
+--SET IDENTITY_INSERT dbo.Role OFF;
+PRINT 'Role table done...';
+
+PRINT 'Insert data into the FunctionManual table...';
+--SET IDENTITY_INSERT dbo.FunctionManual ON
+INSERT INTO [dbo].[FunctionManual] ([createdOn],[updatedOn],[isDeleted],[version],[dependentPersonal],[externalRelation],[generalActivity],[hierarchicalLever],[internalRelation],[name],[position],[principalFunction],[superiorBoss],[roleFunctionId])
+VALUES ('2006-06-11','2006-07-10', 0, 1,'all HHRR personal', 'Customers and providers', 'admistrate the company', 'admin 1', 'realtions with accounting and management', 'Admin', 'Administrator', 'Administrate the company', 'CEO of SSI', 1);
+INSERT INTO [dbo].[FunctionManual] ([createdOn],[updatedOn],[isDeleted],[version],[dependentPersonal],[externalRelation],[generalActivity],[hierarchicalLever],[internalRelation],[name],[position],[principalFunction],[superiorBoss],[roleFunctionId])
+VALUES ('2006-06-11','2006-07-10', 0, 1,'sales department', 'Customers', 'work with the accounting', 'admin 1', 'realtions with admin and management', 'Account', 'Accounting', 'Manage the Accounting of the Company', 'Administrator', 2);
+INSERT INTO [dbo].[FunctionManual] ([createdOn],[updatedOn],[isDeleted],[version],[dependentPersonal],[externalRelation],[generalActivity],[hierarchicalLever],[internalRelation],[name],[position],[principalFunction],[superiorBoss],[roleFunctionId])
+VALUES ('2006-06-11','2006-07-10', 0, 1,'all HHRR personal', 'Customers and providers', 'admistrate the company', 'worker 1', 'realtions with HHRR and management', 'worker 1', 'Worker level 1', 'work on the contructions', 'Manager', 3);
+INSERT INTO [dbo].[FunctionManual] ([createdOn],[updatedOn],[isDeleted],[version],[dependentPersonal],[externalRelation],[generalActivity],[hierarchicalLever],[internalRelation],[name],[position],[principalFunction],[superiorBoss],[roleFunctionId])
+VALUES ('2006-06-11','2006-07-10', 0, 1,'all HHRR personal', 'providers', 'work on the construction', 'worker 2', 'realtions with HHRR and management', 'worker 2', 'Worker level 2', 'work on the contructions', 'Manager', 4);
+INSERT INTO [dbo].[FunctionManual] ([createdOn],[updatedOn],[isDeleted],[version],[dependentPersonal],[externalRelation],[generalActivity],[hierarchicalLever],[internalRelation],[name],[position],[principalFunction],[superiorBoss],[roleFunctionId])
+VALUES ('2006-06-11','2006-07-10', 0, 1,'all Transporrtation personal', 'providers', 'Is on charge of the the transportations', 'ManargerT', 'realtions with HHRR and workers', 'Transportation Manager', 'transportation1 level 2', 'work on the transportation', 'Manager', 4);
+--SET IDENTITY_INSERT dbo.FunctionManual OFF;
+PRINT 'FunctionManual table done...';
+
+PRINT 'Insert data into the Employee table...';
+--SET IDENTITY_INSERT dbo.Employee ON
+INSERT INTO [dbo].[Employee] ([createdOn],[updatedOn],[isDeleted],[version],[dateOfBirth] ,[firstName],[gender],[healthConditionStartingAtCompany],[identificationNumber],[lastName],[startDateInCompany],[departmentEmployeeId],[photoFileDocumentId],[RoleEmployeeId],[SupervisorId])
+VALUES ('2005-08-11', '2005-09-04', 0, 1,'1999-09-04','Jose', 'm', 'good condition', 1001, 'Lopez', '2005-08-11', 1, null, 1, null);
+INSERT INTO [dbo].[Employee] ([createdOn],[updatedOn],[isDeleted],[version],[dateOfBirth] ,[firstName],[gender],[healthConditionStartingAtCompany],[identificationNumber],[lastName],[startDateInCompany],[departmentEmployeeId],[photoFileDocumentId],[RoleEmployeeId],[SupervisorId])
+VALUES ('2005-08-11', '2005-09-04', 0, 1,'1998-09-04','Juan', 'm', 'good condition', 1001, 'Peres', '2005-08-11', 5, null, 3, null);
+INSERT INTO [dbo].[Employee] ([createdOn],[updatedOn],[isDeleted],[version],[dateOfBirth] ,[firstName],[gender],[healthConditionStartingAtCompany],[identificationNumber],[lastName],[startDateInCompany],[departmentEmployeeId],[photoFileDocumentId],[RoleEmployeeId],[SupervisorId])
+VALUES ('2005-08-11', '2005-09-04', 0, 1,'1997-01-04','Pedro', 'm', 'good condition', 1001, 'Aranda', '2005-08-11', 5, null, 3, null);
+INSERT INTO [dbo].[Employee] ([createdOn],[updatedOn],[isDeleted],[version],[dateOfBirth] ,[firstName],[gender],[healthConditionStartingAtCompany],[identificationNumber],[lastName],[startDateInCompany],[departmentEmployeeId],[photoFileDocumentId],[RoleEmployeeId],[SupervisorId])
+VALUES ('2005-08-11', '2005-09-04', 0, 1,'1995-05-04','Luis', 'm', 'good condition', 1001, 'Rojas', '2005-08-11', 5, null, 3, null);
+INSERT INTO [dbo].[Employee] ([createdOn],[updatedOn],[isDeleted],[version],[dateOfBirth] ,[firstName],[gender],[healthConditionStartingAtCompany],[identificationNumber],[lastName],[startDateInCompany],[departmentEmployeeId],[photoFileDocumentId],[RoleEmployeeId],[SupervisorId])
+VALUES ('2005-08-11', '2005-09-04', 0, 1,'1993-02-04','Jason', 'm', 'good condition', 1001, 'Magne', '2005-08-11', 5, null, 3, null);
+INSERT INTO [dbo].[Employee] ([createdOn],[updatedOn],[isDeleted],[version],[dateOfBirth] ,[firstName],[gender],[healthConditionStartingAtCompany],[identificationNumber],[lastName],[startDateInCompany],[departmentEmployeeId],[photoFileDocumentId],[RoleEmployeeId],[SupervisorId])
+VALUES ('2005-08-11', '2005-09-04', 0, 1,'1992-05-04','Fred', 'm', 'good condition', 1001, 'Mour', '2005-08-11', 5, null, 4, null);
+INSERT INTO [dbo].[Employee] ([createdOn],[updatedOn],[isDeleted],[version],[dateOfBirth] ,[firstName],[gender],[healthConditionStartingAtCompany],[identificationNumber],[lastName],[startDateInCompany],[departmentEmployeeId],[photoFileDocumentId],[RoleEmployeeId],[SupervisorId])
+VALUES ('2005-08-11', '2005-09-04', 0, 1,'1992-02-04','Daniel', 'm', 'good condition', 1001, 'Ardruino', '2005-08-11', 5, null, 4, null);
+INSERT INTO [dbo].[Employee] ([createdOn],[updatedOn],[isDeleted],[version],[dateOfBirth] ,[firstName],[gender],[healthConditionStartingAtCompany],[identificationNumber],[lastName],[startDateInCompany],[departmentEmployeeId],[photoFileDocumentId],[RoleEmployeeId],[SupervisorId])
+VALUES ('2005-08-11', '2005-09-04', 0, 1,'1991-01-04','Kevin', 'm', 'good condition', 1001, 'Mamani', '2005-08-11', 5, null, 4, null);
+INSERT INTO [dbo].[Employee] ([createdOn],[updatedOn],[isDeleted],[version],[dateOfBirth] ,[firstName],[gender],[healthConditionStartingAtCompany],[identificationNumber],[lastName],[startDateInCompany],[departmentEmployeeId],[photoFileDocumentId],[RoleEmployeeId],[SupervisorId])
+VALUES ('2005-08-11', '2005-09-04', 0, 1,'1990-10-04','Denis', 'm', 'good condition', 1001, 'Cruz', '2005-08-11', 5, null, 4, null);
+INSERT INTO [dbo].[Employee] ([createdOn],[updatedOn],[isDeleted],[version],[dateOfBirth] ,[firstName],[gender],[healthConditionStartingAtCompany],[identificationNumber],[lastName],[startDateInCompany],[departmentEmployeeId],[photoFileDocumentId],[RoleEmployeeId],[SupervisorId])
+VALUES ('2005-08-11', '2005-09-04', 0, 1,'1996-08-04','Alex', 'm', 'good condition', 1001, 'Roble', '2005-08-11', 5, null, 4, null);
+--SET IDENTITY_INSERT dbo.Employee OFF;
+PRINT 'Employee table done...';
+
 
 PRINT 'Insert data into the SaCategory table...';
 
