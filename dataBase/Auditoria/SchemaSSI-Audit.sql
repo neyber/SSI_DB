@@ -24,7 +24,8 @@ BEGIN
 	[Oldvalue]       VARCHAR(MAX) NULL,
 	[NewValue]       VARCHAR(MAX) NULL,
 	[ModifiedDate]   DATETIME NOT NULL,
-	[ModifiedBy]     INT
+	[ModifiedBy]     INT NULL,
+	[CreatedBy]		 INT NULL,
 );
 
 
