@@ -8,13 +8,18 @@
 **  Date: 05/27/2018
 *******************************************************************************/
 
-IF NOT EXISTS (SELECT *
-   FROM sys.[objects]
-   WHERE Type = 'U'
-   AND object_id = OBJECT_ID('dbo.AuditHistory_SSI')
-)
+
+
+
+IF EXISTS (SELECT * FROM sys.objects 
+    WHERE object_id = OBJECT_ID(N'[dbo].[AuditHistory_SSI]') 
+    )
 BEGIN
-	CREATE TABLE [dbo].[AuditHistory_SSI]
+  ALTER TABLE [dbo].[AuditHistory_SSI] DROP CONSTRAINT [DF_AuditHistory_ModifiedDate]
+  DROP TABLE [dbo].[AuditHistory_SSI]
+  PRINT '[AuditHistory_SSI] table was removed!';
+  
+  CREATE TABLE [dbo].[AuditHistory_SSI]
 (
 	[AuditHistoryId] INT IDENTITY(1,1) NOT NULL CONSTRAINT [PK_AuditHistory] PRIMARY KEY,
 	[TableName]		 VARCHAR(50) NULL,
@@ -34,11 +39,8 @@ ALTER TABLE [dbo].[AuditHistory_SSI] ADD CONSTRAINT [DF_AuditHistory_ModifiedDat
 
 	PRINT 'Table AuditHistory_SSI created!';
 END
-ELSE
- BEGIN
-  PRINT 'Table AuditHistory_SSI already exists into the database';
- END
-GO
+
+ 
 
 /******************************************************************************
 **  Name: Alter Table WorkItemClassification
