@@ -1,28 +1,22 @@
 /******************************************************************************
-**  Name: schema team A
-**  Desc: add sentences to create tables for all tables for our system
-**
-**  Author: Henry Bustamante
-**
-**  Date: 05/24/2018
-*******************************************************************************/
-/******************************************************************************
-**  Name: schema team A
-**  Desc: add sentences to create tables for all tables for our system
-**
-**  Modified: Marcelo Loayza
-**  Added: Department, Role, Employee, Function Manual, Audit, SafetyRule, FileDocument, ExistingWorkItemAssigned
-**  Date: 05/24/2018
-*******************************************************************************/
-/******************************************************************************
-**  Name: schema team A
-**  Desc: fix of schema to load "SSI(Industrial Security System) application" from data base already created
-**        fixed properties: field names, field definitions, invalid constraints, field NULL values
-**
-**  Modified: Miguel Abdon Rojas Cardenas
-**
-**  Date: 05/28/2018
-*******************************************************************************/
+*  Nombre: schema for system the "martillazo.SRL"
+*  Descripcion: add sentences to create tables for all Entities of our system
+*
+*  Autor: Henry Bustamante
+*
+*  Fecha: 05/24/2018
+******************************************************************************
+*                            Change History
+******************************************************************************
+*  Fecha:         Autor:                                 Descripcion:
+ --------      -----------               ---------------------------------------------------
+ 05/24/2018    Henry Bustamante C.       - Initial version
+ 05/24/2018    Marcelo Loayza            - Added: Department, Role, Employee, Function Manual, Audit, SafetyRule, FileDocument, ExistingWorkItemAssigned
+ 05/28/2018    Miguel Abdon Rojas C.     - fix of schema to load "SSI(Industrial Security System) application" from data base already created
+                                         - fixed properties: field names, field definitions, invalid constraints, field NULL values
+ 05/28/2018    Henry Bustamante C.       - I have updated schema in order to add audit columns as createdBy and mofidiedBy and only createdBy will have a default value as 0
+******************************************************************************/
+
 
 
 USE ssiA;
@@ -42,6 +36,8 @@ BEGIN
 					,updatedOn DATETIME NOT NULL
 					,isDeleted BIT
 					,version BIGINT DEFAULT 1
+					, createdBy INT DEFAULT 0 NOT NULL
+					, updatedBy INT
 					,description VARCHAR(200) NOT NULL
 
 					CONSTRAINT PK_DepartmentId PRIMARY KEY (id)
@@ -71,6 +67,8 @@ BEGIN
 				,updatedOn DATETIME NOT NULL
                 ,isDeleted BIT
                 ,version BIGINT DEFAULT 1
+                , createdBy INT DEFAULT 0 NOT NULL
+					      , updatedBy INT
 				,description VARCHAR(200) NOT NULL
 				,name VARCHAR(50) NOT NULL
 
@@ -102,6 +100,8 @@ BEGIN
 					,updatedOn DATETIME NOT NULL
 					,isDeleted BIT
 					,version BIGINT DEFAULT 1
+					, createdBy INT DEFAULT 0 NOT NULL
+					, updatedBy INT
 					,dateOfBirth DATE NOT NULL
 					,firstName VARCHAR(50) NOT NULL
 					,gender CHAR(1) NOT NULL
@@ -142,6 +142,8 @@ BEGIN
 				,updatedOn DATETIME NOT NULL
                 ,isDeleted BIT
                 ,version BIGINT DEFAULT 1
+                , createdBy INT DEFAULT 0 NOT NULL
+					      , updatedBy INT
 				,auditCode VARCHAR(100) NOT NULL
 				,auditCriteria VARCHAR(100) NOT NULL
 				,auditName VARCHAR(50) NOT NULL
@@ -179,6 +181,8 @@ BEGIN
 						,updatedOn DATETIME NOT NULL
 						,isDeleted BIT
 						,version BIGINT DEFAULT 1
+						, createdBy INT DEFAULT 0 NOT NULL
+					  , updatedBy INT
 						,accomplishment BIT NOT NULL
 						,auditId INT NOT NULL
 						,complianceMetric INT NOT NULL
@@ -213,6 +217,8 @@ BEGIN
 							,updatedOn DATETIME NOT NULL
 							,isDeleted BIT
 							,version BIGINT DEFAULT 1
+							, createdBy INT DEFAULT 0 NOT NULL
+					    , updatedBy INT
 							,dependentPersonal VARCHAR(200) NOT NULL
 							,externalRelation VARCHAR(200) NOT NULL
 							,generalActivity VARCHAR(100) NOT NULL
@@ -250,6 +256,8 @@ BEGIN
 						,updatedOn DATETIME NOT NULL
 						,isDeleted BIT
 						,version BIGINT DEFAULT 1
+						, createdBy INT DEFAULT 0 NOT NULL
+					  , updatedBy INT
 						,contentType VARCHAR(50) NOT NULL
 						,data VARBINARY(MAX) NOT NULL
 						,fileName VARCHAR(50) NOT NULL
@@ -286,6 +294,8 @@ CREATE TABLE SaCategory (id INT IDENTITY(1,1) NOT NULL
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
+                    , createdBy INT DEFAULT 0 NOT NULL
+					          , updatedBy INT
                     CONSTRAINT PK_SaCategory PRIMARY KEY(
                         [id]
                     ));
@@ -316,6 +326,8 @@ CREATE TABLE SaType (id INT IDENTITY(1,1) NOT NULL
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
+                    , createdBy INT DEFAULT 0 NOT NULL
+					          , updatedBy INT
                     CONSTRAINT PK_SaType PRIMARY KEY(
                         [id]
                     ));
@@ -353,6 +365,8 @@ CREATE TABLE Accident (id INT IDENTITY(1,1) NOT NULL
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
+                    , createdBy INT DEFAULT 0 NOT NULL
+					          , updatedBy INT
                     CONSTRAINT PK_Accident PRIMARY KEY(
                         [id]
                     ));
@@ -391,6 +405,8 @@ CREATE TABLE Sickness (id INT IDENTITY(1,1) NOT NULL
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
+                    , createdBy INT DEFAULT 0 NOT NULL
+					          , updatedBy INT
                     CONSTRAINT PK_Sickness PRIMARY KEY(
                         [id]
                     ));
@@ -422,6 +438,8 @@ CREATE TABLE PpeClassification (id INT IDENTITY(1,1) NOT NULL
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
+                    , createdBy INT DEFAULT 0 NOT NULL
+					          , updatedBy INT
                     CONSTRAINT PK_PpeClassification PRIMARY KEY(
                         [id]
                     ));
@@ -453,6 +471,8 @@ CREATE TABLE Ppe (id INT IDENTITY(1,1) NOT NULL
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
+                    , createdBy INT DEFAULT 0 NOT NULL
+					          , updatedBy INT
                     CONSTRAINT PK_Ppe PRIMARY KEY(
                         [id]
                     ));
@@ -486,6 +506,8 @@ CREATE TABLE ExistingPpe (id INT IDENTITY(1,1) NOT NULL
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
+                    , createdBy INT DEFAULT 0 NOT NULL
+					          , updatedBy INT
                     CONSTRAINT PK_ExistingPpe PRIMARY KEY(
                         [id]
                     ));
@@ -520,6 +542,8 @@ CREATE TABLE ExistingPpeAssigned (id INT IDENTITY(1,1) NOT NULL
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
+                    , createdBy INT DEFAULT 0 NOT NULL
+					          , updatedBy INT
                     CONSTRAINT PK_ExistingPpeAssigned PRIMARY KEY(
                         [id]
                     ));
@@ -552,6 +576,8 @@ CREATE TABLE WorkItemClassification (id INT IDENTITY(1,1) NOT NULL
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
+                    , createdBy INT DEFAULT 0 NOT NULL
+					          , updatedBy INT
                     CONSTRAINT PK_WorkItemClassification PRIMARY KEY(
                         [id]
                     ));
@@ -583,6 +609,8 @@ CREATE TABLE WorkItem (id INT IDENTITY(1,1) NOT NULL
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
+                    , createdBy INT DEFAULT 0 NOT NULL
+					          , updatedBy INT
                     CONSTRAINT PK_WorkItem PRIMARY KEY(
                         [id]
                     ));
@@ -615,6 +643,8 @@ CREATE TABLE ExistingWorkItem (id INT IDENTITY(1,1) NOT NULL
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
+                    , createdBy INT DEFAULT 0 NOT NULL
+					          , updatedBy INT
                     CONSTRAINT PK_ExistingWorkItem PRIMARY KEY(
                         [id]
                     ));
@@ -647,6 +677,8 @@ CREATE TABLE ExistingWorkItemAssigned (id INT IDENTITY(1,1) NOT NULL
 							, updatedOn DATETIME NOT NULL
 							, isDeleted BIT
 							, version BIGINT DEFAULT 1
+							, createdBy INT DEFAULT 0 NOT NULL
+					    , updatedBy INT
 							, employeeId INT NOT NULL
 							, existingWorkItemId INT NOT NULL
 							CONSTRAINT PK_ExistingWorkItemAssignedId PRIMARY KEY(
@@ -671,7 +703,7 @@ GO
 -- Define the relationship between Employee and Department.
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys
        WHERE object_id = OBJECT_ID(N'[dbo].[FK_Employee_Department]')
-       AND parent_object_id = OBJECT_ID(N'[dbo].[Department]'))
+       AND parent_object_id = OBJECT_ID(N'[dbo].[Employee]'))
 	ALTER TABLE [dbo].[Employee]  WITH CHECK ADD CONSTRAINT [FK_Employee_Department] FOREIGN KEY(departmentEmployeeId)
 	REFERENCES [dbo].[Department] (id)
 GO
@@ -681,7 +713,7 @@ GO
 -- Define the relationship between Audit and Department.
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys
        WHERE object_id = OBJECT_ID(N'[dbo].[FK_Audit_Department]')
-       AND parent_object_id = OBJECT_ID(N'[dbo].[Department]'))
+       AND parent_object_id = OBJECT_ID(N'[dbo].[Audit]'))
 	ALTER TABLE [dbo].[Audit]  WITH CHECK ADD CONSTRAINT [FK_Audit_Department] FOREIGN KEY(departmentId)
 	REFERENCES [dbo].[Department] (id)
 GO
@@ -692,7 +724,7 @@ GO
 -- Define the relationship between Employee and Role.
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys
        WHERE object_id = OBJECT_ID(N'[dbo].[FK_Employee_Role]')
-       AND parent_object_id = OBJECT_ID(N'[dbo].[Role]'))
+       AND parent_object_id = OBJECT_ID(N'[dbo].[Employee]'))
 	ALTER TABLE [dbo].[Employee]  WITH CHECK ADD CONSTRAINT [FK_Employee_Role] FOREIGN KEY(roleEmployeeId)
 	REFERENCES [dbo].[Role] (id)
 GO
@@ -702,7 +734,7 @@ GO
 -- Define the relationship between FunctionManual and Role.
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys
        WHERE object_id = OBJECT_ID(N'[dbo].[FK_FunctionManual_Role]')
-       AND parent_object_id = OBJECT_ID(N'[dbo].[Role]'))
+       AND parent_object_id = OBJECT_ID(N'[dbo].[FunctionManual]'))
 	ALTER TABLE [dbo].[FunctionManual]  WITH CHECK ADD CONSTRAINT [FK_FunctionManual_Role] FOREIGN KEY(roleFunctionId)
 	REFERENCES [dbo].[Role] (id)
 GO
@@ -713,7 +745,7 @@ GO
 -- Define the relationship between SafetyRule and Audit.
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys
        WHERE object_id = OBJECT_ID(N'[dbo].[FK_SafetyRule_Audit]')
-       AND parent_object_id = OBJECT_ID(N'[dbo].[Audit]'))
+       AND parent_object_id = OBJECT_ID(N'[dbo].[SafetyRule]'))
 	ALTER TABLE [dbo].[SafetyRule]  WITH CHECK ADD CONSTRAINT [FK_SafetyRule_Audit] FOREIGN KEY(auditId)
 	REFERENCES [dbo].[Audit] (id)
 GO
@@ -724,7 +756,7 @@ GO
 -- Define the relationship between Audit and Employee.
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys
        WHERE object_id = OBJECT_ID(N'[dbo].[FK_Audit_Employee]')
-       AND parent_object_id = OBJECT_ID(N'[dbo].[Employee]'))
+       AND parent_object_id = OBJECT_ID(N'[dbo].[Audit]'))
 	ALTER TABLE [dbo].[Audit]  WITH CHECK ADD CONSTRAINT [FK_Audit_Employee] FOREIGN KEY(employeeId)
 	REFERENCES [dbo].[Employee] (id)
 GO
@@ -735,7 +767,7 @@ GO
 -- Define the relationship between Employee and FileDocument.
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys
        WHERE object_id = OBJECT_ID(N'[dbo].[FK_Employee_FileDocument]')
-       AND parent_object_id = OBJECT_ID(N'[dbo].[FileDocument]'))
+       AND parent_object_id = OBJECT_ID(N'[dbo].[Employee]'))
 	ALTER TABLE [dbo].[Employee]  WITH CHECK ADD CONSTRAINT [FK_Employee_FileDocument] FOREIGN KEY(photoFileDocumentId)
 	REFERENCES [dbo].[FileDocument] (id)
 GO
@@ -899,7 +931,7 @@ ALTER TABLE [dbo].[ExistingWorkItem] CHECK
 -- Define the relationship between ExistingWorkItemAssigned and Employee.
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys
        WHERE object_id = OBJECT_ID(N'[dbo].[FK_ExistingWorkItemAssigned_Employee]')
-       AND parent_object_id = OBJECT_ID(N'[dbo].[Employee]'))
+       AND parent_object_id = OBJECT_ID(N'[dbo].[ExistingWorkItemAssigned]'))
 	ALTER TABLE [dbo].[ExistingWorkItemAssigned]  WITH CHECK ADD CONSTRAINT [FK_ExistingWorkItemAssigned_Employee] FOREIGN KEY(employeeId)
 	REFERENCES [dbo].[Employee] (id)
 GO
@@ -909,7 +941,7 @@ GO
 -- Define the relationship between ExistingWorkItemAssigned and ExistingWorkItem.
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys
        WHERE object_id = OBJECT_ID(N'[dbo].[FK_ExistingWorkItemAssigned_ExistingWorkItem]')
-       AND parent_object_id = OBJECT_ID(N'[dbo].[ExistingWorkItem]'))
+       AND parent_object_id = OBJECT_ID(N'[dbo].[ExistingWorkItemAssigned]'))
 	ALTER TABLE [dbo].[ExistingWorkItemAssigned]  WITH CHECK ADD CONSTRAINT [FK_ExistingWorkItemAssigned_ExistingWorkItem] FOREIGN KEY(existingWorkItemId)
 	REFERENCES [dbo].[ExistingWorkItem] (id)
 GO
