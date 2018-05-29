@@ -73,14 +73,14 @@ BEGIN
                                  Date, 
                                  OldValue, 
                                  NewValue,
-								 ModifiedBy) 
+								 CreatedBy) 
     SELECT TableName    = 'WorkItem', 
            ColumnName   = 'createdOn',
            ID1          = i.Id, 
            Date         = @CurrDate, 
            OldValue     = d.[createdOn], 
            NewValue     = i.[createdOn],
-           ModifiedBy   = i.ModifiedBy          
+           ModifiedBy   = i.CreatedBy          
     FROM deleted d 
     FULL OUTER JOIN inserted i ON (d.Id = i.Id)
     WHERE ISNULL(d.createdOn, '') != ISNULL(i.createdOn, '');

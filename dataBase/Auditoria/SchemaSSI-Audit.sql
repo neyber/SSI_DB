@@ -1,14 +1,18 @@
 
 /******************************************************************************
-**  Name: Create Table Audit
-**  Desc: add sentences to create table and field for Audit
+**  Nombre: AuditHistory_SSI Table
+**  Descripcion: Table for Audit History
 **
-**  Author: Linet Torrico 
-**  Description: Table AuditHistory_SSI
-**  Date: 05/27/2018
+**  Autor: Linet Torrico
+**
+**  Fecha: 05/28/2018
+*******************************************************************************
+**                            Change History
+*******************************************************************************
+**  Fecha:       Autor:            Descripcion:
+** --------     -----------       ---------------------------------------------
+** 05/29/2018   Linet Torrico    Initial version
 *******************************************************************************/
-
-
 
 
 IF EXISTS (SELECT * FROM sys.objects 
@@ -41,18 +45,22 @@ ALTER TABLE [dbo].[AuditHistory_SSI] ADD CONSTRAINT [DF_AuditHistory_ModifiedDat
 END
 
  
-
 /******************************************************************************
-**  Name: Alter Table WorkItemClassification
-**  Desc: Adding columns CreatedBy and ModifiedBy
+**  Nombre: WorkItemClassification Table
+**  Descripcion: Alter to WorkItemClassification table adding CreatedBy and
+**  ModifiedBy
+**  Autor: Linet Torrico
 **
-**  Author: Linet Torrico 
-**  Description: Table AuditHistory_SSI
-**  Date: 05/27/2018
+**  Fecha: 05/28/2018
+*******************************************************************************
+**                            Change History
+*******************************************************************************
+**  Fecha:       Autor:            Descripcion:
+** --------     -----------       ---------------------------------------------
+** 05/28/2018   Linet Torrico    Initial version
 *******************************************************************************/
 
-/******** existing work item *****/
---Alter table WorkItemClassification
+
 
 IF EXISTS (SELECT *
    FROM sys.[objects]
@@ -67,7 +75,7 @@ IF EXISTS (SELECT *
 				 WHERE COLUMN_NAME = 'CreatedBy' AND TABLE_NAME = 'WorkItemClassification'
 				)
 				BEGIN
-				 ALTER TABLE dbo.WorkItemClassification ADD [CreatedBy] [int]  NOT NULL;
+				 ALTER TABLE dbo.WorkItemClassification ADD [CreatedBy] [int]  NULL;
 				END
 				GO
 
@@ -79,7 +87,7 @@ IF EXISTS (SELECT *
 				 WHERE COLUMN_NAME = 'ModifiedBy' AND TABLE_NAME = 'WorkItemClassification'
 				)
 				BEGIN
-				 ALTER TABLE dbo.WorkItemClassification ADD [ModifiedBy] [int]  NOT NULL;
+				 ALTER TABLE dbo.WorkItemClassification ADD [ModifiedBy] [int]  NULL;
 				END
 				GO
 
@@ -89,13 +97,54 @@ IF EXISTS (SELECT *
 	END
 GO
 
+
+
 /******************************************************************************
-**  Name: Alter Table WorkItemClassification
-**  Desc: Adding columns CreatedBy and ModifiedBy
+**  Nombre: WorkItem Table
+**  Descripcion: Alter Table WorkItem adding CreatedBy and ModifiedBy
 **
-**  Author: Linet Torrico 
-**  Description: Table AuditHistory_SSI
-**  Date: 05/27/2018
+**  Autor: Linet Torrico
+**
+**  Fecha: 05/28/2018
+*******************************************************************************
+**                            Change History
+*******************************************************************************
+**  Fecha:       Autor:            Descripcion:
+** --------     -----------       ---------------------------------------------
+** 05/29/2018   Linet Torrico    Initial version
 *******************************************************************************/
 
-	
+IF EXISTS (SELECT *
+   FROM sys.[objects]
+   WHERE Type = 'U'
+   AND object_id = OBJECT_ID('dbo.WorkItem')
+)
+
+				IF not exists
+				(
+				 SELECT *
+				 FROM INFORMATION_SCHEMA.COLUMNS
+				 WHERE COLUMN_NAME = 'CreatedBy' AND TABLE_NAME = 'WorkItem'
+				)
+				BEGIN
+				 ALTER TABLE dbo.WorkItem ADD [CreatedBy] [int]  NULL;
+				END
+				GO
+
+
+				IF not exists
+				(
+				 SELECT *
+				 FROM INFORMATION_SCHEMA.COLUMNS
+				 WHERE COLUMN_NAME = 'ModifiedBy' AND TABLE_NAME = 'WorkItem'
+				)
+				BEGIN
+				 ALTER TABLE dbo.WorkItem ADD [ModifiedBy] [int]  NULL;
+				END
+				GO
+
+
+	BEGIN
+		PRINT 'Table WorkItem already updated into the database';
+	END
+GO	
