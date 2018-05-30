@@ -32,7 +32,7 @@ BEGIN
 	[Date]           DATETIME NULL,
 	[Oldvalue]       VARCHAR(MAX) NULL,
 	[NewValue]       VARCHAR(MAX) NULL,
-	[CreatedDate]    DATETIME NOT NULL,
+	[CreatedDate]    DATETIME  NULL,
 	[ModifiedDate]   DATETIME NOT NULL,
 	[ModifiedBy]     INT NULL,
 	[CreatedBy]		 INT NULL,
