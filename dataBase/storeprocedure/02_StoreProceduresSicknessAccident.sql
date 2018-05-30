@@ -36,10 +36,11 @@ BEGIN
         where id = @id;
 
         PRINT 'Executed proGetSaCategory..';
+        GO
 END
 
 PRINT 'Procedure dbo.proGetSaCategory created';
-
+GO
 
 /******************************************************************************
 **  Name: SP proGetAllSaCategories
@@ -72,10 +73,11 @@ BEGIN
         FROM dbo.SaCategory
 
         PRINT 'Executed proGetAllSaCategories..';
+        GO
 END
 
 PRINT 'Procedure dbo.proGetAllSaCategories created';
-
+GO
 /******************************************************************************
 **  Name: SP proInsertSaCategory
 **  Desc: this script is to insert new record into SaCategory Table
@@ -119,11 +121,11 @@ BEGIN
 			);
 
 	PRINT 'Executed proInsertSaCategory..';
-
+  GO
 END
 
 PRINT 'Procedure dbo.proInsertSaCategory created';
-
+GO
 /******************************************************************************
 **  Name: SP proUpdateSaCategory
 **  Desc: this script is to update new record into SaCategory Table
@@ -165,11 +167,11 @@ BEGIN
     WHERE id = @id;
 
     PRINT 'Executed proInsertSaCategory..';
-
+  GO
 END
 
 PRINT 'Procedure dbo.proInsertSaCategory created';
-
+GO
 
 /******************************************************************************
 **  Name: SP proDeleteSaCategory
@@ -203,10 +205,11 @@ BEGIN
 	WHERE id = @id;
 
 	PRINT 'Executed proDeleteSaCategory..';
+	GO
 END
 
 PRINT 'Procedure dbo.proDeleteSaCategory created';
-
+GO
 
 
 /******************************************************************************
@@ -246,9 +249,11 @@ BEGIN
         where id = @id;
 
         PRINT 'Executed proGetSaType..';
+        GO
 END
 
 PRINT 'Procedure dbo.proGetSaType created';
+GO
 
 /******************************************************************************
 **  Name: SP proGetAllSaType
@@ -282,10 +287,11 @@ BEGIN
         FROM dbo.SaType
 
         PRINT 'Executed proGetAllSaType..';
+        GO
 END
 
 PRINT 'Procedure dbo.proGetAllSaType created';
-
+GO
 /******************************************************************************
 **  Name: SP proInsertSaType
 **  Desc: this script is to insert new record into SaType Table
@@ -326,11 +332,11 @@ BEGIN
 			);
 
    PRINT 'Executed proInsertSaType..';
-
+  GO
 END
 
 PRINT 'Procedure dbo.proInsertSaType created';
-
+GO
 
 /******************************************************************************
 **  Name: SP proUpdateSaType
@@ -371,11 +377,11 @@ BEGIN
     WHERE id = @id;
 
     PRINT 'Executed proInsertSaType..';
-
+GO
 END
 
 PRINT 'Procedure dbo.proInsertSaType created';
-
+GO
 /******************************************************************************
 **  Name: SP proDeleteSaType
 **  Desc: this script is to delete a record from SaType Table
@@ -407,11 +413,11 @@ BEGIN
 	DELETE FROM dbo.SaType
 	WHERE id = @id;
   PRINT 'Executed proDeleteSaType..';
-
+  GO
 END
 
 PRINT 'Procedure dbo.proDeleteSaType created';
-
+GO
 
 /******************************************************************************
 **  Name: SP proGetAccident
@@ -457,10 +463,11 @@ BEGIN
         where id = @id;
 
         PRINT 'Executed proGetAccident..';
-
+        GO
 END
 
 PRINT 'Procedure dbo.proGetAccident created';
+GO
 
 /******************************************************************************
 **  Name: SP proGetAllAccidents
@@ -501,11 +508,11 @@ BEGIN
         FROM dbo.Accident
 
    PRINT 'Executed proGetAllAccidents..';
-
+  GO
 END
 
 PRINT 'Procedure dbo.proGetAllAccidents created';
-
+GO
 
 /******************************************************************************
 **  Name: SP proInsertAccident
@@ -567,11 +574,11 @@ BEGIN
         , @createdBy);
 
 	 PRINT 'Executed proInsertAccident..';
-
+  GO
 END
 
 PRINT 'Procedure dbo.proInsertAccident created';
-
+GO
 
 /******************************************************************************
 **  Name: SP proUpdateAccident
@@ -626,11 +633,11 @@ BEGIN
     WHERE id = @id;
 
 	 PRINT 'Executed proUpdateAccident..';
-
+  GO
 END
 
 PRINT 'Procedure dbo.proUpdateAccident created';
-
+GO
 
 /******************************************************************************
 **  Name: SP proDeleteAccident
@@ -663,11 +670,11 @@ BEGIN
 	DELETE FROM dbo.Accident
 	WHERE id = @id;
 	 PRINT 'Executed proDeleteAccident..';
-
+  GO
 END
 
 PRINT 'Procedure dbo.proDeleteAccident created';
-
+GO
 
 /******************************************************************************
 **  Name: SP proGetSickness
@@ -712,11 +719,11 @@ BEGIN
         FROM dbo.Sickness
         where id = @id;
 	 PRINT 'Executed proGetSickness..';
-
+    GO
 END
 
 PRINT 'Procedure dbo.proGetSickness created';
-
+GO
 /******************************************************************************
 **  Name: SP proGetAllSickness
 **  Desc: this script is to get all records of Sickness Table
@@ -756,11 +763,11 @@ BEGIN
         FROM dbo.Sickness
 
         PRINT 'Executed proGetAllSickness..';
-
+        GO
 END
 
 PRINT 'Procedure dbo.proGetAllSickness created';
-
+GO
 
 /******************************************************************************
 **  Name: SP proInsertSickness
@@ -823,11 +830,11 @@ BEGIN
 
 
   PRINT 'Executed proInsertSickness..';
-
+  GO
 END
 
 PRINT 'Procedure dbo.proInsertSickness created';
-
+GO
 
 /******************************************************************************
 **  Name: SP proUpdateSickness
@@ -884,11 +891,11 @@ BEGIN
 
 
   PRINT 'Executed proUpdateSickness..';
-
+  GO
 END
 
 PRINT 'Procedure dbo.proUpdateSickness created';
-
+GO
 
 /******************************************************************************
 **  Name: SP proDeleteSickness
@@ -922,9 +929,9 @@ BEGIN
 	WHERE id = @id;
 
   PRINT 'Executed proDeleteSickness..';
-
+  GO
 END
 
 PRINT 'Procedure dbo.proDeleteSickness created';
-
+GO
 -- end Henry

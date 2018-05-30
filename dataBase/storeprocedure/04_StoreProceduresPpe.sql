@@ -240,10 +240,11 @@ BEGIN
         FROM dbo.Ppe
         where id = @id;
   PRINT 'Executed proDeletePpeClassification..';
+  GO
 END
 
 PRINT 'Procedure dbo.proDeletePpeClassification created';
-
+GO
 
 /******************************************************************************
 **  Name: SP proGetAllPpe
@@ -279,10 +280,11 @@ BEGIN
         FROM dbo.Ppe
 
   PRINT 'Executed proGetAllPpe..';
+  GO
 END
 
 PRINT 'Procedure dbo.proGetAllPpe created';
-
+GO
 
 /******************************************************************************
 **  Name: SP proInsertPpe
@@ -328,10 +330,11 @@ BEGIN
 	SELECT @@IDENTITY AS NewPpeID;
 
   PRINT 'Executed proInsertPpe..';
+  GO
 END
 
 PRINT 'Procedure dbo.proInsertPpe created';
-
+GO
 
 /******************************************************************************
 **  Name: SP proUpdatePpe
@@ -374,10 +377,11 @@ BEGIN
     WHERE id = @id;
 
   PRINT 'Executed proUpdatePpe..';
+  GO
 END
 
 PRINT 'Procedure dbo.proUpdatePpe created';
-
+GO
 
 /******************************************************************************
 **  Name: SP proDeletePpe
@@ -410,10 +414,11 @@ BEGIN
 	DELETE FROM dbo.Ppe
 	WHERE id = @id;
   PRINT 'Executed proDeletePpe..';
+  GO
 END
 
 PRINT 'Procedure dbo.proDeletePpe created';
-
+GO
 
 /******************************************************************************
 **  Name: SP proGetExistingPpe
@@ -454,10 +459,11 @@ BEGIN
         where id = @id;
 
   PRINT 'Executed proGetExistingPpe..';
+  GO
 END
 
 PRINT 'Procedure dbo.proGetExistingPpe created';
-
+GO
 
 /******************************************************************************
 **  Name: SP proGetAllExistingPpe
@@ -493,10 +499,11 @@ BEGIN
         FROM dbo.ExistingPpe
 
   PRINT 'Executed proGetAllExistingPpe..';
+  GO
 END
 
 PRINT 'Procedure dbo.proGetAllExistingPpe created';
-
+GO
 
 /******************************************************************************
 **  Name: SP proInsertExistingPpe
@@ -548,10 +555,11 @@ BEGIN
 
 
   PRINT 'Executed proInsertExistingPpe..';
+  GO
 END
 
 PRINT 'Procedure dbo.proInsertExistingPpe created';
-
+GO
 
 /******************************************************************************
 **  Name: SP proUpdateExistingPpe
@@ -598,10 +606,11 @@ BEGIN
     WHERE id = @id;
 
   PRINT 'Executed proUpdateExistingPpe..';
+  GO
 END
 
 PRINT 'Procedure dbo.proUpdateExistingPpe created';
-
+GO
 
 /******************************************************************************
 **  Name: SP proDeleteExistingPpe
@@ -634,10 +643,11 @@ BEGIN
 	DELETE FROM dbo.ExistingPpe
 	WHERE id = @id;
   PRINT 'Executed proDeleteExistingPpe..';
+  GO
 END
 
 PRINT 'Procedure dbo.proDeleteExistingPpe created';
-
+GO
 
 /******************************************************************************
 **  Name: SP proGetExistingPpeAssigned
@@ -679,10 +689,11 @@ BEGIN
         where id = @id;
 
   PRINT 'Executed proGetExistingPpeAssigned..';
+  GO
 END
 
 PRINT 'Procedure dbo.proGetExistingPpeAssigned created';
-
+GO
 
 /******************************************************************************
 **  Name: SP proGetAllExistingPpeAssigned
@@ -718,10 +729,11 @@ BEGIN
             , employeeId
         FROM dbo.ExistingPpeAssigned
   PRINT 'Executed proGetAllExistingPpeAssigned..';
+  GO
 END
 
 PRINT 'Procedure dbo.proGetAllExistingPpeAssigned created';
-
+GO
 
 /******************************************************************************
 **  Name: SP proInsertExistingPpeAssigned
@@ -777,10 +789,11 @@ BEGIN
 
 
       PRINT 'Executed proInsertExistingPpeAssigned..';
+      GO
 END
 
 PRINT 'Procedure dbo.proInsertExistingPpeAssigned created';
-
+GO
 
 /******************************************************************************
 **  Name: SP proUpdateExistingPpeAssigned
@@ -829,10 +842,11 @@ BEGIN
     WHERE id = @id;
 
  PRINT 'Executed proUpdateExistingPpeAssigned..';
+ GO
 END
 
 PRINT 'Procedure dbo.proUpdateExistingPpeAssigned created';
-
+GO
 
 /******************************************************************************
 **  Name: SP proDeleteExistingPpeAssigned
@@ -865,6 +879,8 @@ BEGIN
 	DELETE FROM dbo.ExistingPpeAssigned
 	WHERE id = @id;
  PRINT 'Executed proDeleteExistingPpeAssigned..';
+ GO
 END
 
 PRINT 'Procedure dbo.proDeleteExistingPpeAssigned created';
+GO
