@@ -20,6 +20,7 @@ IF EXISTS (SELECT * FROM sys.objects
     )
 BEGIN
   ALTER TABLE [dbo].[AuditHistory_SSI] DROP CONSTRAINT [DF_AuditHistory_ModifiedDate]
+  ALTER TABLE [dbo].[AuditHistory_SSI] DROP CONSTRAINT [DF_AuditHistory_CreatedDate]
   DROP TABLE [dbo].[AuditHistory_SSI]
   PRINT '[AuditHistory_SSI] table was removed!';
   
@@ -35,12 +36,12 @@ BEGIN
 	[CreatedDate]    DATETIME  NULL,
 	[ModifiedDate]   DATETIME NOT NULL,
 	[ModifiedBy]     INT NULL,
-	[CreatedBy]		 INT NULL,
+	[CreatedBy]		 INT DEFAULT 0 NOT NULL,
 );
 
 
 ALTER TABLE [dbo].[AuditHistory_SSI] ADD CONSTRAINT [DF_AuditHistory_ModifiedDate]  DEFAULT (GETUTCDATE()) FOR [ModifiedDate]
-
+ALTER TABLE [dbo].[AuditHistory_SSI] ADD CONSTRAINT [DF_AuditHistory_CreatedDate]  DEFAULT (GETUTCDATE()) FOR [CreatedDate]
 
 	PRINT 'Table AuditHistory_SSI created!';
 END
