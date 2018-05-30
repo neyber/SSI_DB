@@ -15,11 +15,9 @@
 ** 05/29/2018   Linet Torrico   Modification for Name, CreatedBy and UpdatedBy
 *******************************************************************************/
 
+Use ssiA
 
 
-/*
-** Reviewing the trigger does not exist, if it does, the script will remove it.
-*/
 IF EXISTS (SELECT * FROM sys.objects 
     WHERE object_id = OBJECT_ID(N'[dbo].[TG_WorkItem(Audit)_InsertUpdate]') 
     AND type = 'TR')
