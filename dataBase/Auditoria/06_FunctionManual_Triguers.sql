@@ -85,4 +85,25 @@ BEGIN
     WHERE ISNULL(d.position, '') != ISNULL(i.position, '');
   END
 
+      IF UPDATE(principalFunction)
+  BEGIN
+    INSERT INTO dbo.AuditHistory_SSI(TableName, 
+                                 ColumnName, 
+                                 ID, 
+                                 Date, 
+                                 OldValue, 
+                                 NewValue,
+								 ModifiedBy) 
+    SELECT TableName    = 'FunctionManual', 
+           ColumnName   = 'principalFunction',
+           ID1          = i.Id, 
+           Date         = @CurrDate, 
+           OldValue     = d.[principalFunction], 
+           NewValue     = i.[principalFunction],
+           ModifiedBy   = i.updatedBy          
+    FROM deleted d 
+    FULL OUTER JOIN inserted i ON (d.Id = i.Id)
+    WHERE ISNULL(d.principalFunction, '') != ISNULL(i.principalFunction, '');
+  END
+
 END;
