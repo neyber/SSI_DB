@@ -8,7 +8,6 @@
 **  Description: is pending scripts added by marcelo, (employee, and other tables), to work completely this script
 **  Date: 05/26/2018
 *******************************************************************************/
-
 /******************************************************************************
 **  Name: script to initialize table with values - team A
 **  Desc: add initialization of next tables Accident, Sickness, SaCategory, SaType
@@ -19,14 +18,13 @@
 **  Added: Department, Role, Employee, Function Manual
 **  Date: 05/26/2018
 *******************************************************************************/
-
 SET XACT_ABORT ON;
 SET NOCOUNT ON;
 
 BEGIN TRANSACTION;
 
 PRINT 'Insert data into the Department table...';
---SET IDENTITY_INSERT dbo.Department ON
+
 INSERT INTO [dbo].[Department]([name],[createdOn],[updatedOn],[isDeleted],[version],[description])
 VALUES ('HHRR','2005-09-01', '2005-09-02', 0, 1, 'departament of HHRR');
 INSERT INTO [dbo].[Department]([name],[createdOn],[updatedOn],[isDeleted],[version],[description])
@@ -47,11 +45,11 @@ INSERT INTO [dbo].[Department]([name],[createdOn],[updatedOn],[isDeleted],[versi
 VALUES ('TRANSPORT','2005-09-01', '2005-09-02', 0, 1, 'departament of transport');
 INSERT INTO [dbo].[Department]([name],[createdOn],[updatedOn],[isDeleted],[version],[description])
 VALUES ('IMPORTATIONS','2005-09-01', '2005-09-02', 0, 1, 'departament of Import');
---SET IDENTITY_INSERT dbo.Department OFF;
+
 PRINT 'Department table done...';
 
 PRINT 'Insert data into the Role table...';
---SET IDENTITY_INSERT dbo.Role ON
+
 INSERT INTO [dbo].[Role]([createdOn],[updatedOn],[isDeleted],[version],[description],[name])
 VALUES ('2005-08-10', '2005-09-03', 0, 1, 'Administrator','Admin' );
 INSERT INTO [dbo].[Role]([createdOn],[updatedOn],[isDeleted],[version],[description],[name])
@@ -68,11 +66,11 @@ INSERT INTO [dbo].[Role]([createdOn],[updatedOn],[isDeleted],[version],[descript
 VALUES ('2005-08-11', '2005-09-04', 0, 1, 'Sales man','Sales' );
 INSERT INTO [dbo].[Role]([createdOn],[updatedOn],[isDeleted],[version],[description],[name])
 VALUES ('2005-08-11', '2005-09-04', 0, 1, 'Sales man','Sales' );
---SET IDENTITY_INSERT dbo.Role OFF;
+
 PRINT 'Role table done...';
 
 PRINT 'Insert data into the FunctionManual table...';
---SET IDENTITY_INSERT dbo.FunctionManual ON
+
 INSERT INTO [dbo].[FunctionManual] ([createdOn],[updatedOn],[isDeleted],[version],[dependentPersonal],[externalRelation],[generalActivity],[hierarchicalLever],[internalRelation],[name],[position],[principalFunction],[superiorBoss],[roleFunctionId])
 VALUES ('2006-06-11','2006-07-10', 0, 1,'all HHRR personal', 'Customers and providers', 'admistrate the company', 'admin 1', 'realtions with accounting and management', 'Admin', 'Administrator', 'Administrate the company', 'CEO of SSI', 1);
 INSERT INTO [dbo].[FunctionManual] ([createdOn],[updatedOn],[isDeleted],[version],[dependentPersonal],[externalRelation],[generalActivity],[hierarchicalLever],[internalRelation],[name],[position],[principalFunction],[superiorBoss],[roleFunctionId])
@@ -83,11 +81,11 @@ INSERT INTO [dbo].[FunctionManual] ([createdOn],[updatedOn],[isDeleted],[version
 VALUES ('2006-06-11','2006-07-10', 0, 1,'all HHRR personal', 'providers', 'work on the construction', 'worker 2', 'realtions with HHRR and management', 'worker 2', 'Worker level 2', 'work on the contructions', 'Manager', 4);
 INSERT INTO [dbo].[FunctionManual] ([createdOn],[updatedOn],[isDeleted],[version],[dependentPersonal],[externalRelation],[generalActivity],[hierarchicalLever],[internalRelation],[name],[position],[principalFunction],[superiorBoss],[roleFunctionId])
 VALUES ('2006-06-11','2006-07-10', 0, 1,'all Transporrtation personal', 'providers', 'Is on charge of the the transportations', 'ManargerT', 'realtions with HHRR and workers', 'Transportation Manager', 'transportation1 level 2', 'work on the transportation', 'Manager', 4);
---SET IDENTITY_INSERT dbo.FunctionManual OFF;
+
 PRINT 'FunctionManual table done...';
 
 PRINT 'Insert data into the Employee table...';
---SET IDENTITY_INSERT dbo.Employee ON
+
 INSERT INTO [dbo].[Employee] ([createdOn],[updatedOn],[isDeleted],[version],[dateOfBirth] ,[firstName],[gender],[healthConditionStartingAtCompany],[identificationNumber],[lastName],[startDateInCompany],[departmentEmployeeId],[photoFileDocumentId],[RoleEmployeeId],[SupervisorId])
 VALUES ('2005-08-11', '2005-09-04', 0, 1,'1999-09-04','Jose', 'm', 'good condition', 1001, 'Lopez', '2005-08-11', 1, null, 1, null);
 INSERT INTO [dbo].[Employee] ([createdOn],[updatedOn],[isDeleted],[version],[dateOfBirth] ,[firstName],[gender],[healthConditionStartingAtCompany],[identificationNumber],[lastName],[startDateInCompany],[departmentEmployeeId],[photoFileDocumentId],[RoleEmployeeId],[SupervisorId])
@@ -108,13 +106,13 @@ INSERT INTO [dbo].[Employee] ([createdOn],[updatedOn],[isDeleted],[version],[dat
 VALUES ('2005-08-11', '2005-09-04', 0, 1,'1990-10-04','Denis', 'm', 'good condition', 1001, 'Cruz', '2005-08-11', 5, null, 4, null);
 INSERT INTO [dbo].[Employee] ([createdOn],[updatedOn],[isDeleted],[version],[dateOfBirth] ,[firstName],[gender],[healthConditionStartingAtCompany],[identificationNumber],[lastName],[startDateInCompany],[departmentEmployeeId],[photoFileDocumentId],[RoleEmployeeId],[SupervisorId])
 VALUES ('2005-08-11', '2005-09-04', 0, 1,'1996-08-04','Alex', 'm', 'good condition', 1001, 'Roble', '2005-08-11', 5, null, 4, null);
---SET IDENTITY_INSERT dbo.Employee OFF;
+
 PRINT 'Employee table done...';
 
 
 PRINT 'Insert data into the SaCategory table...';
 
---SET IDENTITY_INSERT dbo.SaCategory ON
+
 INSERT INTO [dbo].[SaCategory] ([category],[description],[reference])
 VALUES ('Days out of work', 'this category is follow the OSHA documentation', 'Formulario OSHA - 300');
 INSERT INTO [dbo].[SaCategory] ([category],[description],[reference])
@@ -125,12 +123,12 @@ INSERT INTO [dbo].[SaCategory] ([category],[description],[reference])
 VALUES ('Other recordable cases', 'this category is follow the OSHA documentation', 'Formulario OSHA - 300');
 INSERT INTO [dbo].[SaCategory] ([category],[description],[reference])
 VALUES ('Death', 'this category is follow the OSHA documentation', 'Formulario OSHA - 300');
---SET IDENTITY_INSERT dbo.SaCategory OFF;
+
 PRINT 'SaCategory table done...';
 
 PRINT 'Insert data into the SaCategory table...';
 
---SET IDENTITY_INSERT dbo.SaType ON
+
 INSERT INTO [dbo].[SaType] ([type],[description])
 VALUES ('Injury', 'this type was includes by osha rules normative');
 INSERT INTO [dbo].[SaType] ([type],[description])
@@ -143,34 +141,34 @@ INSERT INTO [dbo].[SaType] ([type],[description])
 VALUES ('Hearing loss', 'this type was includes by osha rules normative');
 INSERT INTO [dbo].[SaType] ([type],[description])
 VALUES ('Other diseases', 'this type was includes by osha rules normative');
---SET IDENTITY_INSERT dbo.SaType OFF;
+
 PRINT 'SaType table done...';
 
 PRINT 'Insert data into the Sickness table....';
---SET IDENTITY_INSERT dbo.REPLACEMENT ON
-INSERT INTO [dbo].[Sickness] ([description],[dateSickness],[statusRecord],[whereOcurr],[totalDaysOutOfWork],[totalDaysRestrictedTrasnferredWork],[employeeId],[saCategoryId],[saTypeId])
+
+INSERT INTO [dbo].[Sickness] ([description],[dateSickness],[statusRecord],[whereOccurr],[totalDaysOutOfWork],[totalDaysRestrictedTransferredWork],[employeeId],[saCategoryId],[saTypeId])
 VALUES ('during the night duty shift and with inadequate clothing is that the employee has a cold, and due to negligence', '2018-05-05 14:05:03', 1, 'this happened on guard night shift', 3, 4, 1, 1, 2);
-INSERT INTO [dbo].[Sickness] ([description],[dateSickness],[statusRecord],[whereOcurr],[totalDaysOutOfWork],[totalDaysRestrictedTrasnferredWork],[employeeId],[saCategoryId],[saTypeId])
+INSERT INTO [dbo].[Sickness] ([description],[dateSickness],[statusRecord],[whereOccurr],[totalDaysOutOfWork],[totalDaysRestrictedTransferredWork],[employeeId],[saCategoryId],[saTypeId])
 VALUES ('More than 5 years working with Zika discharge affects the employee lungs', '2018-01-03 14:05:03', 1, 'this happened on guard night shift', 3, 4, 1, 1, 1);
-INSERT INTO [dbo].[Sickness] ([description],[dateSickness],[statusRecord],[whereOcurr],[totalDaysOutOfWork],[totalDaysRestrictedTrasnferredWork],[employeeId],[saCategoryId],[saTypeId])
+INSERT INTO [dbo].[Sickness] ([description],[dateSickness],[statusRecord],[whereOccurr],[totalDaysOutOfWork],[totalDaysRestrictedTransferredWork],[employeeId],[saCategoryId],[saTypeId])
 VALUES ('More than 4 years working with the material download caused damage to the shoulders and now needs physiotherapy', '2018-01-02 14:05:03', 1, 'During jornal work, in the new building', 3, 4, 2, 1, 2);
-INSERT INTO [dbo].[Sickness] ([description],[dateSickness],[statusRecord],[whereOcurr],[totalDaysOutOfWork],[totalDaysRestrictedTrasnferredWork],[employeeId],[saCategoryId],[saTypeId])
+INSERT INTO [dbo].[Sickness] ([description],[dateSickness],[statusRecord],[whereOccurr],[totalDaysOutOfWork],[totalDaysRestrictedTransferredWork],[employeeId],[saCategoryId],[saTypeId])
 VALUES ('before he had an accident with the mechanical shovel and now his hand is infected', '2018-03-09 14:05:03', 1, 'During jornal work, in the new building', 3, 4, 1, 1, 1);
-INSERT INTO [dbo].[Sickness] ([description],[dateSickness],[statusRecord],[whereOcurr],[totalDaysOutOfWork],[totalDaysRestrictedTrasnferredWork],[employeeId],[saCategoryId],[saTypeId])
+INSERT INTO [dbo].[Sickness] ([description],[dateSickness],[statusRecord],[whereOccurr],[totalDaysOutOfWork],[totalDaysRestrictedTransferredWork],[employeeId],[saCategoryId],[saTypeId])
 VALUES ('More than 4 years working with the material download caused damage to the shoulders and now needs physiotherapy', '2017-06-07 14:05:03', 1, 'During jornal work, in the new building', 3, 4, 3, 2, 1);
-INSERT INTO [dbo].[Sickness] ([description],[dateSickness],[statusRecord],[whereOcurr],[totalDaysOutOfWork],[totalDaysRestrictedTrasnferredWork],[employeeId],[saCategoryId],[saTypeId])
+INSERT INTO [dbo].[Sickness] ([description],[dateSickness],[statusRecord],[whereOccurr],[totalDaysOutOfWork],[totalDaysRestrictedTransferredWork],[employeeId],[saCategoryId],[saTypeId])
 VALUES ('got sick and now has vision problems', '2017-08-10 14:05:03', 1, 'During jornal work, in the new building', 3, 4, 1, 1, 1);
--- SET IDENTITY_INSERT dbo.REPLACEMENT OFF;
+
 PRINT 'Sickness table done...';
 
 PRINT 'Insert data into the Accident table....';
-INSERT INTO [dbo].[Accident] ([description],[dateAccident],[statusRecord],[whereOcurr],[totalDaysOutOfWork],[totalDaysRestrictedTrasnferredWork],[employeeId],[saCategoryId],[saTypeId])
+INSERT INTO [dbo].[Accident] ([description],[dateAccident],[statusRecord],[whereOccurr],[totalDaysOutOfWork],[totalDaysRestrictedTransferredWork],[employeeId],[saCategoryId],[saTypeId])
 VALUES ('It happened when employee was not using his protection', '2018-05-05 14:05:03', 1, 'It happened when employee was not using his protection,this occurred on the building, during last night.', 0, 2, 2, 1, 2);
-INSERT INTO [dbo].[Accident] ([description],[dateAccident],[statusRecord],[whereOcurr],[totalDaysOutOfWork],[totalDaysRestrictedTrasnferredWork],[employeeId],[saCategoryId],[saTypeId])
+INSERT INTO [dbo].[Accident] ([description],[dateAccident],[statusRecord],[whereOccurr],[totalDaysOutOfWork],[totalDaysRestrictedTransferredWork],[employeeId],[saCategoryId],[saTypeId])
 VALUES ('when they unloaded cargo of sika burst a bag', '2017-05-05 14:05:03', 1, 'where the new building of west america Avenue No. 123', 3, 4, 3, 1, 3);
-INSERT INTO [dbo].[Accident] ([description],[dateAccident],[statusRecord],[whereOcurr],[totalDaysOutOfWork],[totalDaysRestrictedTrasnferredWork],[employeeId],[saCategoryId],[saTypeId])
+INSERT INTO [dbo].[Accident] ([description],[dateAccident],[statusRecord],[whereOccurr],[totalDaysOutOfWork],[totalDaysRestrictedTransferredWork],[employeeId],[saCategoryId],[saTypeId])
 VALUES ('when the tractor turned suddenly it hit the mixer truck', '2017-06-05 14:05:03', 1, 'in the building under construction', 3, 4, 3, 3, 3);
-INSERT INTO [dbo].[Accident] ([description],[dateAccident],[statusRecord],[whereOcurr],[totalDaysOutOfWork],[totalDaysRestrictedTrasnferredWork],[employeeId],[saCategoryId],[saTypeId])
+INSERT INTO [dbo].[Accident] ([description],[dateAccident],[statusRecord],[whereOccurr],[totalDaysOutOfWork],[totalDaysRestrictedTransferredWork],[employeeId],[saCategoryId],[saTypeId])
 VALUES ('It happened when employee was not using his protection', '2017-08-09 14:05:03', 1, 'It happened when employee was not using his protection,this occurred on the building, during last night.', 0, 2, 2, 3, 1);
 PRINT 'Accident table done...';
 
