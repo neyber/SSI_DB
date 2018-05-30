@@ -12,6 +12,7 @@
 **  Fecha:       Autor:           Descripcion:
 ** --------     -----------      -----------------------------------------------
 ** 05/28/2018   Linet Torrico   Initial version
+** 05/29/2018   Linet Torrico   Including name and description for audit
 *******************************************************************************/
 
 
@@ -44,7 +45,7 @@ BEGIN
  
   DECLARE @CurrDate DATETIME = GETUTCDATE();
  
-  IF UPDATE(updatedOn)
+  IF UPDATE(name)
   BEGIN
     INSERT INTO dbo.AuditHistory_SSI(TableName, 
                                  ColumnName, 
@@ -54,18 +55,18 @@ BEGIN
                                  NewValue,
 								 ModifiedBy) 
     SELECT TableName    = 'WorkItemClassification', 
-           ColumnName   = 'updatedOn',
+           ColumnName   = 'name',
            ID1          = i.Id, 
            Date         = @CurrDate, 
-           OldValue     = d.[updatedOn], 
-           NewValue     = i.[updatedOn],
-           ModifiedBy   = i.ModifiedBy          
+           OldValue     = d.[name], 
+           NewValue     = i.[name],
+           ModifiedBy   = i.updatedBy          
     FROM deleted d 
     FULL OUTER JOIN inserted i ON (d.Id = i.Id)
     WHERE ISNULL(d.updatedOn, '') != ISNULL(i.updatedOn, '');
   END
 
-    IF UPDATE(createdOn)
+    IF UPDATE(description)
   BEGIN
     INSERT INTO dbo.AuditHistory_SSI(TableName, 
                                  ColumnName, 
@@ -73,14 +74,14 @@ BEGIN
                                  Date, 
                                  OldValue, 
                                  NewValue,
-								 CreatedBy) 
+								  ModifiedBy)
     SELECT TableName    = 'WorkItemClassification', 
-           ColumnName   = 'createdOn',
+           ColumnName   = 'description',
            ID1          = i.Id, 
            Date         = @CurrDate, 
-           OldValue     = d.[createdOn], 
-           NewValue     = i.[createdOn],
-           ModifiedBy   = i.CreatedBy          
+           OldValue     = d.[description], 
+           NewValue     = i.[description],
+           ModifiedBy   = i.updatedBy          
     FROM deleted d 
     FULL OUTER JOIN inserted i ON (d.Id = i.Id)
     WHERE ISNULL(d.createdOn, '') != ISNULL(i.createdOn, '');
