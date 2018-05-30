@@ -714,4 +714,220 @@ GO
 
 --start marcelo
 
+/******************************************************************************
+**  Name: SP proGetExistingWorkItemAssigned
+**  Desc: this script is to get a record from ExistingWorkItemAssigned Table
+**
+**  Author: Marcelo Loayza
+**
+**  Date: 05/29/2018
+*******************************************************************************
+*                            Change History
+******************************************************************************
+*  Fecha:         Autor:                                 Descripcion:
+ --------      -----------               ---------------------------------------------------
+ 05/29/2018    Marcelo Loayza       - Initial version
+******************************************************************************/
+-- Create proGetExistingWorkItemAssigned stored procedure.
+
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[proGetExistingWorkItemAssigned]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[proGetExistingWorkItemAssigned]
+GO
+
+CREATE PROCEDURE [dbo].[proGetExistingWorkItemAssigned]
+(
+    @id INT
+)
+AS
+SET XACT_ABORT ON;
+SET NOCOUNT ON;
+BEGIN
+
+	 SELECT id
+	    , assignedNotes
+			, assignedDate
+			, returnNotes
+			, returnDate
+			, employeeId
+			, existingWorkItemId
+
+        FROM dbo.ExistingWorkItemAssigned
+        where id = @id;
+END
+/******************************************************************************
+**  Name: SP proGetAllExistingWorkItemAssigned
+**  Desc: this script is to get all a record from ExistingWorkItemAssigned Table
+**
+**  Author: Marcelo Loayza
+**
+**  Date: 05/29/2018
+*******************************************************************************
+*                            Change History
+******************************************************************************
+*  Fecha:         Autor:                                 Descripcion:
+ --------      -----------               ---------------------------------------------------
+ 05/29/2018    Marcelo Loayza       - Initial version
+******************************************************************************/
+-- Create proGetAllExistingWorkItemAssigned stored procedure.
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[proGetAllExistingWorkItemAssigneds]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[proGetAllExistingWorkItemAssigneds]
+GO
+
+CREATE PROCEDURE [dbo].[proGetAllExistingWorkItemAssigneds]
+AS
+SET XACT_ABORT ON;
+SET NOCOUNT ON;
+BEGIN
+
+	 SELECT id
+	    , assignedNotes
+			, assignedDate
+			, returnNotes
+			, returnDate
+			, employeeId
+			, existingWorkItemId
+
+        FROM dbo.ExistingWorkItemAssigned
+END
+GO
+/******************************************************************************
+**  Name: SP proInsertExistingWorkItem
+**  Desc: this script is to insert a record from ExistingWorkItemAssigned Table
+**
+**  Author: Marcelo Loayza
+**
+**  Date: 05/29/2018
+*******************************************************************************
+*                            Change History
+******************************************************************************
+*  Fecha:         Autor:                                 Descripcion:
+ --------      -----------               ---------------------------------------------------
+ 05/29/2018    Marcelo Loayza       - Initial version
+******************************************************************************/
+-- Create proInsertExistingWorkItemAssigned stored procedure.
+
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[proInsertExistingWorkItemAssigned]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[proInsertExistingWorkItemAssigned]
+GO
+
+CREATE PROCEDURE [dbo].[proInsertExistingWorkItemAssigned]
+(
+		  @assignedNotes VARCHAR(200)
+		, @assignedDate DATETIME
+		, @returnNotes VARCHAR(200)
+		, @returnDate DATETIME
+		, @employeeId INT
+		, @existingWorkItemId INT
+		, @createdBy INT
+)
+AS
+SET XACT_ABORT ON;
+SET NOCOUNT ON;
+BEGIN
+
+	INSERT INTO dbo.ExistingWorkItemAssigned(assignedNotes
+								, assignedDate
+								, returnNotes
+								, returnDate
+								, employeeId
+								, existingWorkItemId
+								, createdBy)
+	VALUES (  @assignedNotes
+			, @assignedDate
+			, @returnNotes
+			, @returnDate
+			, @employeeId
+			, @existingWorkItemId
+			, @createdBy);
+
+	SELECT @@IDENTITY AS NewExistingWorkItemAssignedID;
+END
+
+GO
+
+/******************************************************************************
+**  Name: SP proUpdateExistingWorkItemAssigned
+**  Desc: this script is to Update a record from ExistingWorkItemAssigned Table
+**
+**  Author: Marcelo Loayza
+**
+**  Date: 05/29/2018
+*******************************************************************************
+*                            Change History
+******************************************************************************
+*  Fecha:         Autor:                                 Descripcion:
+ --------      -----------               ---------------------------------------------------
+ 05/29/2018    Marcelo Loayza       - Initial version
+******************************************************************************/
+-- Create proUpdateExistingWorkItemAssigned stored procedure.
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[proUpdateExistingWorkItemAssigned]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[proUpdateExistingWorkItemAssigned]
+GO
+
+CREATE PROCEDURE [dbo].[proUpdateExistingWorkItemAssigned]
+(
+      @id INT
+    , @assignedNotes VARCHAR(200)
+	, @assignedDate DATETIME
+	, @returnNotes VARCHAR(200)
+	, @returnDate DATETIME
+	, @employeeId INT
+	, @existingWorkItemId INT
+	, @updatedBy INT
+)
+AS
+SET XACT_ABORT ON;
+SET NOCOUNT ON;
+BEGIN
+
+	UPDATE dbo.ExistingWorkItemAssigned
+    SET assignedNotes = @assignedNotes
+        , assignedDate = @assignedDate
+		, returnNotes = @returnNotes
+		, returnDate = @returnDate
+		, employeeId = @employeeId
+		, existingWorkItemId = @existingWorkItemId
+		, updatedBy = @updatedBy
+    WHERE id = @id;
+
+END
+
+GO
+
+/******************************************************************************
+**  Name: SP proDeleteExistingWorkItemAssigned
+**  Desc: this script is to Delete a record from ExistingWorkItemAssigned Table
+**
+**  Author: Marcelo Loayza
+**
+**  Date: 05/29/2018
+*******************************************************************************
+*                            Change History
+******************************************************************************
+*  Fecha:         Autor:                                 Descripcion:
+ --------      -----------               ---------------------------------------------------
+ 05/29/2018    Marcelo Loayza       - Initial version
+******************************************************************************/
+-- Create proDeleteExistingWorkItemAssigned stored procedure.
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[proDeleteExistingWorkItemAssigned]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[proDeleteExistingWorkItemAssigned]
+GO
+
+CREATE PROCEDURE [dbo].[proDeleteExistingWorkItemAssigned]
+(
+    @id INT
+)
+AS
+SET XACT_ABORT ON;
+SET NOCOUNT ON;
+BEGIN
+	DELETE FROM dbo.Role
+	WHERE id = @id;
+END
+
+GO
 --end marcelo
