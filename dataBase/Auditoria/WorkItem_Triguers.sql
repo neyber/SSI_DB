@@ -1,8 +1,8 @@
 
 /******************************************************************************
 **  Nombre: TG_WorkItem(Audit)_InsertUpdate
-**  Descripcion: 
-**
+**  Descripcion: This Trigger generate audit information when a name or 
+**  new register is created or updated from WorkITem Table
 **  Autor: Linet Torrico
 **
 **  Fecha: 05/28/2018
@@ -12,6 +12,7 @@
 **  Fecha:       Autor:           Descripcion:
 ** --------     -----------      -----------------------------------------------
 ** 05/28/2018   Linet Torrico   Initial version
+** 05/29/2018   Linet Torrico   Modification for Name, CreatedBy and UpdatedBy
 *******************************************************************************/
 
 
@@ -44,7 +45,7 @@ BEGIN
  
   DECLARE @CurrDate DATETIME = GETUTCDATE();
  
-  IF UPDATE(updatedOn)
+  IF UPDATE(name)
   BEGIN
     INSERT INTO dbo.AuditHistory_SSI(TableName, 
                                  ColumnName, 
@@ -57,9 +58,9 @@ BEGIN
            ColumnName   = 'updatedOn',
            ID1          = i.Id, 
            Date         = @CurrDate, 
-           OldValue     = d.[updatedOn], 
-           NewValue     = i.[updatedOn],
-           ModifiedBy   = i.ModifiedBy          
+           OldValue     = d.[name], 
+           NewValue     = i.[name],
+           ModifiedBy   = i.updatedBy          
     FROM deleted d 
     FULL OUTER JOIN inserted i ON (d.Id = i.Id)
     WHERE ISNULL(d.updatedOn, '') != ISNULL(i.updatedOn, '');
@@ -80,7 +81,7 @@ BEGIN
            Date         = @CurrDate, 
            OldValue     = d.[createdOn], 
            NewValue     = i.[createdOn],
-           ModifiedBy   = i.CreatedBy          
+           CreatedBy   = i.createdBy          
     FROM deleted d 
     FULL OUTER JOIN inserted i ON (d.Id = i.Id)
     WHERE ISNULL(d.createdOn, '') != ISNULL(i.createdOn, '');

@@ -44,7 +44,7 @@ BEGIN
  
   DECLARE @CurrDate DATETIME = GETUTCDATE();
  
-  IF UPDATE(updatedOn)
+  IF UPDATE(detail) 
   BEGIN
     INSERT INTO dbo.AuditHistory_SSI(TableName, 
                                  ColumnName, 
@@ -54,18 +54,18 @@ BEGIN
                                  NewValue,
 								 ModifiedBy) 
     SELECT TableName    = 'ExistingPpe', 
-           ColumnName   = 'updatedOn',
+           ColumnName   = 'detail',
            ID1          = i.Id, 
            Date         = @CurrDate, 
-           OldValue     = d.[updatedOn], 
-           NewValue     = i.[updatedOn],
-           ModifiedBy   = i.ModifiedBy          
-    FROM deleted d 
+           OldValue     = d.[detail], 
+           NewValue     = i.[detail],
+           ModifiedBy   = i.updatedBy
+		    FROM deleted d 
     FULL OUTER JOIN inserted i ON (d.Id = i.Id)
-    WHERE ISNULL(d.updatedOn, '') != ISNULL(i.updatedOn, '');
+    WHERE ISNULL(d.detail, '') != ISNULL(i.detail, '');
   END
 
-    IF UPDATE(createdOn)
+    IF UPDATE(lifeTimeDays)
   BEGIN
     INSERT INTO dbo.AuditHistory_SSI(TableName, 
                                  ColumnName, 
@@ -75,15 +75,15 @@ BEGIN
                                  NewValue,
 								 ModifiedBy) 
     SELECT TableName    = 'ExistingPpe', 
-           ColumnName   = 'createdOn',
+           ColumnName   = 'lifeTimeDays',
            ID1          = i.Id, 
            Date         = @CurrDate, 
-           OldValue     = d.[createdOn], 
-           NewValue     = i.[createdOn],
-           ModifiedBy   = i.ModifiedBy          
+           OldValue     = d.[lifeTimeDays], 
+           NewValue     = i.[lifeTimeDays],
+           ModifiedBy   = i.updatedBy
     FROM deleted d 
     FULL OUTER JOIN inserted i ON (d.Id = i.Id)
-    WHERE ISNULL(d.createdOn, '') != ISNULL(i.createdOn, '');
+    WHERE ISNULL(d.lifeTimeDays, '') != ISNULL(i.lifeTimeDays, '');
   END
 
 END;

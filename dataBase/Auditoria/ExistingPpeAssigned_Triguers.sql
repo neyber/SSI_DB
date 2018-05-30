@@ -44,7 +44,7 @@ BEGIN
  
   DECLARE @CurrDate DATETIME = GETUTCDATE();
  
-  IF UPDATE(updatedOn)
+  IF UPDATE(assignedNotes)
   BEGIN
     INSERT INTO dbo.AuditHistory_SSI(TableName, 
                                  ColumnName, 
@@ -54,18 +54,18 @@ BEGIN
                                  NewValue,
 								 ModifiedBy) 
     SELECT TableName    = 'ExistingPpeAssigned', 
-           ColumnName   = 'updatedOn',
+           ColumnName   = 'assignedNotes',
            ID1          = i.Id, 
            Date         = @CurrDate, 
-           OldValue     = d.[updatedOn], 
-           NewValue     = i.[updatedOn],
-           ModifiedBy   = i.ModifiedBy          
+           OldValue     = d.[assignedNotes], 
+           NewValue     = i.[assignedNotes],
+           ModifiedBy   = i.updatedBy
     FROM deleted d 
     FULL OUTER JOIN inserted i ON (d.Id = i.Id)
-    WHERE ISNULL(d.updatedOn, '') != ISNULL(i.updatedOn, '');
+    WHERE ISNULL(d.assignedNotes, '') != ISNULL(i.assignedNotes, '');
   END
 
-    IF UPDATE(createdOn)
+    IF UPDATE(returnNotes)
   BEGIN
     INSERT INTO dbo.AuditHistory_SSI(TableName, 
                                  ColumnName, 
@@ -75,15 +75,15 @@ BEGIN
                                  NewValue,
 								 ModifiedBy) 
     SELECT TableName    = 'ExistingPpeAssigned', 
-           ColumnName   = 'createdOn',
+           ColumnName   = 'returnNotes',
            ID1          = i.Id, 
            Date         = @CurrDate, 
-           OldValue     = d.[createdOn], 
-           NewValue     = i.[createdOn],
-           ModifiedBy   = i.ModifiedBy          
+           OldValue     = d.[returnNotes], 
+           NewValue     = i.[returnNotes],
+           ModifiedBy   = i.updatedBy 
     FROM deleted d 
     FULL OUTER JOIN inserted i ON (d.Id = i.Id)
-    WHERE ISNULL(d.createdOn, '') != ISNULL(i.createdOn, '');
+    WHERE ISNULL(d.returnNotes, '') != ISNULL(i.returnNotes, '');
   END
 
 END;
