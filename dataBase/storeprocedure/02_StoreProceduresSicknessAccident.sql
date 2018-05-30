@@ -36,8 +36,8 @@ BEGIN
         where id = @id;
 
         PRINT 'Executed proGetSaCategory..';
-        GO
 END
+GO
 
 PRINT 'Procedure dbo.proGetSaCategory created';
 GO
@@ -73,8 +73,9 @@ BEGIN
         FROM dbo.SaCategory
 
         PRINT 'Executed proGetAllSaCategories..';
-        GO
+
 END
+GO
 
 PRINT 'Procedure dbo.proGetAllSaCategories created';
 GO
@@ -121,8 +122,8 @@ BEGIN
 			);
 
 	PRINT 'Executed proInsertSaCategory..';
-  GO
 END
+GO
 
 PRINT 'Procedure dbo.proInsertSaCategory created';
 GO
@@ -167,8 +168,8 @@ BEGIN
     WHERE id = @id;
 
     PRINT 'Executed proInsertSaCategory..';
-  GO
 END
+GO
 
 PRINT 'Procedure dbo.proInsertSaCategory created';
 GO
@@ -205,8 +206,8 @@ BEGIN
 	WHERE id = @id;
 
 	PRINT 'Executed proDeleteSaCategory..';
-	GO
 END
+GO
 
 PRINT 'Procedure dbo.proDeleteSaCategory created';
 GO
@@ -249,8 +250,8 @@ BEGIN
         where id = @id;
 
         PRINT 'Executed proGetSaType..';
-        GO
 END
+GO
 
 PRINT 'Procedure dbo.proGetSaType created';
 GO
@@ -287,8 +288,8 @@ BEGIN
         FROM dbo.SaType
 
         PRINT 'Executed proGetAllSaType..';
-        GO
 END
+GO
 
 PRINT 'Procedure dbo.proGetAllSaType created';
 GO
@@ -332,8 +333,8 @@ BEGIN
 			);
 
    PRINT 'Executed proInsertSaType..';
-  GO
 END
+GO
 
 PRINT 'Procedure dbo.proInsertSaType created';
 GO
@@ -377,8 +378,8 @@ BEGIN
     WHERE id = @id;
 
     PRINT 'Executed proInsertSaType..';
-GO
 END
+GO
 
 PRINT 'Procedure dbo.proInsertSaType created';
 GO
@@ -413,8 +414,8 @@ BEGIN
 	DELETE FROM dbo.SaType
 	WHERE id = @id;
   PRINT 'Executed proDeleteSaType..';
-  GO
 END
+GO
 
 PRINT 'Procedure dbo.proDeleteSaType created';
 GO
@@ -463,8 +464,8 @@ BEGIN
         where id = @id;
 
         PRINT 'Executed proGetAccident..';
-        GO
 END
+GO
 
 PRINT 'Procedure dbo.proGetAccident created';
 GO
@@ -508,8 +509,8 @@ BEGIN
         FROM dbo.Accident
 
    PRINT 'Executed proGetAllAccidents..';
-  GO
 END
+GO
 
 PRINT 'Procedure dbo.proGetAllAccidents created';
 GO
@@ -574,8 +575,8 @@ BEGIN
         , @createdBy);
 
 	 PRINT 'Executed proInsertAccident..';
-  GO
 END
+GO
 
 PRINT 'Procedure dbo.proInsertAccident created';
 GO
@@ -633,8 +634,8 @@ BEGIN
     WHERE id = @id;
 
 	 PRINT 'Executed proUpdateAccident..';
-  GO
 END
+GO
 
 PRINT 'Procedure dbo.proUpdateAccident created';
 GO
@@ -670,8 +671,8 @@ BEGIN
 	DELETE FROM dbo.Accident
 	WHERE id = @id;
 	 PRINT 'Executed proDeleteAccident..';
-  GO
 END
+GO
 
 PRINT 'Procedure dbo.proDeleteAccident created';
 GO
@@ -719,8 +720,8 @@ BEGIN
         FROM dbo.Sickness
         where id = @id;
 	 PRINT 'Executed proGetSickness..';
-    GO
 END
+GO
 
 PRINT 'Procedure dbo.proGetSickness created';
 GO
@@ -763,8 +764,8 @@ BEGIN
         FROM dbo.Sickness
 
         PRINT 'Executed proGetAllSickness..';
-        GO
 END
+GO
 
 PRINT 'Procedure dbo.proGetAllSickness created';
 GO
@@ -830,8 +831,8 @@ BEGIN
 
 
   PRINT 'Executed proInsertSickness..';
-  GO
 END
+GO
 
 PRINT 'Procedure dbo.proInsertSickness created';
 GO
@@ -891,8 +892,8 @@ BEGIN
 
 
   PRINT 'Executed proUpdateSickness..';
-  GO
 END
+GO
 
 PRINT 'Procedure dbo.proUpdateSickness created';
 GO
@@ -929,8 +930,8 @@ BEGIN
 	WHERE id = @id;
 
   PRINT 'Executed proDeleteSickness..';
-  GO
 END
+GO
 
 PRINT 'Procedure dbo.proDeleteSickness created';
 GO

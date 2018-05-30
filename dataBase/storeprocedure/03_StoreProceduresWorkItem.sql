@@ -524,8 +524,8 @@ BEGIN
         where id = @id;
 
  PRINT 'Executed proGetExistingWorkItem..';
-GO
 END
+GO
 
 PRINT 'Procedure dbo.proGetExistingWorkItem created';
 GO
@@ -563,8 +563,8 @@ BEGIN
         FROM dbo.ExistingWorkItem
 
  PRINT 'Executed proGetAllExistingWorkItem..';
-GO
 END
+GO
 
 PRINT 'Procedure dbo.proGetAllExistingWorkItem created';
 GO
@@ -616,8 +616,8 @@ BEGIN
 	SELECT @@IDENTITY AS NewExistingWorkItemID;
 
  PRINT 'Executed proInsertExistingWorkItem..';
-GO
 END
+GO
 
 PRINT 'Procedure dbo.proInsertExistingWorkItem created';
 GO
@@ -666,8 +666,8 @@ BEGIN
 
 
  PRINT 'Executed proUpdateExistingWorkItem..';
-GO
 END
+GO
 
 PRINT 'Procedure dbo.proUpdateExistingWorkItem created';
 GO
@@ -703,9 +703,8 @@ BEGIN
 	DELETE FROM dbo.ExistingWorkItem
 	WHERE id = @id;
  PRINT 'Executed proDeleteExistingWorkItem..';
-GO
 END
-
+GO
 PRINT 'Procedure dbo.proDeleteExistingWorkItem created';
 GO
 
