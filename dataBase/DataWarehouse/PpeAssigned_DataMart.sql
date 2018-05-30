@@ -11,6 +11,7 @@
 *  Fecha:         Autor:                                 Descripcion:
  --------      -----------               -------------------------------------
  05/30/2018    Walker Colina             - Initial version
+ 05/30/2018    Walker Colina             - Added ETL tables
 ******************************************************************************/
 
 USE [ssiA_DW];
@@ -186,6 +187,98 @@ ELSE
   PRINT 'Table PPE.Fact_PpeAssigned already exists into the database for schema PPE';
  END
 GO
+
+-- Create Employees on schema ETL
+IF NOT EXISTS (SELECT *
+			   FROM sys.objects
+			   WHERE Type = 'U'
+			   AND object_id = OBJECT_ID('ETL.Employees')
+)
+BEGIN
+  CREATE TABLE [ETL].[Employees](
+	[EmployeeID] INT NOT NULL
+	,[FullName] VARCHAR(150) NOT NULL
+	,[DateOfBirth] DATE NOT NULL
+	,[Gender] CHAR(1) NOT NULL
+	,[Role] VARCHAR(100) NOT NULL
+  ) ON [PRIMARY]
+
+  PRINT 'Table ETL.Employees created!';
+ 	  
+END
+ELSE
+ BEGIN
+  PRINT 'Table ETL.Employees already exists into the database for schema ETL';
+ END
+GO
+
+-- Create Departments on schema ETL
+IF NOT EXISTS (SELECT *
+			   FROM sys.objects
+			   WHERE Type = 'U'
+			   AND object_id = OBJECT_ID('ETL.Departments')
+)
+BEGIN
+  CREATE TABLE [ETL].[Departments](
+	[DepartmentID] INT NOT NULL
+	,[DepartmentName] VARCHAR(100) 
+  ) ON [PRIMARY]
+
+  PRINT 'Table ETL.Departments created!';
+ 		  
+END
+ELSE
+ BEGIN
+  PRINT 'Table ETL.Departments already exists into the database for schema ETL';
+ END
+GO
+
+-- Create Ppes on schema ETL
+IF NOT EXISTS (SELECT *
+			   FROM sys.objects
+			   WHERE Type = 'U'
+			   AND object_id = OBJECT_ID('ETL.Ppes')
+)
+BEGIN
+  CREATE TABLE [ETL].[Ppes](
+	[ExistingPpeID] INT NOT NULL
+	,[ExistingPpeDetail] VARCHAR(200) NOT NULL
+	,[PpeName] VARCHAR(100) NOT NULL
+	,[PpeClassification] VARCHAR(100) NOT NULL
+  ) ON [PRIMARY]
+
+  PRINT 'Table ETL.Ppes created!';		  
+	
+END
+ELSE
+ BEGIN
+  PRINT 'Table ETL.Ppes already exists into the database for schema ETL';
+ END
+GO
+
+-- Create PpeAssigned
+IF NOT EXISTS (SELECT *
+			   FROM sys.objects
+			   WHERE Type = 'U'
+			   AND object_id = OBJECT_ID('ETL.PpeAssigned')
+)
+BEGIN
+  CREATE TABLE [ETL].[PpeAssigned](
+	[EmployeeID] INT NOT NULL
+	,[DepartmentID] INT NOT NULL
+	,[PpesID] INT NOT NULL
+	,[DimTimeID] INT NOT NULL
+	,quantity INT NOT NULL
+  ) ON [PRIMARY]
+  PRINT 'Table ETL.PpeAssigned created!';
+	
+END
+ELSE
+ BEGIN
+  PRINT 'Table ETL.PpeAssigned already exists into the database for schema ETL';
+ END
+GO
+
 
 IF NOT EXISTS (SELECT * 
     FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS 
