@@ -32,6 +32,7 @@ BEGIN
 	[Date]           DATETIME NULL,
 	[Oldvalue]       VARCHAR(MAX) NULL,
 	[NewValue]       VARCHAR(MAX) NULL,
+	[CreatedDate]    DATETIME NOT NULL,
 	[ModifiedDate]   DATETIME NOT NULL,
 	[ModifiedBy]     INT NULL,
 	[CreatedBy]		 INT NULL,
@@ -43,6 +44,7 @@ ALTER TABLE [dbo].[AuditHistory_SSI] ADD CONSTRAINT [DF_AuditHistory_ModifiedDat
 
 	PRINT 'Table AuditHistory_SSI created!';
 END
+
 
  
 /******************************************************************************
