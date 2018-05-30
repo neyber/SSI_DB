@@ -1,8 +1,8 @@
 
 /******************************************************************************
-**  Nombre: TG_FunctionManual(Audit)_InsertUpdate
-**  Descripcion: 
-**
+**  Nombre: TG_ExistingPpe(Audit)_InsertUpdate
+**  Descripcion: Triguer to know when 
+**  the equipament related with personal protection has been changed
 **  Autor: Linet Torrico
 **
 **  Fecha: 05/28/2018
@@ -14,24 +14,24 @@
 ** 05/28/2018   Linet Torrico   Initial version
 *******************************************************************************/
 
-
+Use ssiA
 
 /*
 ** Reviewing the trigger does not exist, if it does, the script will remove it.
 */
 IF EXISTS (SELECT * FROM sys.objects 
-    WHERE object_id = OBJECT_ID(N'[dbo].[TG_FunctionManual(Audit)InsertUpdate]') 
+    WHERE object_id = OBJECT_ID(N'[dbo].[TG_ExistingPpe(Audit)_InsertUpdate]') 
     AND type = 'TR')
 BEGIN
-  DROP TRIGGER [dbo].[TG_FunctionManual(Audit)InsertUpdate];
-  PRINT '[TG_FunctionManual(Audit)_InsertUpdate] trigger was removed!';
+  DROP TRIGGER [dbo].[TG_ExistingPpe(Audit)_InsertUpdate];
+  PRINT '[TG_ExistingPpe(Audit)_InsertUpdate] trigger was removed!';
 END
 GO
 
 
-CREATE TRIGGER [dbo].[TG_FunctionManual(Audit)_InsertUpdate]
+CREATE TRIGGER [dbo].[TG_ExistingPpe(Audit)_InsertUpdate]
 
-ON [dbo].[FunctionManual]
+ON [dbo].[ExistingPpe]
 
 FOR INSERT, UPDATE
 AS
@@ -44,7 +44,7 @@ BEGIN
  
   DECLARE @CurrDate DATETIME = GETUTCDATE();
  
-  IF UPDATE(updatedOn)
+  IF UPDATE(detail) 
   BEGIN
     INSERT INTO dbo.AuditHistory_SSI(TableName, 
                                  ColumnName, 
@@ -53,19 +53,19 @@ BEGIN
                                  OldValue, 
                                  NewValue,
 								 ModifiedBy) 
-    SELECT TableName    = 'FunctionManual', 
-           ColumnName   = 'updatedOn',
+    SELECT TableName    = 'ExistingPpe', 
+           ColumnName   = 'detail',
            ID1          = i.Id, 
            Date         = @CurrDate, 
-           OldValue     = d.[updatedOn], 
-           NewValue     = i.[updatedOn],
-           ModifiedBy   = i.ModifiedBy          
-    FROM deleted d 
+           OldValue     = d.[detail], 
+           NewValue     = i.[detail],
+           ModifiedBy   = i.updatedBy
+		    FROM deleted d 
     FULL OUTER JOIN inserted i ON (d.Id = i.Id)
-    WHERE ISNULL(d.updatedOn, '') != ISNULL(i.updatedOn, '');
+    WHERE ISNULL(d.detail, '') != ISNULL(i.detail, '');
   END
 
-    IF UPDATE(createdOn)
+    IF UPDATE(lifeTimeDays)
   BEGIN
     INSERT INTO dbo.AuditHistory_SSI(TableName, 
                                  ColumnName, 
@@ -74,16 +74,16 @@ BEGIN
                                  OldValue, 
                                  NewValue,
 								 ModifiedBy) 
-    SELECT TableName    = 'FunctionManual', 
-           ColumnName   = 'createdOn',
+    SELECT TableName    = 'ExistingPpe', 
+           ColumnName   = 'lifeTimeDays',
            ID1          = i.Id, 
            Date         = @CurrDate, 
-           OldValue     = d.[createdOn], 
-           NewValue     = i.[createdOn],
-           ModifiedBy   = i.ModifiedBy          
+           OldValue     = d.[lifeTimeDays], 
+           NewValue     = i.[lifeTimeDays],
+           ModifiedBy   = i.updatedBy
     FROM deleted d 
     FULL OUTER JOIN inserted i ON (d.Id = i.Id)
-    WHERE ISNULL(d.createdOn, '') != ISNULL(i.createdOn, '');
+    WHERE ISNULL(d.lifeTimeDays, '') != ISNULL(i.lifeTimeDays, '');
   END
 
 END;
