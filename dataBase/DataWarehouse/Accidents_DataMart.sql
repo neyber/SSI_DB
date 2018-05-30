@@ -1,3 +1,18 @@
+/******************************************************************************
+*  Nombre: schema for accidents datamart of system the "martillazo.SRL"
+*  Descripcion: add sentences to create tables for all Entities of datamart
+*
+*  Autor: Neyber Rojas
+*
+*  Fecha: 05/29/2018
+******************************************************************************
+*                            Change History
+******************************************************************************
+*  Fecha:         Autor:                                 Descripcion:
+ --------      -----------               -------------------------------------
+ 05/29/2018    Neyber Rojas              - Initial version
+******************************************************************************/
+
 USE ssiA_DW;
 
 IF NOT EXISTS (SELECT name 
