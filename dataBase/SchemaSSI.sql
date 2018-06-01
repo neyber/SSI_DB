@@ -17,10 +17,10 @@
  05/28/2018    Henry Bustamante C.       - I have updated schema in order to add audit columns as createdBy and mofidiedBy and only createdBy will have a default value as 0
  05/30/2018    Henry Bustamante C.       - I have updated schema in order to increase columns size for descriptions columns
 ******************************************************************************/
-IF EXISTS(SELECT * FROM DBO.SYSDATABASES WHERE NAME = 'ssiA')
+IF EXISTS(SELECT * FROM DBO.SYSDATABASES WHERE NAME = N'ssiA')
     BEGIN
-             USE MASTER
-             DROP DATABASE ssiA
+             USE MASTER;
+             DROP DATABASE ssiA;
     END
    CREATE DATABASE ssiA;
 
