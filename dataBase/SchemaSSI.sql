@@ -291,12 +291,13 @@ CREATE TABLE SaCategory (id INT IDENTITY(1,1) NOT NULL
                     , category VARCHAR(50) CONSTRAINT NN_Category NOT NULL
 					          , description VARCHAR(1000) CONSTRAINT NN_Description NOT NULL
                     , reference VARCHAR(1000)
+                    , createdBy INT DEFAULT 0 NOT NULL
                     , createdOn DATETIME NOT NULL
+                    , updatedBy INT
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
-                    , createdBy INT DEFAULT 0 NOT NULL
-					          , updatedBy INT
+
                     CONSTRAINT PK_SaCategory PRIMARY KEY(
                         [id]
                     ));
@@ -323,12 +324,12 @@ BEGIN
 CREATE TABLE SaType (id INT IDENTITY(1,1) NOT NULL
                     , type VARCHAR(200) CONSTRAINT NN_Type NOT NULL
 					          , description VARCHAR(1000) CONSTRAINT NN_Description NOT NULL
+                    , createdBy INT DEFAULT 0 NOT NULL
                     , createdOn DATETIME NOT NULL
+                    , updatedBy INT
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
-                    , createdBy INT DEFAULT 0 NOT NULL
-					          , updatedBy INT
                     CONSTRAINT PK_SaType PRIMARY KEY(
                         [id]
                     ));
@@ -362,12 +363,12 @@ CREATE TABLE Accident (id INT IDENTITY(1,1) NOT NULL
                     , employeeId INT
                     , saCategoryId INT
                     , saTypeId INT
-					          , createdOn DATETIME NOT NULL
+					          , createdBy INT DEFAULT 0 NOT NULL
+                    , createdOn DATETIME NOT NULL
+                    , updatedBy INT
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
-                    , createdBy INT DEFAULT 0 NOT NULL
-					          , updatedBy INT
                     CONSTRAINT PK_Accident PRIMARY KEY(
                         [id]
                     ));
@@ -402,12 +403,12 @@ CREATE TABLE Sickness (id INT IDENTITY(1,1) NOT NULL
                     , employeeId INT
                     , saCategoryId INT
                     , saTypeId INT
+                    , createdBy INT DEFAULT 0 NOT NULL
                     , createdOn DATETIME NOT NULL
+                    , updatedBy INT
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
-                    , createdBy INT DEFAULT 0 NOT NULL
-					          , updatedBy INT
                     CONSTRAINT PK_Sickness PRIMARY KEY(
                         [id]
                     ));
@@ -435,12 +436,12 @@ BEGIN
 CREATE TABLE PpeClassification (id INT IDENTITY(1,1) NOT NULL
 					          , name VARCHAR(100) CONSTRAINT NN_Name NOT NULL
 					          , description VARCHAR(1000) CONSTRAINT NN_Description NOT NULL
+                    , createdBy INT DEFAULT 0 NOT NULL
                     , createdOn DATETIME NOT NULL
+                    , updatedBy INT
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
-                    , createdBy INT DEFAULT 0 NOT NULL
-					          , updatedBy INT
                     CONSTRAINT PK_PpeClassification PRIMARY KEY(
                         [id]
                     ));
@@ -468,12 +469,12 @@ CREATE TABLE Ppe (id INT IDENTITY(1,1) NOT NULL
 					          , name VARCHAR(100) CONSTRAINT NN_Name NOT NULL
 					          , description VARCHAR(1000) CONSTRAINT NN_Description NOT NULL
                     , ppeClassificationId INT
+                    , createdBy INT DEFAULT 0 NOT NULL
                     , createdOn DATETIME NOT NULL
+                    , updatedBy INT
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
-                    , createdBy INT DEFAULT 0 NOT NULL
-					          , updatedBy INT
                     CONSTRAINT PK_Ppe PRIMARY KEY(
                         [id]
                     ));
@@ -503,12 +504,12 @@ CREATE TABLE ExistingPpe (id INT IDENTITY(1,1) NOT NULL
                     , lifeTimeDays INT CONSTRAINT NN_LifeTimeDays NOT NULL
                     , currentLifeTimeDays INT CONSTRAINT NN_CurrentLifeTimeDays NOT NULL
                     , ppeId INT
+                    , createdBy INT DEFAULT 0 NOT NULL
                     , createdOn DATETIME NOT NULL
+                    , updatedBy INT
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
-                    , createdBy INT DEFAULT 0 NOT NULL
-					          , updatedBy INT
                     CONSTRAINT PK_ExistingPpe PRIMARY KEY(
                         [id]
                     ));
@@ -539,12 +540,12 @@ CREATE TABLE ExistingPpeAssigned (id INT IDENTITY(1,1) NOT NULL
                     , returnDate DATETIME
                     , existingPpeId INT
                     , employeeId INT
+                    , createdBy INT DEFAULT 0 NOT NULL
                     , createdOn DATETIME NOT NULL
+                    , updatedBy INT
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
-                    , createdBy INT DEFAULT 0 NOT NULL
-					          , updatedBy INT
                     CONSTRAINT PK_ExistingPpeAssigned PRIMARY KEY(
                         [id]
                     ));
@@ -573,12 +574,12 @@ BEGIN
 CREATE TABLE WorkItemClassification (id INT IDENTITY(1,1) NOT NULL
 					          , name VARCHAR(100) CONSTRAINT NN_Name NOT NULL
                     , description VARCHAR(1000) CONSTRAINT NN_Description NOT NULL
+                    , createdBy INT DEFAULT 0 NOT NULL
                     , createdOn DATETIME NOT NULL
+                    , updatedBy INT
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
-                    , createdBy INT DEFAULT 0 NOT NULL
-					          , updatedBy INT
                     CONSTRAINT PK_WorkItemClassification PRIMARY KEY(
                         [id]
                     ));
@@ -606,12 +607,12 @@ CREATE TABLE WorkItem (id INT IDENTITY(1,1) NOT NULL
 					          , name VARCHAR(100) CONSTRAINT NN_Name NOT NULL
                     , description VARCHAR(1000) CONSTRAINT NN_Description NOT NULL
                     , workItemClassificationId INT
+                    , createdBy INT DEFAULT 0 NOT NULL
                     , createdOn DATETIME NOT NULL
+                    , updatedBy INT
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
-                    , createdBy INT DEFAULT 0 NOT NULL
-					          , updatedBy INT
                     CONSTRAINT PK_WorkItem PRIMARY KEY(
                         [id]
                     ));
@@ -640,12 +641,12 @@ CREATE TABLE ExistingWorkItem (id INT IDENTITY(1,1) NOT NULL
                     , purchaseDate DATETIME CONSTRAINT NN_PurchaseDate NOT NULL
                     , serieNo VARCHAR(50) CONSTRAINT NN_SerieNo NOT NULL
                     , workItemId INT
+                    , createdBy INT DEFAULT 0 NOT NULL
                     , createdOn DATETIME NOT NULL
+                    , updatedBy INT
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
-                    , createdBy INT DEFAULT 0 NOT NULL
-					          , updatedBy INT
                     CONSTRAINT PK_ExistingWorkItem PRIMARY KEY(
                         [id]
                     ));

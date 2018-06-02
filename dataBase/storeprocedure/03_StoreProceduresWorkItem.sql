@@ -37,8 +37,14 @@ SET XACT_ABORT ON;
 SET NOCOUNT ON;
 BEGIN
 	SELECT id
-		  ,name
-		  ,description
+            , name
+            , description
+            , createdBy
+            , createdOn
+            , updatedBy
+            , updatedOn
+            , isDeleted
+            , version
     FROM dbo.WorkItemClassification
 	WHERE id = @id;
 
@@ -80,8 +86,14 @@ SET XACT_ABORT ON;
 SET NOCOUNT ON;
 BEGIN
 	SELECT id
-		  ,name
-		  ,description
+            , name
+            , description
+            , createdBy
+            , createdOn
+            , updatedBy
+            , updatedOn
+            , isDeleted
+            , version
     FROM dbo.WorkItemClassification;
 
 	PRINT 'Executed proGetAllWorkItemClassification..';
@@ -273,9 +285,15 @@ SET XACT_ABORT ON;
 SET NOCOUNT ON;
 BEGIN
 	SELECT id
-		  ,name
-		  ,description
-		  ,workItemClassificationId
+            , name
+            , description
+            , workItemClassificationId
+            , createdBy
+            , createdOn
+            , updatedBy
+            , updatedOn
+            , isDeleted
+            , version
     FROM dbo.WorkItem
 	WHERE id = @id;
 
@@ -317,9 +335,15 @@ SET XACT_ABORT ON;
 SET NOCOUNT ON;
 BEGIN
 	SELECT id
-		  ,name
-		  ,description
-		  ,workItemClassificationId
+            , name
+            , description
+            , workItemClassificationId
+            , createdBy
+            , createdOn
+            , updatedBy
+            , updatedOn
+            , isDeleted
+            , version
     FROM dbo.WorkItem;
 
 	PRINT 'Executed proGetAllWorkItem..';
@@ -520,6 +544,12 @@ BEGIN
             , purchaseDate
             , serieNo
             , workItemId
+            , createdBy
+            , createdOn
+            , updatedBy
+            , updatedOn
+            , isDeleted
+            , version
         FROM dbo.ExistingWorkItem
         where id = @id;
 
@@ -560,6 +590,12 @@ BEGIN
             , purchaseDate
             , serieNo
             , workItemId
+            , createdBy
+            , createdOn
+            , updatedBy
+            , updatedOn
+            , isDeleted
+            , version
         FROM dbo.ExistingWorkItem
 
  PRINT 'Executed proGetAllExistingWorkItem..';

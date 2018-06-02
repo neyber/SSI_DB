@@ -33,6 +33,12 @@ BEGIN
 	 SELECT id
             , name
             , description
+            , createdBy
+            , createdOn
+            , updatedBy
+            , updatedOn
+            , isDeleted
+            , version
         FROM dbo.PpeClassification
         where id = @id;
 
@@ -71,6 +77,12 @@ BEGIN
 	SELECT id
             , name
             , description
+            , createdBy
+            , createdOn
+            , updatedBy
+            , updatedOn
+            , isDeleted
+            , version
         FROM dbo.PpeClassification
 
         PRINT 'Executed proGetAllPpeClassification..';
@@ -239,9 +251,15 @@ BEGIN
 
 	 SELECT
             id
-            ,name
+            , name
             , description
             , ppeClassificationId
+            , createdBy
+            , createdOn
+            , updatedBy
+            , updatedOn
+            , isDeleted
+            , version
         FROM dbo.Ppe
         where id = @id;
   PRINT 'Executed proDeletePpeClassification..';
@@ -279,9 +297,15 @@ BEGIN
 
 	 SELECT
             id
-            ,name
+            , name
             , description
             , ppeClassificationId
+            , createdBy
+            , createdOn
+            , updatedBy
+            , updatedOn
+            , isDeleted
+            , version
         FROM dbo.Ppe
 
   PRINT 'Executed proGetAllPpe..';
@@ -460,6 +484,12 @@ BEGIN
             , lifeTimeDays
             , currentLifeTimeDays
             , ppeId
+            , createdBy
+            , createdOn
+            , updatedBy
+            , updatedOn
+            , isDeleted
+            , version
         FROM dbo.ExistingPpe
         where id = @id;
 
@@ -501,6 +531,12 @@ BEGIN
             , lifeTimeDays
             , currentLifeTimeDays
             , ppeId
+            , createdBy
+            , createdOn
+            , updatedBy
+            , updatedOn
+            , isDeleted
+            , version
         FROM dbo.ExistingPpe
 
   PRINT 'Executed proGetAllExistingPpe..';
@@ -690,6 +726,12 @@ BEGIN
             , returnDate
             , existingPpeId
             , employeeId
+            , createdBy
+            , createdOn
+            , updatedBy
+            , updatedOn
+            , isDeleted
+            , version
         FROM dbo.ExistingPpeAssigned
         where id = @id;
 
@@ -732,6 +774,12 @@ BEGIN
             , returnDate
             , existingPpeId
             , employeeId
+            , createdBy
+            , createdOn
+            , updatedBy
+            , updatedOn
+            , isDeleted
+            , version
         FROM dbo.ExistingPpeAssigned
   PRINT 'Executed proGetAllExistingPpeAssigned..';
 END
