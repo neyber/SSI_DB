@@ -356,8 +356,6 @@ BEGIN
 			    , @ppeClassificationId
           , @createdBy);
 
-	SELECT @@IDENTITY AS NewPpeID;
-
   PRINT 'Executed proInsertPpe..';
 END
 GO

@@ -649,8 +649,6 @@ BEGIN
             , @workItemId
             , @createdBy);
 
-	SELECT @@IDENTITY AS NewExistingWorkItemID;
-
  PRINT 'Executed proInsertExistingWorkItem..';
 END
 GO
