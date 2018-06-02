@@ -540,7 +540,8 @@ SET XACT_ABORT ON;
 SET NOCOUNT ON;
 BEGIN
 
-	 SELECT detail
+	 SELECT    id
+	          , detail
             , purchaseDate
             , serieNo
             , workItemId
