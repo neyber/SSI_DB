@@ -114,9 +114,10 @@ GO
 
 CREATE PROCEDURE [dbo].[proInsertPpeClassification]
 (
-    @Name VARCHAR(200)
+  @newId INT  OUTPUT
+  , @Name VARCHAR(200)
 	, @description VARCHAR(1000)
-    , @createdBy INT
+  , @createdBy INT
 )
 AS
 SET XACT_ABORT ON;
@@ -127,11 +128,11 @@ BEGIN
                             , description
                             , createdBy)
 	VALUES (@Name
-			, @description
-            , @createdBy);
+			  , @description
+        , @createdBy);
 
-
-       PRINT 'Executed proInsertPpeClassification..';
+      SET @newId = SCOPE_IDENTITY();
+      PRINT 'Executed proInsertPpeClassification..';
 END
 GO
 
@@ -164,6 +165,8 @@ CREATE PROCEDURE [dbo].[proUpdatePpeClassification]
     , @name VARCHAR(200)
     , @description VARCHAR(1000)
     , @updatedBy INT
+	  , @updatedOn DATETIME
+	  , @version BIGINT
 )
 AS
 SET XACT_ABORT ON;
@@ -174,6 +177,8 @@ BEGIN
     SET name = @name
         , description = @description
         , updatedBy = @updatedBy
+		    , updatedOn = @updatedOn
+		    , version = @version
     WHERE id = @id;
 
        PRINT 'Executed proUpdatePpeClassification..';
@@ -337,7 +342,8 @@ GO
 
 CREATE PROCEDURE [dbo].[proInsertPpe]
 (
-    @name VARCHAR(200)
+    @newId INT OUTPUT
+    , @name VARCHAR(200)
 	  , @description VARCHAR(1000)
     , @ppeClassificationId INT
     , @createdBy INT
@@ -356,6 +362,7 @@ BEGIN
 			    , @ppeClassificationId
           , @createdBy);
 
+  SET @newId = SCOPE_IDENTITY();
   PRINT 'Executed proInsertPpe..';
 END
 GO
@@ -390,6 +397,8 @@ CREATE PROCEDURE [dbo].[proUpdatePpe]
     , @description VARCHAR(1000)
     , @ppeClassificationId INT
     , @updatedBy INT
+	  , @updatedOn DATETIME
+	  , @version BIGINT
 )
 AS
 SET XACT_ABORT ON;
@@ -401,6 +410,8 @@ BEGIN
         , description = @description
         , ppeClassificationId = @ppeClassificationId
         , updatedBy = @updatedBy
+		    , updatedOn = @updatedOn
+		    , version = @version
     WHERE id = @id;
 
   PRINT 'Executed proUpdatePpe..';
@@ -566,7 +577,8 @@ GO
 
 CREATE PROCEDURE [dbo].[proInsertExistingPpe]
 (
-     @detail VARCHAR(1000)
+    @newId INT OUTPUT
+    , @detail VARCHAR(1000)
     , @purchaseDate DATETIME
     , @lifeTimeDays INT
     , @currentLifeTimeDays INT
@@ -593,6 +605,7 @@ BEGIN
             , @createdBy);
 
 
+  SET @newId = SCOPE_IDENTITY();
   PRINT 'Executed proInsertExistingPpe..';
 END
 GO
@@ -629,6 +642,8 @@ CREATE PROCEDURE [dbo].[proUpdateExistingPpe]
     , @currentLifeTimeDays INT
     , @ppeId INT
     , @updatedBy INT
+	  , @updatedOn DATETIME
+	  , @version BIGINT
 )
 AS
 SET XACT_ABORT ON;
@@ -642,6 +657,8 @@ BEGIN
         , currentLifeTimeDays = @currentLifeTimeDays
         , ppeId = @ppeId
         , updatedBy = @updatedBy
+		    , updatedOn = @updatedOn
+		    , version = @version
     WHERE id = @id;
 
   PRINT 'Executed proUpdateExistingPpe..';
@@ -808,7 +825,8 @@ GO
 
 CREATE PROCEDURE [dbo].[proInsertExistingPpeAssigned]
 (
-    @assignedNotes VARCHAR(200)
+    @newId INT OUTPUT
+    , @assignedNotes VARCHAR(200)
     , @assignedDate DATETIME
     , @returnNotes VARCHAR(200)
     , @returnDate DATETIME
@@ -838,7 +856,7 @@ BEGIN
             , @employeeId
             , @createdBy);
 
-
+      SET @newId = SCOPE_IDENTITY();
       PRINT 'Executed proInsertExistingPpeAssigned..';
 END
 GO
@@ -876,6 +894,8 @@ CREATE PROCEDURE [dbo].[proUpdateExistingPpeAssigned]
     , @existingPpeId INT
     , @employeeId INT
     , @updatedBy INT
+	  , @updatedOn DATETIME
+	  , @version BIGINT
 )
 AS
 SET XACT_ABORT ON;
@@ -890,6 +910,8 @@ BEGIN
         , existingPpeId = @existingPpeId
         , employeeId = @employeeId
         , updatedBy = @updatedBy
+		    , updatedOn = @updatedOn
+		    , version = @version
     WHERE id = @id;
 
  PRINT 'Executed proUpdateExistingPpeAssigned..';
