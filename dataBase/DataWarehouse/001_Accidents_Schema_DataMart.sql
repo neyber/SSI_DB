@@ -11,7 +11,12 @@
 *  Fecha:         Autor:                                 Descripcion:
  --------      -----------               -------------------------------------
  05/29/2018    Neyber Rojas              - Initial version
+ 06/07/2018	   Neyber Rojas				 - Added create database validation
 ******************************************************************************/
+
+IF db_id('ssiA_DW') IS NULL
+    CREATE DATABASE ssiA_DW
+GO
 
 USE ssiA_DW;
 

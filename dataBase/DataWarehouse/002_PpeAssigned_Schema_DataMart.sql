@@ -12,7 +12,12 @@
  --------      -----------               -------------------------------------
  05/30/2018    Walker Colina             - Initial version
  05/30/2018    Walker Colina             - Added ETL tables
+ 06/07/2018	   Neyber Rojas				 			 - Added create database validation
 ******************************************************************************/
+
+IF db_id('ssiA_DW') IS NULL
+    CREATE DATABASE ssiA_DW
+GO
 
 USE [ssiA_DW];
 GO
