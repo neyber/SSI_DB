@@ -12,6 +12,7 @@
 **  Fecha:       Autor:            Descripcion:
 ** --------     -----------       ---------------------------------------------
 ** 05/29/2018   Linet Torrico    Initial version
+** 06/07/2018   Lizeth Salazar   Updated variables for AuditHistory_SSI table
 *******************************************************************************/
 Use ssiA
 
@@ -28,17 +29,16 @@ GO
   
   CREATE TABLE [dbo].[AuditHistory_SSI]
 (
-	[AuditHistoryId] INT IDENTITY(1,1) NOT NULL CONSTRAINT [PK_AuditHistory] PRIMARY KEY,
-	[TableName]		 VARCHAR(50) NULL,
-	[ColumnName]	 VARCHAR(50) NULL,
-	[ID]             INT NULL,
-	[Date]           DATETIME NULL,
-	[Oldvalue]       VARCHAR(MAX) NULL,
-	[NewValue]       VARCHAR(MAX) NULL,
-	[CreatedDate]    DATETIME  NULL,
-	[ModifiedDate]   DATETIME NOT NULL,
-	[ModifiedBy]     INT NULL,
-	[CreatedBy]		 INT DEFAULT 0 NOT NULL,
+	[idAuditHistory] INT IDENTITY(1,1) NOT NULL CONSTRAINT [PK_AuditHistory] PRIMARY KEY,
+	[tableName]		   VARCHAR(50) NULL,
+	[columnName]	   VARCHAR(50) NULL,
+	[idFeature]      INT NULL,
+	[oldvalue]       VARCHAR(MAX) NULL,
+	[newValue]       VARCHAR(MAX) NULL,
+	[createdDate]    DATETIME  NULL,
+	[createdBy]		   INT DEFAULT 0 NOT NULL,
+	[modifiedDate]   DATETIME NOT NULL,
+	[modifiedBy]     INT NULL
 );
 
 
