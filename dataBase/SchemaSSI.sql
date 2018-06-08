@@ -15,12 +15,11 @@
  05/28/2018    Miguel Abdon Rojas C.     - fix of schema to load "SSI(Industrial Security System) application" from data base already created
                                          - fixed properties: field names, field definitions, invalid constraints, field NULL values
  05/28/2018    Henry Bustamante C.       - I have updated schema in order to add audit columns as createdBy and mofidiedBy and only createdBy will have a default value as 0
- 05/30/2018    Henry Bustamante C.       - I have updated schema in order to increase columns size for descriptions columns
 ******************************************************************************/
-
-
-
-USE ssiA;
+IF db_id('ssiA') IS NULL
+    CREATE DATABASE ssiA
+GO
+use ssiA
 GO
 
 -- Create Department
@@ -291,12 +290,13 @@ CREATE TABLE SaCategory (id INT IDENTITY(1,1) NOT NULL
                     , category VARCHAR(50) CONSTRAINT NN_Category NOT NULL
 					          , description VARCHAR(1000) CONSTRAINT NN_Description NOT NULL
                     , reference VARCHAR(1000)
+                    , createdBy INT DEFAULT 0 NOT NULL
                     , createdOn DATETIME NOT NULL
+                    , updatedBy INT
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
-                    , createdBy INT DEFAULT 0 NOT NULL
-					          , updatedBy INT
+
                     CONSTRAINT PK_SaCategory PRIMARY KEY(
                         [id]
                     ));
@@ -323,12 +323,12 @@ BEGIN
 CREATE TABLE SaType (id INT IDENTITY(1,1) NOT NULL
                     , type VARCHAR(200) CONSTRAINT NN_Type NOT NULL
 					          , description VARCHAR(1000) CONSTRAINT NN_Description NOT NULL
+                    , createdBy INT DEFAULT 0 NOT NULL
                     , createdOn DATETIME NOT NULL
+                    , updatedBy INT
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
-                    , createdBy INT DEFAULT 0 NOT NULL
-					          , updatedBy INT
                     CONSTRAINT PK_SaType PRIMARY KEY(
                         [id]
                     ));
@@ -355,19 +355,19 @@ BEGIN
 CREATE TABLE Accident (id INT IDENTITY(1,1) NOT NULL
 					          , description VARCHAR(1000) CONSTRAINT NN_Description NOT NULL
 					          , dateAccident DATETIME CONSTRAINT NN_DateAccident NOT NULL
-                    , statusRecord BIT CONSTRAINT NN_StatusRecrod DEFAULT 0 NOT NULL
 					          , whereOccurr VARCHAR(1000) CONSTRAINT NN_WhereOccurr NOT NULL
+					          , statusRecord BIT CONSTRAINT NN_StatusRecrod DEFAULT 0 NOT NULL
 					          , totalDaysOutOfWork INT CONSTRAINT NN_TotalDaysOutOfWork NOT NULL
 					          , totalDaysRestrictedTransferredWork INT CONSTRAINT NN_TotalDaysRestrictedTrasnferredWork NOT NULL
-                    , employeeId INT
                     , saCategoryId INT
                     , saTypeId INT
-					          , createdOn DATETIME NOT NULL
+                    , employeeId INT
+					          , createdBy INT DEFAULT 0 NOT NULL
+                    , createdOn DATETIME NOT NULL
+                    , updatedBy INT
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
-                    , createdBy INT DEFAULT 0 NOT NULL
-					          , updatedBy INT
                     CONSTRAINT PK_Accident PRIMARY KEY(
                         [id]
                     ));
@@ -395,19 +395,19 @@ BEGIN
 CREATE TABLE Sickness (id INT IDENTITY(1,1) NOT NULL
 					          , description VARCHAR(1000) CONSTRAINT NN_Description NOT NULL
 					          , dateSickness DATETIME CONSTRAINT NN_DateSickness NOT NULL
-                    , statusRecord BIT CONSTRAINT NN_SicknessStatusRecrod DEFAULT 0 NOT NULL
 					          , whereOccurr VARCHAR(1000) CONSTRAINT NN_WhereOcurr NOT NULL
+					          , statusRecord BIT CONSTRAINT NN_SicknessStatusRecrod DEFAULT 0 NOT NULL
 					          , totalDaysOutOfWork INT CONSTRAINT NN_TotalDaysOutOfWork NOT NULL
 					          , totalDaysRestrictedTransferredWork INT CONSTRAINT NN_TotalDaysRestrictedTransferredWork NOT NULL
-                    , employeeId INT
                     , saCategoryId INT
                     , saTypeId INT
+                    , employeeId INT
+                    , createdBy INT DEFAULT 0 NOT NULL
                     , createdOn DATETIME NOT NULL
+                    , updatedBy INT
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
-                    , createdBy INT DEFAULT 0 NOT NULL
-					          , updatedBy INT
                     CONSTRAINT PK_Sickness PRIMARY KEY(
                         [id]
                     ));
@@ -435,12 +435,12 @@ BEGIN
 CREATE TABLE PpeClassification (id INT IDENTITY(1,1) NOT NULL
 					          , name VARCHAR(100) CONSTRAINT NN_Name NOT NULL
 					          , description VARCHAR(1000) CONSTRAINT NN_Description NOT NULL
+                    , createdBy INT DEFAULT 0 NOT NULL
                     , createdOn DATETIME NOT NULL
+                    , updatedBy INT
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
-                    , createdBy INT DEFAULT 0 NOT NULL
-					          , updatedBy INT
                     CONSTRAINT PK_PpeClassification PRIMARY KEY(
                         [id]
                     ));
@@ -468,12 +468,12 @@ CREATE TABLE Ppe (id INT IDENTITY(1,1) NOT NULL
 					          , name VARCHAR(100) CONSTRAINT NN_Name NOT NULL
 					          , description VARCHAR(1000) CONSTRAINT NN_Description NOT NULL
                     , ppeClassificationId INT
+                    , createdBy INT DEFAULT 0 NOT NULL
                     , createdOn DATETIME NOT NULL
+                    , updatedBy INT
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
-                    , createdBy INT DEFAULT 0 NOT NULL
-					          , updatedBy INT
                     CONSTRAINT PK_Ppe PRIMARY KEY(
                         [id]
                     ));
@@ -503,12 +503,12 @@ CREATE TABLE ExistingPpe (id INT IDENTITY(1,1) NOT NULL
                     , lifeTimeDays INT CONSTRAINT NN_LifeTimeDays NOT NULL
                     , currentLifeTimeDays INT CONSTRAINT NN_CurrentLifeTimeDays NOT NULL
                     , ppeId INT
+                    , createdBy INT DEFAULT 0 NOT NULL
                     , createdOn DATETIME NOT NULL
+                    , updatedBy INT
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
-                    , createdBy INT DEFAULT 0 NOT NULL
-					          , updatedBy INT
                     CONSTRAINT PK_ExistingPpe PRIMARY KEY(
                         [id]
                     ));
@@ -536,15 +536,15 @@ CREATE TABLE ExistingPpeAssigned (id INT IDENTITY(1,1) NOT NULL
 					          , assignedNotes VARCHAR(200) CONSTRAINT NN_AssignedNotes NOT NULL
 					          , assignedDate DATETIME CONSTRAINT NN_AssignedDate NOT NULL
 					          , returnNotes VARCHAR(1000) CONSTRAINT NN_ReturnNotes NOT NULL
-                    , returnDate DATETIME
+                    , returnDate DATETIME DEFAULT NULL
                     , existingPpeId INT
                     , employeeId INT
+                    , createdBy INT DEFAULT 0 NOT NULL
                     , createdOn DATETIME NOT NULL
+                    , updatedBy INT
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
-                    , createdBy INT DEFAULT 0 NOT NULL
-					          , updatedBy INT
                     CONSTRAINT PK_ExistingPpeAssigned PRIMARY KEY(
                         [id]
                     ));
@@ -573,12 +573,12 @@ BEGIN
 CREATE TABLE WorkItemClassification (id INT IDENTITY(1,1) NOT NULL
 					          , name VARCHAR(100) CONSTRAINT NN_Name NOT NULL
                     , description VARCHAR(1000) CONSTRAINT NN_Description NOT NULL
+                    , createdBy INT DEFAULT 0 NOT NULL
                     , createdOn DATETIME NOT NULL
+                    , updatedBy INT
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
-                    , createdBy INT DEFAULT 0 NOT NULL
-					          , updatedBy INT
                     CONSTRAINT PK_WorkItemClassification PRIMARY KEY(
                         [id]
                     ));
@@ -606,12 +606,12 @@ CREATE TABLE WorkItem (id INT IDENTITY(1,1) NOT NULL
 					          , name VARCHAR(100) CONSTRAINT NN_Name NOT NULL
                     , description VARCHAR(1000) CONSTRAINT NN_Description NOT NULL
                     , workItemClassificationId INT
+                    , createdBy INT DEFAULT 0 NOT NULL
                     , createdOn DATETIME NOT NULL
+                    , updatedBy INT
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
-                    , createdBy INT DEFAULT 0 NOT NULL
-					          , updatedBy INT
                     CONSTRAINT PK_WorkItem PRIMARY KEY(
                         [id]
                     ));
@@ -640,12 +640,12 @@ CREATE TABLE ExistingWorkItem (id INT IDENTITY(1,1) NOT NULL
                     , purchaseDate DATETIME CONSTRAINT NN_PurchaseDate NOT NULL
                     , serieNo VARCHAR(50) CONSTRAINT NN_SerieNo NOT NULL
                     , workItemId INT
+                    , createdBy INT DEFAULT 0 NOT NULL
                     , createdOn DATETIME NOT NULL
+                    , updatedBy INT
 					          , updatedOn DATETIME NOT NULL
                     , isDeleted BIT
                     , version BIGINT DEFAULT 1
-                    , createdBy INT DEFAULT 0 NOT NULL
-					          , updatedBy INT
                     CONSTRAINT PK_ExistingWorkItem PRIMARY KEY(
                         [id]
                     ));

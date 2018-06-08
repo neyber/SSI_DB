@@ -32,6 +32,12 @@ BEGIN
 	 SELECT category
             , description
             , reference
+            , createdBy
+            , createdOn
+            , updatedBy
+            , updatedOn
+            , isDeleted
+            , version
         FROM dbo.SaCategory
         where id = @id;
 
@@ -70,6 +76,12 @@ BEGIN
 	SELECT category
             , description
             , reference
+            , createdBy
+            , createdOn
+            , updatedBy
+            , updatedOn
+            , isDeleted
+            , version
         FROM dbo.SaCategory
 
         PRINT 'Executed proGetAllSaCategories..';
@@ -244,8 +256,14 @@ BEGIN
 
 	 SELECT
             id
-            ,type
+            , type
             , description
+            , createdBy
+            , createdOn
+            , updatedBy
+            , updatedOn
+            , isDeleted
+            , version
         FROM dbo.SaType
         where id = @id;
 
@@ -285,6 +303,12 @@ BEGIN
             id
             , type
             , description
+            , createdBy
+            , createdOn
+            , updatedBy
+            , updatedOn
+            , isDeleted
+            , version
         FROM dbo.SaType
 
         PRINT 'Executed proGetAllSaType..';
@@ -460,6 +484,12 @@ BEGIN
             , employeeId
             , saCategoryId
             , saTypeId
+            , createdBy
+            , createdOn
+            , updatedBy
+            , updatedOn
+            , isDeleted
+            , version
         FROM dbo.Accident
         where id = @id;
 
@@ -506,6 +536,12 @@ BEGIN
             , employeeId
             , saCategoryId
             , saTypeId
+            , createdBy
+            , createdOn
+            , updatedBy
+            , updatedOn
+            , isDeleted
+            , version
         FROM dbo.Accident
 
    PRINT 'Executed proGetAllAccidents..';
@@ -708,7 +744,7 @@ BEGIN
 
 	 SELECT
             id
-            ,description
+            , description
             , dateSickness
             , statusRecord
             , WhereOccurr
@@ -717,6 +753,12 @@ BEGIN
             , employeeId
             , saCategoryId
             , saTypeId
+            , createdBy
+            , createdOn
+            , updatedBy
+            , updatedOn
+            , isDeleted
+            , version
         FROM dbo.Sickness
         where id = @id;
 	 PRINT 'Executed proGetSickness..';
@@ -761,6 +803,12 @@ BEGIN
             , employeeId
             , saCategoryId
             , saTypeId
+            , createdBy
+            , createdOn
+            , updatedBy
+            , updatedOn
+            , isDeleted
+            , version
         FROM dbo.Sickness
 
         PRINT 'Executed proGetAllSickness..';

@@ -37,8 +37,14 @@ SET XACT_ABORT ON;
 SET NOCOUNT ON;
 BEGIN
 	SELECT id
-		  ,name
-		  ,description
+            , name
+            , description
+            , createdBy
+            , createdOn
+            , updatedBy
+            , updatedOn
+            , isDeleted
+            , version
     FROM dbo.WorkItemClassification
 	WHERE id = @id;
 
@@ -80,8 +86,14 @@ SET XACT_ABORT ON;
 SET NOCOUNT ON;
 BEGIN
 	SELECT id
-		  ,name
-		  ,description
+            , name
+            , description
+            , createdBy
+            , createdOn
+            , updatedBy
+            , updatedOn
+            , isDeleted
+            , version
     FROM dbo.WorkItemClassification;
 
 	PRINT 'Executed proGetAllWorkItemClassification..';
@@ -119,7 +131,8 @@ GO
 *******************************************************************************/
 CREATE PROCEDURE dbo.proInsertWorkItemClassification
 (
-	  @name VARCHAR(100)
+    @newId INT OUTPUT
+	 ,@name VARCHAR(100)
 	 ,@description VARCHAR(200)
 	 ,@createdBy INT
 )
@@ -137,6 +150,8 @@ BEGIN
 			,@description
 			,@createdBy
 			);
+
+	SET @newId = SCOPE_IDENTITY();
 
 	PRINT 'Executed proInsertWorkItemClassification..';
 END
@@ -176,6 +191,8 @@ CREATE PROCEDURE dbo.proUpdateWorkItemClassification
 	 ,@name VARCHAR(100)
 	 ,@description VARCHAR(200)
 	 ,@updatedBy INT
+	 ,@updatedOn DATETIME
+	 ,@version BIGINT
 )
 AS
 SET XACT_ABORT ON;
@@ -185,6 +202,8 @@ BEGIN
 	SET  name		 = @name
 		,description = @description
 		,updatedBy	 = @updatedBy
+		,updatedOn   = @updatedOn
+		,version   = @version
 	WHERE id = @id;
 
 	PRINT 'Executed proUpdateWorkItemClassification..';
@@ -273,9 +292,15 @@ SET XACT_ABORT ON;
 SET NOCOUNT ON;
 BEGIN
 	SELECT id
-		  ,name
-		  ,description
-		  ,workItemClassificationId
+            , name
+            , description
+            , workItemClassificationId
+            , createdBy
+            , createdOn
+            , updatedBy
+            , updatedOn
+            , isDeleted
+            , version
     FROM dbo.WorkItem
 	WHERE id = @id;
 
@@ -317,9 +342,15 @@ SET XACT_ABORT ON;
 SET NOCOUNT ON;
 BEGIN
 	SELECT id
-		  ,name
-		  ,description
-		  ,workItemClassificationId
+            , name
+            , description
+            , workItemClassificationId
+            , createdBy
+            , createdOn
+            , updatedBy
+            , updatedOn
+            , isDeleted
+            , version
     FROM dbo.WorkItem;
 
 	PRINT 'Executed proGetAllWorkItem..';
@@ -357,7 +388,8 @@ GO
 *******************************************************************************/
 CREATE PROCEDURE dbo.proInsertWorkItem
 (
-	  @name VARCHAR(100)
+    @newId INT OUTPUT
+	 ,@name VARCHAR(100)
 	 ,@description VARCHAR(200)
 	 ,@workItemClassificationId INT
 	 ,@createdBy INT
@@ -378,6 +410,8 @@ BEGIN
 			,@workItemClassificationId
 			,@createdBy
 			);
+
+	SET @newId = SCOPE_IDENTITY();
 
 	PRINT 'Executed proInsertWorkItem..';
 END
@@ -418,6 +452,8 @@ CREATE PROCEDURE dbo.proUpdateWorkItem
 	 ,@description VARCHAR(200)
 	 ,@workItemClassificationId INT
 	 ,@updatedBy INT
+ 	 ,@updatedOn DATETIME
+	 ,@version BIGINT
 )
 AS
 SET XACT_ABORT ON;
@@ -428,6 +464,8 @@ BEGIN
 		,description = @description
 		,workItemClassificationId = @workItemClassificationId
 		,updatedBy = @updatedBy
+		,updatedOn = @updatedOn
+		,version = @version
 	WHERE id = @id;
 
 	PRINT 'Executed proUpdateWorkItem..';
@@ -516,10 +554,17 @@ SET XACT_ABORT ON;
 SET NOCOUNT ON;
 BEGIN
 
-	 SELECT detail
+	 SELECT   id
+	          , detail
             , purchaseDate
             , serieNo
             , workItemId
+            , createdBy
+            , createdOn
+            , updatedBy
+            , updatedOn
+            , isDeleted
+            , version
         FROM dbo.ExistingWorkItem
         where id = @id;
 
@@ -560,6 +605,12 @@ BEGIN
             , purchaseDate
             , serieNo
             , workItemId
+            , createdBy
+            , createdOn
+            , updatedBy
+            , updatedOn
+            , isDeleted
+            , version
         FROM dbo.ExistingWorkItem
 
  PRINT 'Executed proGetAllExistingWorkItem..';
@@ -591,7 +642,8 @@ GO
 
 CREATE PROCEDURE [dbo].[proInsertExistingWorkItem]
 (
-     @detail VARCHAR(100)
+      @newId INT OUTPUT
+    , @detail VARCHAR(100)
 	  , @purchaseDate DATETIME
     , @serieNo VARCHAR(50)
     , @workItemId INT
@@ -613,7 +665,7 @@ BEGIN
             , @workItemId
             , @createdBy);
 
-	SELECT @@IDENTITY AS NewExistingWorkItemID;
+  SET @newId = SCOPE_IDENTITY();
 
  PRINT 'Executed proInsertExistingWorkItem..';
 END
@@ -650,6 +702,8 @@ CREATE PROCEDURE [dbo].[proUpdateExistingWorkItem]
     , @serieNo VARCHAR(50)
     , @workItemId INT
     , @updatedBy INT
+  	, @updatedOn DATETIME
+	  , @version BIGINT
 )
 AS
 SET XACT_ABORT ON;
@@ -662,6 +716,8 @@ BEGIN
         , serieNo = @serieNo
         , workItemId = @workItemId
         , updatedBy = @updatedBy
+     		, updatedOn   = @updatedOn
+    		, version   = @version
     WHERE id = @id;
 
 
@@ -751,7 +807,12 @@ BEGIN
 			, returnDate
 			, employeeId
 			, existingWorkItemId
-
+      , createdBy
+      , createdOn
+      , updatedBy
+      , updatedOn
+      , isDeleted
+      , version
         FROM dbo.ExistingWorkItemAssigned
         where id = @id;
 END
@@ -789,7 +850,12 @@ BEGIN
 			, returnDate
 			, employeeId
 			, existingWorkItemId
-
+      , createdBy
+      , createdOn
+      , updatedBy
+      , updatedOn
+      , isDeleted
+      , version
         FROM dbo.ExistingWorkItemAssigned
 END
 GO
@@ -816,9 +882,10 @@ GO
 
 CREATE PROCEDURE [dbo].[proInsertExistingWorkItemAssigned]
 (
-		  @assignedNotes VARCHAR(200)
+    @newId INT OUTPUT
+		, @assignedNotes VARCHAR(1000)
 		, @assignedDate DATETIME
-		, @returnNotes VARCHAR(200)
+		, @returnNotes VARCHAR(1000)
 		, @returnDate DATETIME
 		, @employeeId INT
 		, @existingWorkItemId INT
@@ -844,7 +911,7 @@ BEGIN
 			, @existingWorkItemId
 			, @createdBy);
 
-	SELECT @@IDENTITY AS NewExistingWorkItemAssignedID;
+  SET @newId = SCOPE_IDENTITY();
 END
 
 GO
@@ -870,14 +937,16 @@ GO
 
 CREATE PROCEDURE [dbo].[proUpdateExistingWorkItemAssigned]
 (
-      @id INT
-    , @assignedNotes VARCHAR(200)
+    @id INT
+  , @assignedNotes VARCHAR(1000)
 	, @assignedDate DATETIME
-	, @returnNotes VARCHAR(200)
+	, @returnNotes VARCHAR(1000)
 	, @returnDate DATETIME
 	, @employeeId INT
 	, @existingWorkItemId INT
 	, @updatedBy INT
+  , @updatedOn DATETIME
+	, @version BIGINT
 )
 AS
 SET XACT_ABORT ON;
@@ -886,12 +955,14 @@ BEGIN
 
 	UPDATE dbo.ExistingWorkItemAssigned
     SET assignedNotes = @assignedNotes
-        , assignedDate = @assignedDate
+    , assignedDate = @assignedDate
 		, returnNotes = @returnNotes
 		, returnDate = @returnDate
 		, employeeId = @employeeId
 		, existingWorkItemId = @existingWorkItemId
 		, updatedBy = @updatedBy
+		, updatedOn = @updatedOn
+		, version   = @version
     WHERE id = @id;
 
 END
