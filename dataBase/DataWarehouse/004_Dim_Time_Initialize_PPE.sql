@@ -11,9 +11,11 @@
 *  Fecha:         Autor:                                 Descripcion:
  --------      -----------               -------------------------------------
  05/29/2018    Neyber Rojas              - Initial version
+ 06/07/2018    Neyber Rojas              - Added count validation
 ******************************************************************************/
 
-SET NOCOUNT ON -- turn off all the 1 row inserted messages
+SET NOCOUNT ON
+-- turn off all the 1 row inserted messages
 
 -- Hold our dates
 DECLARE @BeginDate DATETIME
@@ -23,15 +25,17 @@ DECLARE @EndDate DATETIME
 DECLARE @LastDayOfMon CHAR(1)
 
 -- Number of months to add to the date to get the current Fiscal date
-DECLARE @FiscalYearMonthsOffset INT   
+DECLARE @FiscalYearMonthsOffset INT
 
 -- These two counters are used in our loop.
-DECLARE @DateCounter DATETIME    --Current date in loop
-DECLARE @FiscalCounter DATETIME  --Fiscal Year Date in loop
+DECLARE @DateCounter DATETIME
+--Current date in loop
+DECLARE @FiscalCounter DATETIME
+--Fiscal Year Date in loop
 
 -- Set the date to start populating and end populating
 SET @BeginDate = '01/01/2018'
-SET @EndDate = '12/31/2018' 
+SET @EndDate = '12/31/2018'
 
 -- Set this to the number of months to add to the current date to get
 -- the beginning of the Fiscal year. For example, if the Fiscal year
@@ -43,46 +47,49 @@ SET @FiscalYearMonthsOffset = 6
 -- Start the counter at the begin date
 SET @DateCounter = @BeginDate
 
-WHILE @DateCounter <= @EndDate
+IF ((SELECT COUNT(1) FROM [PPE].[Dim_Time]) = 0)
+BEGIN
+  WHILE @DateCounter <= @EndDate
       BEGIN
-            -- Calculate the current Fiscal date as an offset of
-            -- the current date in the loop
-            SET @FiscalCounter = DATEADD(m, @FiscalYearMonthsOffset, @DateCounter)
+    -- Calculate the current Fiscal date as an offset of
+    -- the current date in the loop
+    SET @FiscalCounter = DATEADD(m, @FiscalYearMonthsOffset, @DateCounter)
 
-            -- Set value for IsLastDayOfMonth
-            IF MONTH(@DateCounter) = MONTH(DATEADD(d, 1, @DateCounter))
+    -- Set value for IsLastDayOfMonth
+    IF MONTH(@DateCounter) = MONTH(DATEADD(d, 1, @DateCounter))
                SET @LastDayOfMon = 'N'
             ELSE
-               SET @LastDayOfMon = 'Y'  
+               SET @LastDayOfMon = 'Y'
 
-            -- add a record into the date dimension table for this date
-            INSERT  INTO [PPE].[Dim_Time]
-                    (
-                      [FullDate]
-                    , [DateName]
-                    , [DateNameUS]
-                    , [DateNameEU]
-                    , [DayOfWeek]
-                    , [DayNameOfWeek]
-                    , [DayOfMonth]
-                    , [DayOfYear]
-                    , [WeekdayWeekend]
-                    , [WeekOfYear]
-                    , [MonthName]
-                    , [MonthOfYear]
-                    , [IsLastDayOfMonth]
-                    , [CalendarQuarter]
-                    , [CalendarYear]
-                    , [CalendarYearMonth]
-                    , [CalendarYearQtr]
-                    , [FiscalMonthOfYear]
-                    , [FiscalQuarter]
-                    , [FiscalYear]
-                    , [FiscalYearMonth]
-                    , [FiscalYearQtr]
-                    )
-            VALUES  (
-                      @DateCounter -- FullDate
+    -- add a record into the date dimension table for this date
+    INSERT  INTO [PPE].[Dim_Time]
+      (
+      [FullDate]
+      , [DateName]
+      , [DateNameUS]
+      , [DateNameEU]
+      , [DayOfWeek]
+      , [DayNameOfWeek]
+      , [DayOfMonth]
+      , [DayOfYear]
+      , [WeekdayWeekend]
+      , [WeekOfYear]
+      , [MonthName]
+      , [MonthOfYear]
+      , [IsLastDayOfMonth]
+      , [CalendarQuarter]
+      , [CalendarYear]
+      , [CalendarYearMonth]
+      , [CalendarYearQtr]
+      , [FiscalMonthOfYear]
+      , [FiscalQuarter]
+      , [FiscalYear]
+      , [FiscalYearMonth]
+      , [FiscalYearQtr]
+      )
+    VALUES
+      (
+        @DateCounter -- FullDate
                     , CAST(YEAR(@DateCounter) AS CHAR(4)) + '/'
                       + RIGHT('00' + RTRIM(CAST(DATEPART(mm, @DateCounter) AS CHAR(2))), 2) + '/'
                       + RIGHT('00' + RTRIM(CAST(DATEPART(dd, @DateCounter) AS CHAR(2))), 2) --DateName
@@ -118,8 +125,9 @@ WHILE @DateCounter <= @EndDate
                     , CAST(YEAR(@FiscalCounter) AS CHAR(4)) + 'Q' + DATENAME(qq, @FiscalCounter) --[FiscalYearQtr]
                     )
 
-            -- Increment the date counter for next pass thru the loop
-            SET @DateCounter = DATEADD(d, 1, @DateCounter)
-      END
+    -- Increment the date counter for next pass thru the loop
+    SET @DateCounter = DATEADD(d, 1, @DateCounter)
+  END
+END
 
 SET NOCOUNT ON -- turn the annoying messages back on
