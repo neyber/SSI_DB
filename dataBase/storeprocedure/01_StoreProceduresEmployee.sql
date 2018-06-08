@@ -34,10 +34,19 @@ BEGIN
 	 SELECT id
 			, name
 			, description
+			, createdBy
+      , createdOn
+      , updatedBy
+      , updatedOn
+      , isDeleted
+      , version
 
         FROM dbo.Department
         where id = @id;
 END
+GO
+
+PRINT 'Procedure dbo.proGetDepartment created';
 GO
 /******************************************************************************
 **  Name: SP proGetAllDepartment
@@ -66,9 +75,18 @@ BEGIN
 	SELECT  id
 			, name
 			, description
+			, createdBy
+      , createdOn
+      , updatedBy
+      , updatedOn
+      , isDeleted
+      , version
 
         FROM dbo.Department
 END
+GO
+
+PRINT 'Procedure dbo.proGetAllDepartment created';
 GO
 
 /******************************************************************************
@@ -93,9 +111,10 @@ GO
 
 CREATE PROCEDURE [dbo].[proInsertDepartment]
 (
-      @name VARCHAR(100)
+    @name VARCHAR(100)
 	, @description varchar(200)
-    , @createdBy INT
+  , @createdBy INT
+  , @newId INT OUTPUT
 )
 AS
 SET XACT_ABORT ON;
@@ -104,14 +123,20 @@ BEGIN
 
 	INSERT INTO dbo.Department(name
                             , description
-							, createdBy)
+							              , createdBy)
 	VALUES (@name
-			, @description
-            , @createdBy);
+			  , @description
+        , @createdBy);
 
-	SELECT @@IDENTITY AS NewDepartmentID;
+	SET @newId = SCOPE_IDENTITY();
+
+	PRINT 'Executed proInsertDepartment..';
 END
 GO
+
+PRINT 'Procedure dbo.proInsertDepartment created';
+GO
+
 
 
 /******************************************************************************
@@ -138,8 +163,10 @@ CREATE PROCEDURE [dbo].[proUpdateDepartment]
 (
       @id INT
     , @name VARCHAR(100)
-	, @description varchar(200)
+	  , @description varchar(200)
     , @updatedBy INT
+    , @updatedOn DATETIME
+    , @version BIGINT
 )
 AS
 SET XACT_ABORT ON;
@@ -150,8 +177,13 @@ BEGIN
     SET name = @name
         , description = @description
         , updatedBy = @updatedBy
+        , updatedOn   = @updatedOn
+		    , version   = @version
     WHERE id = @id;
 END
+GO
+
+PRINT 'Procedure dbo.proUpdateDepartment created';
 GO
 
 /******************************************************************************
@@ -187,6 +219,9 @@ BEGIN
 END
 GO
 
+PRINT 'Procedure dbo.proDeleteDepartment created';
+GO
+
 /******************************************************************************
 **  Name: SP proGetRole
 **  Desc: this script is to get a record from Role Table
@@ -219,10 +254,19 @@ BEGIN
 	 SELECT id
 			, name
 			, description
+			, createdBy
+      , createdOn
+      , updatedBy
+      , updatedOn
+      , isDeleted
+      , version
 
         FROM dbo.Role
         where id = @id;
 END
+GO
+
+PRINT 'Procedure dbo.proGetRole created';
 GO
 
 /******************************************************************************
@@ -254,9 +298,18 @@ BEGIN
 	 SELECT id
 			, name
 			, description
+			, createdBy
+      , createdOn
+      , updatedBy
+      , updatedOn
+      , isDeleted
+      , version
 
         FROM dbo.Role
 END
+GO
+
+PRINT 'Procedure dbo.proGetAllRole created';
 GO
 
 /******************************************************************************
@@ -281,8 +334,10 @@ GO
 CREATE PROCEDURE [dbo].[proInsertRole]
 (
       @name VARCHAR(100)
-	, @description varchar(200)
+	  , @description varchar(200)
     , @createdBy INT
+    , @newId INT OUTPUT
+
 )
 AS
 SET XACT_ABORT ON;
@@ -294,10 +349,13 @@ BEGIN
 							, createdBy)
 	VALUES (@name
 			, @description
-            , @createdBy);
+      , @createdBy);
 
-	SELECT @@IDENTITY AS NewRoleID;
+	SET @newId = SCOPE_IDENTITY();
 END
+GO
+
+PRINT 'Procedure dbo.proInsertRole created';
 GO
 
 
@@ -326,8 +384,10 @@ CREATE PROCEDURE [dbo].[proUpdateRole]
 (
       @id INT
     , @name VARCHAR(100)
-	, @description varchar(200)
+	  , @description varchar(200)
     , @updatedBy INT
+    , @updatedOn DATETIME
+    , @version BIGINT
 )
 AS
 SET XACT_ABORT ON;
@@ -338,8 +398,13 @@ BEGIN
     SET name = @name
         , description = @description
         , updatedBy = @updatedBy
+        , updatedOn = @updatedOn
+        , version = @version
     WHERE id = @id;
 END
+GO
+
+PRINT 'Procedure dbo.proUpdateRole created';
 GO
 
 /******************************************************************************
@@ -374,6 +439,9 @@ BEGIN
 	DELETE FROM dbo.Role
 	WHERE id = @id;
 END
+GO
+
+PRINT 'Procedure dbo.proDeleteRole created';
 GO
 
 /******************************************************************************
@@ -417,10 +485,19 @@ BEGIN
 		  , principalFunction
 		  , superiorBoss
 		  , roleFunctionId
+		  , createdBy
+      , createdOn
+      , updatedBy
+      , updatedOn
+      , isDeleted
+      , version
 
         FROM dbo.FunctionManual
         where id = @id;
 END
+GO
+
+PRINT 'Procedure dbo.proGetFunctionManual created';
 GO
 
 /******************************************************************************
@@ -460,9 +537,18 @@ BEGIN
 		  , principalFunction
 		  , superiorBoss
 		  , roleFunctionId
+		  , createdBy
+      , createdOn
+      , updatedBy
+      , updatedOn
+      , isDeleted
+      , version
 
         FROM dbo.FunctionManual
 END
+GO
+
+PRINT 'Procedure dbo.proGetAllFunctionManual created';
 GO
 
 /******************************************************************************
@@ -492,12 +578,13 @@ CREATE PROCEDURE [dbo].[proInsertFunctionManual]
 	, @generalActivity VARCHAR(200)
 	, @hierarchicalLever VARCHAR(50)
 	, @internalRelation VARCHAR(200)
-    , @name VARCHAR(50)
+  , @name VARCHAR(50)
 	, @position VARCHAR(50)
 	, @principalFunction VARCHAR(100)
 	, @superiorBoss VARCHAR(50)
-    , @roleFunctionId INT
+  , @roleFunctionId INT
 	, @createdBy INT
+	, @newId INT OUTPUT
 )
 AS
 SET XACT_ABORT ON;
@@ -527,8 +614,11 @@ BEGIN
 			, @roleFunctionId
 			, @createdBy);
 
-	SELECT @@IDENTITY AS NewFuntionManualID;
+	SET @newId = SCOPE_IDENTITY();
 END
+GO
+
+PRINT 'Procedure dbo.proInsertFunctionManual created';
 GO
 
 /******************************************************************************
@@ -558,12 +648,14 @@ CREATE PROCEDURE [dbo].[proUpdateFunctionManual]
 	, @generalActivity VARCHAR(200)
 	, @hierarchicalLever VARCHAR(50)
 	, @internalRelation VARCHAR(200)
-    , @name VARCHAR(50)
+  , @name VARCHAR(50)
 	, @position VARCHAR(50)
 	, @principalFunction VARCHAR(100)
 	, @superiorBoss VARCHAR(50)
-    , @roleFunctionId INT
+  , @roleFunctionId INT
 	, @updatedBy INT
+	, @updatedOn DATETIME
+  , @version BIGINT
 )
 AS
 SET XACT_ABORT ON;
@@ -582,8 +674,13 @@ BEGIN
 		, superiorBoss = @superiorBoss
 		, roleFunctionId = @roleFunctionId
 		, updatedBy = @updatedBy
+		, updatedOn = @UpdatedOn
+		, version = @version
     WHERE id = @id;
 END
+GO
+
+PRINT 'Procedure dbo.proUpdateFunctionManual created';
 GO
 
 /******************************************************************************
@@ -617,6 +714,9 @@ BEGIN
 	DELETE FROM dbo.FunctionManual
 	WHERE id = @id;
 END
+GO
+
+PRINT 'Procedure dbo.proDeleteFunctionManual created';
 GO
 /******************************************************************************
 **  Name: SP proGetEmplyoee
@@ -657,10 +757,20 @@ BEGIN
 			, departmentEmployeeId
 			, roleEmployeeId
 			, supervisorId
+			, photoFileDocumentId
+			, createdBy
+      , createdOn
+      , updatedBy
+      , updatedOn
+      , isDeleted
+      , version
 
         FROM dbo.Employee
         where id = @id;
 END
+GO
+
+PRINT 'Procedure dbo.proGetEmployee created';
 GO
 /******************************************************************************
 **  Name: SP proGetAllEmplyoee
@@ -698,9 +808,19 @@ BEGIN
 			, departmentEmployeeId
 			, roleEmployeeId
 			, supervisorId
+			, photoFileDocumentId
+			, createdBy
+      , createdOn
+      , updatedBy
+      , updatedOn
+      , isDeleted
+      , version
 
         FROM dbo.Employee
 END
+GO
+
+PRINT 'Procedure dbo.proGetAllEmployee created';
 GO
 
 /******************************************************************************
@@ -731,12 +851,14 @@ CREATE PROCEDURE [dbo].[proInsertEmployee]
 	, @gender CHAR(1)
 	, @healthConditionStartingAtCompany VARCHAR(100)
 	, @identificationNumber BIGINT
-    , @lastName VARCHAR(50)
+  , @lastName VARCHAR(50)
 	, @startDateInCompany DATE
 	, @departmentEmployeeId INT
 	, @roleEmployeeId INT
-    , @supervisorId INT
+  , @supervisorId INT
+  , @photoFileDocumentId INT
 	, @createdBy INT
+	, @newId INT OUTPUT
 )
 AS
 SET XACT_ABORT ON;
@@ -753,6 +875,7 @@ BEGIN
 						   , departmentEmployeeId
 						   , RoleEmployeeId
 						   , SupervisorId
+						   , photoFileDocumentId
 						   , createdBy)
 	VALUES (  @dateOfBirth
 			, @firstName
@@ -764,10 +887,14 @@ BEGIN
 			, @departmentEmployeeId
 			, @roleEmployeeId
 			, @supervisorId
+			, @photoFileDocumentId
 			, @createdBy);
 
-	SELECT @@IDENTITY AS NewEmployeeID;
+	SET @newId = SCOPE_IDENTITY();
 END
+GO
+
+PRINT 'Procedure dbo.proInsertEmployee created';
 GO
 
 
@@ -798,12 +925,15 @@ CREATE PROCEDURE [dbo].[proUpdateEmployee]
 	, @gender CHAR(1)
 	, @healthConditionStartingAtCompany VARCHAR(100)
 	, @identificationNumber BIGINT
-    , @lastName VARCHAR(50)
+  , @lastName VARCHAR(50)
 	, @startDateInCompany DATE
 	, @departmentEmployeeId INT
 	, @roleEmployeeId INT
-    , @supervisorId INT
+  , @supervisorId INT
+  , @photoFileDocumentId INT
 	, @updatedBy INT
+	, @updatedOn DATETIME
+	, @version BIGINT
 )
 AS
 SET XACT_ABORT ON;
@@ -821,9 +951,15 @@ BEGIN
 		, departmentEmployeeId = @departmentEmployeeId
 		, roleEmployeeId = @roleEmployeeId
 		, supervisorId = @supervisorId
+		, photoFileDocumentId = @photoFileDocumentId
 		, updatedBy = @updatedBy
+		, updatedOn = @updatedOn
+		, version = @version
     WHERE id = @id;
 END
+GO
+
+PRINT 'Procedure dbo.proUpdatetEmployee created';
 GO
 
 /******************************************************************************
@@ -856,6 +992,9 @@ BEGIN
 	DELETE FROM dbo.Employee
 	WHERE id = @id;
 END
+GO
+
+PRINT 'Procedure dbo.proDeleteEmployee created';
 GO
 
 
@@ -898,10 +1037,19 @@ BEGIN
 			, employeeId
 			, periodicity
 			, DepartmentId
+			,createdBy
+      ,createdOn
+      ,updatedBy
+      ,updatedOn
+      ,isDeleted
+      ,version
 
         FROM dbo.Audit
         where id = @id;
 END
+GO
+
+PRINT 'Procedure dbo.proGetAudit created';
 GO
 
 /******************************************************************************
@@ -939,9 +1087,18 @@ BEGIN
 			, employeeId
 			, periodicity
 			, DepartmentId
+			, createdBy
+      , createdOn
+      , updatedBy
+      , updatedOn
+      , isDeleted
+      , version
 
         FROM dbo.Audit
 END
+GO
+
+PRINT 'Procedure dbo.proGetAllAudit created';
 GO
 
 /******************************************************************************
@@ -975,7 +1132,8 @@ CREATE PROCEDURE [dbo].[proInsertAudit]
       , @employeeId INT
       , @periodicity VARCHAR(50)
       , @DepartmentId INT
-	  , @createdBy INT
+	    , @createdBy INT
+	    , @newId INT OUTPUT
 )
 AS
 SET XACT_ABORT ON;
@@ -1003,8 +1161,11 @@ BEGIN
 		    , @DepartmentId
 		    , @createdBy);
 
-	SELECT @@IDENTITY AS NewAuditID;
+	SET @newId = SCOPE_IDENTITY();
 END
+GO
+
+PRINT 'Procedure dbo.proInsertAudit created';
 GO
 
 
@@ -1040,7 +1201,9 @@ CREATE PROCEDURE [dbo].[proUpdateAudit]
     , @employeeId INT
     , @periodicity VARCHAR(50)
     , @DepartmentId INT
-	, @updatedBy INT
+	  , @updatedBy INT
+	  , @updatedOn DATETIME
+	  , @version BIGINT
 )
 AS
 SET XACT_ABORT ON;
@@ -1058,8 +1221,13 @@ BEGIN
 		, periodicity = @periodicity
 		, DepartmentId = @DepartmentId
 		, updatedBy = @updatedBy
+		, updatedOn = @updatedOn
+		, version = @version
     WHERE id = @id;
 END
+GO
+
+PRINT 'Procedure dbo.proUpdateAudit created';
 GO
 
 /******************************************************************************
@@ -1093,6 +1261,9 @@ BEGIN
 	DELETE FROM dbo.Audit
 	WHERE id = @id;
 END
+GO
+
+PRINT 'Procedure dbo.proDeleteAudit created';
 GO
 
 /******************************************************************************
@@ -1131,10 +1302,19 @@ BEGIN
 			, complianceParameter
 			, policyCode
 			, policyName
+			, createdBy
+      , createdOn
+      , updatedBy
+      , updatedOn
+      , isDeleted
+      , version
 
         FROM dbo.SafetyRule
         where id = @id;
 END
+GO
+
+PRINT 'Procedure dbo.proGetSafetyRule created';
 GO
 
 /******************************************************************************
@@ -1170,9 +1350,18 @@ BEGIN
 			, complianceParameter
 			, policyCode
 			, policyName
+			, createdBy
+      , createdOn
+      , updatedBy
+      , updatedOn
+      , isDeleted
+      , version
 
         FROM dbo.SafetyRule
 END
+GO
+
+PRINT 'Procedure dbo.proGetAllSafetyRule created';
 GO
 
 /******************************************************************************
@@ -1196,13 +1385,14 @@ GO
 
 CREATE PROCEDURE [dbo].[proInsertSafetyRule]
 (
-		@accomplishment BIT
+		  @accomplishment BIT
       , @auditId INT
       , @complianceMetric INT
       , @complianceParameter INT
       , @policyCode VARCHAR(100)
       , @policyName VARCHAR(100)
-	  , @createdBy INT
+	    , @createdBy INT
+	    , @newId INT OUTPUT
 )
 AS
 SET XACT_ABORT ON;
@@ -1224,8 +1414,11 @@ BEGIN
 			, @policyName
 			, @createdBy);
 
-	SELECT @@IDENTITY AS NewSafetyRuleID;
+	SET @newId = SCOPE_IDENTITY();
 END
+GO
+
+PRINT 'Procedure dbo.proInsertSafetyRule created';
 GO
 
 /******************************************************************************
@@ -1257,7 +1450,9 @@ CREATE PROCEDURE [dbo].[proUpdateSafetyRule]
     , @complianceParameter INT
     , @policyCode VARCHAR(100)
     , @policyName VARCHAR(100)
-	, @updatedBy INT
+	  , @updatedBy INT
+	  , @updatedOn DATETIME
+	  , @version BIGINT
 )
 AS
 SET XACT_ABORT ON;
@@ -1272,8 +1467,13 @@ BEGIN
 		, policyCode = @policyCode
 		, policyName = @policyName
 		, updatedBy = @updatedBy
+		, updatedOn = @updatedOn
+		, version = @version
     WHERE id = @id;
 END
+GO
+
+PRINT 'Procedure dbo.proUpdateSafetyRule created';
 GO
 
 /******************************************************************************
@@ -1307,6 +1507,9 @@ BEGIN
 	DELETE FROM dbo.SafetyRule
 	WHERE id = @id;
 END
+GO
+
+PRINT 'Procedure dbo.proDeleteSafetyRule created';
 GO
 
 -- End Marcelo
