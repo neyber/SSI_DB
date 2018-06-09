@@ -44,20 +44,25 @@ BEGIN
  
   IF UPDATE(assignedNotes)
   BEGIN
-    INSERT INTO dbo.AuditHistory_SSI(TableName, 
-                                 ColumnName, 
-                                 ID, 
-                                 Date, 
-                                 OldValue, 
-                                 NewValue,
-								 ModifiedBy) 
-    SELECT TableName    = 'ExistingPpeAssigned', 
-           ColumnName   = 'assignedNotes',
-           ID1          = i.Id, 
-           Date         = @CurrDate, 
-           OldValue     = d.[assignedNotes], 
-           NewValue     = i.[assignedNotes],
-           ModifiedBy   = i.updatedBy
+    INSERT INTO dbo.AuditHistory_SSI(tableName, 
+                                 columnName, 
+                                 idFeature, 
+                                 oldvalue, 
+                                 newValue, 
+                                 createdDate,
+								 createdBy, 
+                                 modifiedDate,
+								 modifiedBy) 
+    SELECT tableName    = 'ExistingPpeAssigned', 
+           columnName   = 'assignedNotes',
+           idFeature    = i.Id, 
+           oldvalue     = d.[assignedNotes], 
+           newValue     = i.[assignedNotes], 
+           createdDate  = i.createdOn,
+           createdBy    = i.createdBy,
+		   modifiedDate = i.updatedOn,
+		   modifiedBy   = i.updatedBy         
+
     FROM deleted d 
     FULL OUTER JOIN inserted i ON (d.Id = i.Id)
     WHERE ISNULL(d.assignedNotes, '') != ISNULL(i.assignedNotes, '');
@@ -65,20 +70,24 @@ BEGIN
 
     IF UPDATE(returnNotes)
   BEGIN
-    INSERT INTO dbo.AuditHistory_SSI(TableName, 
-                                 ColumnName, 
-                                 ID, 
-                                 Date, 
-                                 OldValue, 
-                                 NewValue,
-								 ModifiedBy) 
-    SELECT TableName    = 'ExistingPpeAssigned', 
-           ColumnName   = 'returnNotes',
-           ID1          = i.Id, 
-           Date         = @CurrDate, 
-           OldValue     = d.[returnNotes], 
-           NewValue     = i.[returnNotes],
-           ModifiedBy   = i.updatedBy 
+    INSERT INTO dbo.AuditHistory_SSI(tableName, 
+                                 columnName, 
+                                 idFeature, 
+                                 oldvalue, 
+                                 newValue, 
+                                 createdDate,
+								 createdBy, 
+                                 modifiedDate,
+								 modifiedBy) 
+    SELECT tableName    = 'ExistingPpeAssigned', 
+           columnName   = 'returnNotes',
+           idFeature    = i.Id, 
+           oldvalue     = d.[returnNotes], 
+           newValue     = i.[returnNotes], 
+           createdDate  = i.createdOn,
+           createdBy    = i.createdBy,
+		   modifiedDate = i.updatedOn,
+		   modifiedBy   = i.updatedBy  
     FROM deleted d 
     FULL OUTER JOIN inserted i ON (d.Id = i.Id)
     WHERE ISNULL(d.returnNotes, '') != ISNULL(i.returnNotes, '');

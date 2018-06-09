@@ -46,20 +46,24 @@ BEGIN
  
   IF UPDATE(detail) 
   BEGIN
-    INSERT INTO dbo.AuditHistory_SSI(TableName, 
-                                 ColumnName, 
-                                 ID, 
-                                 Date, 
-                                 OldValue, 
-                                 NewValue,
-								 ModifiedBy) 
-    SELECT TableName    = 'ExistingPpe', 
-           ColumnName   = 'detail',
-           ID1          = i.Id, 
-           Date         = @CurrDate, 
-           OldValue     = d.[detail], 
-           NewValue     = i.[detail],
-           ModifiedBy   = i.updatedBy
+    INSERT INTO dbo.AuditHistory_SSI(tableName, 
+                                 columnName, 
+                                 idFeature, 
+                                 oldvalue, 
+                                 newValue, 
+                                 createdDate,
+								 createdBy, 
+                                 modifiedDate,
+								 modifiedBy) 
+    SELECT tableName    = 'ExistingPpe', 
+           columnName   = 'detail',
+           idFeature    = i.Id, 
+           oldvalue     = d.[detail], 
+           newValue     = i.[detail], 
+           createdDate  = i.createdOn,
+           createdBy    = i.createdBy,
+		   modifiedDate = i.updatedOn,
+		   modifiedBy   = i.updatedBy 
 		    FROM deleted d 
     FULL OUTER JOIN inserted i ON (d.Id = i.Id)
     WHERE ISNULL(d.detail, '') != ISNULL(i.detail, '');
@@ -67,20 +71,24 @@ BEGIN
 
     IF UPDATE(lifeTimeDays)
   BEGIN
-    INSERT INTO dbo.AuditHistory_SSI(TableName, 
-                                 ColumnName, 
-                                 ID, 
-                                 Date, 
-                                 OldValue, 
-                                 NewValue,
-								 ModifiedBy) 
-    SELECT TableName    = 'ExistingPpe', 
-           ColumnName   = 'lifeTimeDays',
-           ID1          = i.Id, 
-           Date         = @CurrDate, 
-           OldValue     = d.[lifeTimeDays], 
-           NewValue     = i.[lifeTimeDays],
-           ModifiedBy   = i.updatedBy
+    INSERT INTO dbo.AuditHistory_SSI(tableName, 
+                                 columnName, 
+                                 idFeature, 
+                                 oldvalue, 
+                                 newValue, 
+                                 createdDate,
+								 createdBy, 
+                                 modifiedDate,
+								 modifiedBy) 
+    SELECT tableName    = 'ExistingPpe', 
+           columnName   = 'lifeTimeDays',
+           idFeature    = i.Id, 
+           oldvalue     = d.[lifeTimeDays], 
+           newValue     = i.[lifeTimeDays], 
+           createdDate  = i.createdOn,
+           createdBy    = i.createdBy,
+		   modifiedDate = i.updatedOn,
+		   modifiedBy   = i.updatedBy 
     FROM deleted d 
     FULL OUTER JOIN inserted i ON (d.Id = i.Id)
     WHERE ISNULL(d.lifeTimeDays, '') != ISNULL(i.lifeTimeDays, '');
