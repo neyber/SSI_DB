@@ -45,20 +45,28 @@ BEGIN
  
   IF UPDATE(name)
   BEGIN
-    INSERT INTO dbo.AuditHistory_SSI(TableName, 
-                                 ColumnName, 
-                                 ID, 
-                                 Date, 
-                                 OldValue, 
-                                 NewValue,
-								 ModifiedBy) 
-    SELECT TableName    = 'FunctionManual', 
-           ColumnName   = 'name',
-           ID1          = i.Id, 
-           Date         = @CurrDate, 
-           OldValue     = d.[name], 
-           NewValue     = i.[name],
-           ModifiedBy   = i.updatedBy          
+    INSERT INTO dbo.AuditHistory_SSI(tableName, 
+                                 columnName, 
+                                 idFeature, 
+                                 oldvalue, 
+                                 newValue, 
+                                 createdDate,
+								 createdBy, 
+                                 modifiedDate,
+								 modifiedBy) 
+    SELECT  
+		   tableName    = 'FunctionManual', 
+           columnName   = 'name',
+           idFeature    = i.Id, 
+           oldvalue     = d.[name], 
+           newValue     = i.[name], 
+           createdDate  = i.createdOn,
+           createdBy    = i.createdBy,
+		   modifiedDate = i.updatedOn,
+		   modifiedBy   = i.updatedBy   
+		   
+		   
+		          
     FROM deleted d 
     FULL OUTER JOIN inserted i ON (d.Id = i.Id)
     WHERE ISNULL(d.name, '') != ISNULL(i.name, '');
@@ -66,20 +74,24 @@ BEGIN
 
     IF UPDATE(position)
   BEGIN
-    INSERT INTO dbo.AuditHistory_SSI(TableName, 
-                                 ColumnName, 
-                                 ID, 
-                                 Date, 
-                                 OldValue, 
-                                 NewValue,
-								 ModifiedBy) 
-    SELECT TableName    = 'FunctionManual', 
-           ColumnName   = 'position',
-           ID1          = i.Id, 
-           Date         = @CurrDate, 
-           OldValue     = d.[position], 
-           NewValue     = i.[position],
-           ModifiedBy   = i.updatedBy          
+    INSERT INTO dbo.AuditHistory_SSI(tableName, 
+                                 columnName, 
+                                 idFeature, 
+                                 oldvalue, 
+                                 newValue, 
+                                 createdDate,
+								 createdBy, 
+                                 modifiedDate,
+								 modifiedBy) 
+    SELECT  tableName    = 'FunctionManual', 
+           columnName   = 'position',
+           idFeature    = i.Id, 
+           oldvalue     = d.[position], 
+           newValue     = i.[position], 
+           createdDate  = i.createdOn,
+           createdBy    = i.createdBy,
+		   modifiedDate = i.updatedOn,
+		   modifiedBy   = i.updatedBy           
     FROM deleted d 
     FULL OUTER JOIN inserted i ON (d.Id = i.Id)
     WHERE ISNULL(d.position, '') != ISNULL(i.position, '');
@@ -87,20 +99,25 @@ BEGIN
 
       IF UPDATE(principalFunction)
   BEGIN
-    INSERT INTO dbo.AuditHistory_SSI(TableName, 
-                                 ColumnName, 
-                                 ID, 
-                                 Date, 
-                                 OldValue, 
-                                 NewValue,
-								 ModifiedBy) 
-    SELECT TableName    = 'FunctionManual', 
-           ColumnName   = 'principalFunction',
-           ID1          = i.Id, 
-           Date         = @CurrDate, 
-           OldValue     = d.[principalFunction], 
-           NewValue     = i.[principalFunction],
-           ModifiedBy   = i.updatedBy          
+    INSERT INTO dbo.AuditHistory_SSI(tableName, 
+                                 columnName, 
+                                 idFeature, 
+                                 oldvalue, 
+                                 newValue, 
+                                 createdDate,
+								 createdBy, 
+                                 modifiedDate,
+								 modifiedBy) 
+    SELECT  
+		   tableName    = 'FunctionManual', 
+           columnName   = 'principalFunction',
+           idFeature    = i.Id, 
+           oldvalue     = d.[principalFunction], 
+           newValue     = i.[principalFunction], 
+           createdDate  = i.createdOn,
+           createdBy    = i.createdBy,
+		   modifiedDate = i.updatedOn,
+		   modifiedBy   = i.updatedBy        
     FROM deleted d 
     FULL OUTER JOIN inserted i ON (d.Id = i.Id)
     WHERE ISNULL(d.principalFunction, '') != ISNULL(i.principalFunction, '');

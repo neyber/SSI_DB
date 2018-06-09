@@ -59,13 +59,13 @@ BEGIN
            idFeature    = i.Id, 
            oldvalue     = d.[name], 
            newValue     = i.[name], 
-           createdDate  = @CurrDate,
+           createdDate  = i.createdOn,
            createdBy    = i.createdBy,
 		   modifiedDate = i.updatedOn,
-		   modifiedBy   = 1         
+		   modifiedBy   = i.updatedBy         
     FROM deleted d 
     FULL OUTER JOIN inserted i ON (d.Id = i.Id)
-    WHERE ISNULL(d.updatedOn, '') != ISNULL(i.updatedOn, '');
+    WHERE ISNULL(d.name, '') != ISNULL(i.name, '');
   END
 
 
@@ -85,13 +85,13 @@ BEGIN
            idFeature    = i.Id, 
            oldvalue     = d.[description], 
            newValue     = i.[description], 
-           createdDate  = @CurrDate,
+           createdDate  = i.createdOn,
            createdBy    = i.createdBy,
 		   modifiedDate = i.updatedOn,
-		   modifiedBy   = 1         
+		   modifiedBy   = i.updatedBy        
     FROM deleted d 
     FULL OUTER JOIN inserted i ON (d.Id = i.Id)
-    WHERE ISNULL(d.updatedOn, '') != ISNULL(i.updatedOn, '');
+    WHERE ISNULL(d.description, '') != ISNULL(i.description, '');
   END
 
   PRINT '[TG_WorkItem(Audit)_InsertUpdate]';
