@@ -45,44 +45,57 @@ BEGIN
  
   IF UPDATE(name)
   BEGIN
-    INSERT INTO dbo.AuditHistory_SSI(TableName, 
-                                 ColumnName, 
-                                 ID, 
-                                 Date, 
-                                 OldValue, 
-                                 NewValue,
-								 ModifiedBy) 
-    SELECT TableName    = 'WorkItem', 
-           ColumnName   = 'updatedOn',
-           ID1          = i.Id, 
-           Date         = @CurrDate, 
-           OldValue     = d.[name], 
-           NewValue     = i.[name],
-           ModifiedBy   = i.updatedBy          
+    INSERT INTO dbo.AuditHistory_SSI(tableName, 
+                                 columnName, 
+                                 idFeature, 
+                                 oldvalue, 
+                                 newValue, 
+                                 createdDate,
+								 createdBy, 
+                                 modifiedDate,
+								 modifiedBy) 
+    SELECT tableName    = 'WorkItem', 
+           columnName   = 'name',
+           idFeature    = i.Id, 
+           oldvalue     = d.[name], 
+           newValue     = i.[name], 
+           createdDate  = @CurrDate,
+           createdBy    = i.createdBy,
+		   modifiedDate = i.updatedOn,
+		   modifiedBy   = 1         
     FROM deleted d 
     FULL OUTER JOIN inserted i ON (d.Id = i.Id)
     WHERE ISNULL(d.updatedOn, '') != ISNULL(i.updatedOn, '');
   END
 
-    IF UPDATE(createdOn)
+
+  IF UPDATE(description)
   BEGIN
-    INSERT INTO dbo.AuditHistory_SSI(TableName, 
-                                 ColumnName, 
-                                 ID, 
-                                 Date, 
-                                 OldValue, 
-                                 NewValue,
-								 CreatedBy) 
-    SELECT TableName    = 'WorkItem', 
-           ColumnName   = 'createdOn',
-           ID1          = i.Id, 
-           Date         = @CurrDate, 
-           OldValue     = d.[createdOn], 
-           NewValue     = i.[createdOn],
-           CreatedBy   = i.createdBy          
+    INSERT INTO dbo.AuditHistory_SSI(tableName, 
+                                 columnName, 
+                                 idFeature, 
+                                 oldvalue, 
+                                 newValue, 
+                                 createdDate,
+								 createdBy, 
+                                 modifiedDate,
+								 modifiedBy) 
+    SELECT tableName    = 'WorkItem', 
+           columnName   = 'description',
+           idFeature    = i.Id, 
+           oldvalue     = d.[description], 
+           newValue     = i.[description], 
+           createdDate  = @CurrDate,
+           createdBy    = i.createdBy,
+		   modifiedDate = i.updatedOn,
+		   modifiedBy   = 1         
     FROM deleted d 
     FULL OUTER JOIN inserted i ON (d.Id = i.Id)
-    WHERE ISNULL(d.createdOn, '') != ISNULL(i.createdOn, '');
+    WHERE ISNULL(d.updatedOn, '') != ISNULL(i.updatedOn, '');
   END
 
+  PRINT '[TG_WorkItem(Audit)_InsertUpdate]';
 END;
+
+
+
