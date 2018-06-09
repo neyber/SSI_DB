@@ -29,7 +29,9 @@ SET XACT_ABORT ON;
 SET NOCOUNT ON;
 BEGIN
 
-	 SELECT category
+	 SELECT
+	          id
+	          , category
             , description
             , reference
             , createdBy
@@ -73,7 +75,9 @@ AS
 SET XACT_ABORT ON;
 SET NOCOUNT ON;
 BEGIN
-	SELECT category
+	SELECT
+	          id
+	          , category
             , description
             , reference
             , createdBy
@@ -113,10 +117,11 @@ GO
 
 CREATE PROCEDURE [dbo].[proInsertSaCategory]
 (
-    @category VARCHAR(200)
+  @newId INT OUTPUT
+  , @category VARCHAR(200)
 	, @description VARCHAR(1000)
 	, @reference VARCHAR(1000)
-    , @createdBy INT
+  , @createdBy INT
 )
 AS
 SET XACT_ABORT ON;
@@ -130,9 +135,10 @@ BEGIN
 	VALUES (@category
 			, @description
 			, @reference
-            , @createdBy
+      , @createdBy
 			);
 
+  SET @newId = SCOPE_IDENTITY();
 	PRINT 'Executed proInsertSaCategory..';
 END
 GO
@@ -162,10 +168,12 @@ GO
 CREATE PROCEDURE [dbo].[proUpdateSaCategory]
 (
     @id INT
-    , @category VARCHAR(100)
-	, @description VARCHAR(1000)
-	, @referece VARCHAR(1000)
-    , @updatedBy INT
+   , @category VARCHAR(100)
+	 , @description VARCHAR(1000)
+	 , @reference VARCHAR(1000)
+   , @updatedBy INT
+	 , @updatedOn DATETIME
+	 , @version BIGINT
 )
 AS
 SET XACT_ABORT ON;
@@ -174,9 +182,11 @@ BEGIN
 
 	UPDATE dbo.SaCategory
     SET category = @category
-        , [description] = @description
-        , reference = @referece
+        , description = @description
+        , reference = @reference
         , updatedBy = @updatedBy
+		    , updatedOn = @updatedOn
+		    , version = @version
     WHERE id = @id;
 
     PRINT 'Executed proInsertSaCategory..';
@@ -339,7 +349,8 @@ GO
 
 CREATE PROCEDURE [dbo].[proInsertSaType]
 (
-    @type VARCHAR(200)
+    @newId INT OUTPUT
+    , @type VARCHAR(200)
 	  , @description VARCHAR(1000)
     , @createdBy INT
 )
@@ -356,6 +367,7 @@ BEGIN
             , @createdBy
 			);
 
+   SET @newId = SCOPE_IDENTITY();
    PRINT 'Executed proInsertSaType..';
 END
 GO
@@ -390,6 +402,8 @@ CREATE PROCEDURE [dbo].[proUpdateSaType]
     , @type VARCHAR(100)
 	  , @description VARCHAR(1000)
     , @updatedBy INT
+	  , @updatedOn DATETIME
+	  , @version BIGINT
 )
 AS
 SET XACT_ABORT ON;
@@ -399,6 +413,9 @@ BEGIN
 	UPDATE dbo.SaType
     SET type = @type
         , description = @description
+        , updatedBy = @updatedBy
+		    , updatedOn = @updatedOn
+		    , version = @version
     WHERE id = @id;
 
     PRINT 'Executed proInsertSaType..';
@@ -477,13 +494,13 @@ BEGIN
 	          id
 	          , description
             , dateAccident
+            , whereOccurr
             , statusRecord
-            , WhereOccurr
             , totalDaysOutOfWork
             , totalDaysRestrictedTransferredWork
-            , employeeId
             , saCategoryId
             , saTypeId
+            , employeeId
             , createdBy
             , createdOn
             , updatedBy
@@ -529,13 +546,13 @@ BEGIN
 	            id
 	          , description
             , dateAccident
+            , whereOccurr
             , statusRecord
-            , WhereOccurr
             , totalDaysOutOfWork
             , totalDaysRestrictedTransferredWork
-            , employeeId
             , saCategoryId
             , saTypeId
+            , employeeId
             , createdBy
             , createdOn
             , updatedBy
@@ -573,15 +590,16 @@ GO
 
 CREATE PROCEDURE [dbo].[proInsertAccident]
 (
-    @description VARCHAR(200)
+    @newId INT OUTPUT
+    , @description VARCHAR(1000)
 	  , @dateAccident DATETIME
-	  , @statusRecord BIT
-    , @WhereOccurr VARCHAR(100)
+    , @whereOccurr VARCHAR(1000)
+    , @statusRecord BIT
 	  , @totalDaysOutOfWork INT
     , @totalDaysRestrictedTransferredWork INT
-    , @employeeId INT
     , @saCategoryId INT
     , @saTypeId INT
+    , @employeeId INT
     , @createdBy INT
 )
 AS
@@ -591,26 +609,27 @@ BEGIN
 
 	INSERT INTO dbo.Accident(description
                             , dateAccident
+                            , whereOccurr
                             , statusRecord
-                            , WhereOccurr
                             , totalDaysOutOfWork
                             , totalDaysRestrictedTransferredWork
-                            , employeeId
                             , saCategoryId
                             , saTypeId
+                            , employeeId
                             , createdBy)
 	VALUES (@description
 			   , @dateAccident
-			   , @statusRecord
-         , @WhereOccurr
+         , @whereOccurr
+         , @statusRecord
 			   , @totalDaysOutOfWork
          , @totalDaysRestrictedTransferredWork
-         , @employeeId
          , @saCategoryId
          , @saTypeId
+         , @employeeId
         , @createdBy);
 
-	 PRINT 'Executed proInsertAccident..';
+  SET @newId = SCOPE_IDENTITY();
+	PRINT 'Executed proInsertAccident..';
 END
 GO
 
@@ -642,14 +661,16 @@ CREATE PROCEDURE [dbo].[proUpdateAccident]
     @id INT
     , @description VARCHAR(200)
 	  , @dateAccident DATETIME
-	  , @statusRecord BIT
-    , @WhereOccurr VARCHAR(100)
+    , @whereOccurr VARCHAR(100)
+    , @statusRecord BIT
 	  , @totalDaysOutOfWork INT
     , @totalDaysRestrictedTransferredWork INT
-    , @employeeId INT
     , @saCategoryId INT
     , @saTypeId INT
+    , @employeeId INT
     , @updatedBy INT
+	  , @updatedOn DATETIME
+	  , @version BIGINT
 )
 AS
 SET XACT_ABORT ON;
@@ -660,13 +681,15 @@ BEGIN
     SET description = @description
         , dateAccident = @dateAccident
         , statusRecord = @statusRecord
-        , WhereOccurr = @WhereOccurr
+        , whereOccurr = @whereOccurr
         , totalDaysOutOfWork = @totalDaysOutOfWork
         , totalDaysRestrictedTransferredWork = @totalDaysRestrictedTransferredWork
-        , employeeId = @employeeId
         , saCategoryId = @saCategoryId
         , saTypeId = @saTypeId
+        , employeeId = @employeeId
         , updatedBy = @updatedBy
+		    , updatedOn = @updatedOn
+		    , version = @version
     WHERE id = @id;
 
 	 PRINT 'Executed proUpdateAccident..';
@@ -746,13 +769,13 @@ BEGIN
             id
             , description
             , dateSickness
+            , whereOccurr
             , statusRecord
-            , WhereOccurr
             , totalDaysOutOfWork
             , totalDaysRestrictedTransferredWork
-            , employeeId
             , saCategoryId
             , saTypeId
+            , employeeId
             , createdBy
             , createdOn
             , updatedBy
@@ -796,13 +819,13 @@ BEGIN
             id
             , description
             , dateSickness
+            , whereOccurr
             , statusRecord
-            , WhereOccurr
             , totalDaysOutOfWork
             , totalDaysRestrictedTransferredWork
-            , employeeId
             , saCategoryId
             , saTypeId
+            , employeeId
             , createdBy
             , createdOn
             , updatedBy
@@ -840,15 +863,16 @@ GO
 
 CREATE PROCEDURE [dbo].[proInsertSickness]
 (
-    @description VARCHAR(200)
+    @newId INT OUTPUT
+    , @description VARCHAR(200)
 	  , @dateSickness DATETIME
-	  , @statusRecord BIT
-    , @WhereOccurr VARCHAR(100)
+    , @whereOccurr VARCHAR(100)
+    , @statusRecord BIT
 	  , @totalDaysOutOfWork INT
     , @totalDaysRestrictedTransferredWork INT
-    , @employeeId INT
     , @saCategoryId INT
     , @saTypeId INT
+    , @employeeId INT
     , @createdBy INT
 )
 AS
@@ -858,25 +882,26 @@ BEGIN
 
 	INSERT INTO dbo.Sickness(description
                             , dateSickness
+                            , whereOccurr
                             , statusRecord
-                            , WhereOccurr
                             , totalDaysOutOfWork
                             , totalDaysRestrictedTransferredWork
-                            , employeeId
                             , saCategoryId
                             , saTypeId
+                            , employeeId
                             , createdBy)
 	VALUES (@description
 			      , @dateSickness
-			      , @statusRecord
-            , @WhereOccurr
+            , @whereOccurr
+            , @statusRecord
 			      , @totalDaysOutOfWork
             , @totalDaysRestrictedTransferredWork
-            , @employeeId
             , @saCategoryId
             , @saTypeId
+            , @employeeId
             , @createdBy);
 
+  SET @newId = SCOPE_IDENTITY();
 
   PRINT 'Executed proInsertSickness..';
 END
@@ -910,14 +935,16 @@ CREATE PROCEDURE [dbo].[proUpdateSickness]
     @id INT
     , @description VARCHAR(200)
 	  , @dateSickness DATETIME
-	  , @statusRecord BIT
-    , @WhereOccurr VARCHAR(100)
+    , @whereOccurr VARCHAR(100)
+    , @statusRecord BIT
 	  , @totalDaysOutOfWork INT
     , @totalDaysRestrictedTransferredWork INT
-    , @employeeId INT
     , @saCategoryId INT
     , @saTypeId INT
+    , @employeeId INT
     , @updatedBy INT
+	  , @updatedOn DATETIME
+	  , @version BIGINT
 )
 AS
 SET XACT_ABORT ON;
@@ -928,14 +955,16 @@ BEGIN
 
     SET description = @description
         , dateSickness = @dateSickness
+        , whereOccurr = @whereOccurr
         , statusRecord = @statusRecord
-        , WhereOccurr = @WhereOccurr
         , totalDaysOutOfWork = @totalDaysOutOfWork
         , totalDaysRestrictedTransferredWork = @totalDaysRestrictedTransferredWork
-        , employeeId = @employeeId
         , saCategoryId = @saCategoryId
         , saTypeId = @saTypeId
+        , employeeId = @employeeId
         , updatedBy = @updatedBy
+		    , updatedOn = @updatedOn
+		    , version = @version
     WHERE id = @id;
 
 

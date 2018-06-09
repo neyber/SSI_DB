@@ -815,7 +815,11 @@ BEGIN
       , version
         FROM dbo.ExistingWorkItemAssigned
         where id = @id;
+        PRINT 'Executed proGetExistingWorkItemAssigned..';
 END
+GO
+
+PRINT 'Procedure dbo.proGetExistingWorkItemAssigned created';
 GO
 /******************************************************************************
 **  Name: SP proGetAllExistingWorkItemAssigned
@@ -857,7 +861,12 @@ BEGIN
       , isDeleted
       , version
         FROM dbo.ExistingWorkItemAssigned
+
+        PRINT 'Executed proGetAllExistingWorkItemAssigneds..';
 END
+GO
+
+PRINT 'Procedure dbo.proGetAllExistingWorkItemAssigneds created';
 GO
 /******************************************************************************
 **  Name: SP proInsertExistingWorkItem
@@ -912,8 +921,12 @@ BEGIN
 			, @createdBy);
 
   SET @newId = SCOPE_IDENTITY();
+  PRINT 'Executed proInsertExistingWorkItemAssigned..';
 END
 
+GO
+
+PRINT 'Procedure dbo.proInsertExistingWorkItemAssigned created';
 GO
 
 /******************************************************************************
@@ -965,10 +978,14 @@ BEGIN
 		, version   = @version
     WHERE id = @id;
 
+    PRINT 'Executed proUpdateExistingWorkItemAssigned..';
+
 END
 
 GO
 
+PRINT 'Procedure dbo.proUpdateExistingWorkItemAssigned created';
+GO
 /******************************************************************************
 **  Name: SP proDeleteExistingWorkItemAssigned
 **  Desc: this script is to Delete a record from ExistingWorkItemAssigned Table
@@ -999,7 +1016,12 @@ SET NOCOUNT ON;
 BEGIN
 	DELETE FROM dbo.Role
 	WHERE id = @id;
+
+	PRINT 'Executed proDeleteExistingWorkItemAssigned..';
 END
 
+GO
+
+PRINT 'Procedure dbo.proDeleteExistingWorkItemAssigned created';
 GO
 --end marcelo
