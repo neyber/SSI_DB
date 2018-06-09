@@ -87,7 +87,8 @@ END
 *******************************************************************************
 **  Fecha:       Autor:            Descripcion:
 ** --------     -----------       ---------------------------------------------
-** 05/29/2018   Linet Torrico    Initial version
+** 05/29/2018   Linet Torrico     Initial version
+** 06/08/2018   Lizeth Salazar    Adding Alter Tables
 *******************************************************************************/
 
 IF NOT EXISTS(SELECT * FROM sys.columns WHERE Name = N'createdBy' AND Object_ID = Object_ID(N'dbo.WorkItemClassification'))    
@@ -180,3 +181,196 @@ BEGIN
 ALTER TABLE dbo.FunctionManual ADD [updatedBy] int
 END
 
+
+
+
+
+
+
+/******************************************************************************
+**  Nombre: Accident Table
+**  Descripcion: Alter for table Accident Table in order to include the
+**  audit fields createdBy, createdOn, updatedBy, updatedOn
+**
+**  Autor: Lizeth Salazar
+**
+**  Fecha: 06/07/2018
+*******************************************************************************
+**                            Change History
+*******************************************************************************
+**  Fecha:       Autor:            Descripcion:
+** --------     -----------       ---------------------------------------------
+** 06/07/2018   Lizeth Salazar    Initial version
+*******************************************************************************/
+
+IF NOT EXISTS(SELECT * FROM sys.columns WHERE Name = N'createdBy' AND Object_ID = Object_ID(N'dbo.Accident'))
+BEGIN
+ALTER TABLE dbo.FunctionManual ADD [createdBy]   int default 0
+END
+
+IF NOT EXISTS(SELECT * FROM sys.columns WHERE Name = N'createdOn' AND Object_ID = Object_ID(N'dbo.Accident'))
+BEGIN
+ALTER TABLE dbo.FunctionManual ADD [createdOn] int
+END
+
+IF NOT EXISTS(SELECT * FROM sys.columns WHERE Name = N'updatedBy' AND Object_ID = Object_ID(N'dbo.Accident'))
+BEGIN
+ALTER TABLE dbo.FunctionManual ADD [updatedBy]   int default 0
+END
+
+IF NOT EXISTS(SELECT * FROM sys.columns WHERE Name = N'updatedOn' AND Object_ID = Object_ID(N'dbo.Accident'))
+BEGIN
+ALTER TABLE dbo.FunctionManual ADD [updatedOn] int
+END
+
+
+
+/******************************************************************************
+**  Nombre: Department Table
+**  Descripcion: Alter for table Department Table in order to include the
+**  audit fields createdBy, createdOn, updatedBy, updatedOn
+**
+**  Autor: Lizeth Salazar
+**
+**  Fecha: 06/07/2018
+*******************************************************************************
+**                            Change History
+*******************************************************************************
+**  Fecha:       Autor:            Descripcion:
+** --------     -----------       ---------------------------------------------
+** 06/07/2018   Lizeth Salazar    Initial version
+*******************************************************************************/
+
+IF NOT EXISTS(SELECT * FROM sys.columns WHERE Name = N'createdBy' AND Object_ID = Object_ID(N'dbo.Department'))
+BEGIN
+ALTER TABLE dbo.FunctionManual ADD [createdBy]   int default 0
+END
+
+IF NOT EXISTS(SELECT * FROM sys.columns WHERE Name = N'createdOn' AND Object_ID = Object_ID(N'dbo.Department'))
+BEGIN
+ALTER TABLE dbo.FunctionManual ADD [createdOn] int
+END
+
+IF NOT EXISTS(SELECT * FROM sys.columns WHERE Name = N'updatedBy' AND Object_ID = Object_ID(N'dbo.Department'))
+BEGIN
+ALTER TABLE dbo.FunctionManual ADD [updatedBy]   int default 0
+END
+
+IF NOT EXISTS(SELECT * FROM sys.columns WHERE Name = N'updatedOn' AND Object_ID = Object_ID(N'dbo.Department'))
+BEGIN
+ALTER TABLE dbo.FunctionManual ADD [updatedOn] int
+END
+
+
+
+/******************************************************************************
+**  Nombre: Employee Table
+**  Descripcion: Alter for table Employee Table in order to include the
+**  audit fields createdBy, createdOn, updatedBy, updatedOn
+**
+**  Autor: Lizeth Salazar
+**
+**  Fecha: 06/07/2018
+*******************************************************************************
+**                            Change History
+*******************************************************************************
+**  Fecha:       Autor:            Descripcion:
+** --------     -----------       ---------------------------------------------
+** 06/07/2018   Lizeth Salazar    Initial version
+*******************************************************************************/
+
+IF NOT EXISTS(SELECT * FROM sys.columns WHERE Name = N'createdBy' AND Object_ID = Object_ID(N'dbo.Employee'))
+BEGIN
+ALTER TABLE dbo.FunctionManual ADD [createdBy]   int default 0
+END
+
+IF NOT EXISTS(SELECT * FROM sys.columns WHERE Name = N'createdOn' AND Object_ID = Object_ID(N'dbo.Employee'))
+BEGIN
+ALTER TABLE dbo.FunctionManual ADD [createdOn] int
+END
+
+IF NOT EXISTS(SELECT * FROM sys.columns WHERE Name = N'updatedBy' AND Object_ID = Object_ID(N'dbo.Employee'))
+BEGIN
+ALTER TABLE dbo.FunctionManual ADD [updatedBy]   int default 0
+END
+
+IF NOT EXISTS(SELECT * FROM sys.columns WHERE Name = N'updatedOn' AND Object_ID = Object_ID(N'dbo.Employee'))
+BEGIN
+ALTER TABLE dbo.FunctionManual ADD [updatedOn] int
+END
+
+
+
+/******************************************************************************
+**  Nombre: Role Table
+**  Descripcion: Alter for table Role Table in order to include the
+**  audit fields createdBy, createdOn, updatedBy, updatedOn
+**
+**  Autor: Lizeth Salazar
+**
+**  Fecha: 06/07/2018
+*******************************************************************************
+**                            Change History
+*******************************************************************************
+**  Fecha:       Autor:            Descripcion:
+** --------     -----------       ---------------------------------------------
+** 06/07/2018   Lizeth Salazar    Initial version
+*******************************************************************************/
+
+IF NOT EXISTS(SELECT * FROM sys.columns WHERE Name = N'createdBy' AND Object_ID = Object_ID(N'dbo.Role'))
+BEGIN
+ALTER TABLE dbo.FunctionManual ADD [createdBy]   int default 0
+END
+
+IF NOT EXISTS(SELECT * FROM sys.columns WHERE Name = N'createdOn' AND Object_ID = Object_ID(N'dbo.Role'))
+BEGIN
+ALTER TABLE dbo.FunctionManual ADD [createdOn] int
+END
+
+IF NOT EXISTS(SELECT * FROM sys.columns WHERE Name = N'updatedBy' AND Object_ID = Object_ID(N'dbo.Role'))
+BEGIN
+ALTER TABLE dbo.FunctionManual ADD [updatedBy]   int default 0
+END
+
+IF NOT EXISTS(SELECT * FROM sys.columns WHERE Name = N'updatedOn' AND Object_ID = Object_ID(N'dbo.Role'))
+BEGIN
+ALTER TABLE dbo.FunctionManual ADD [updatedOn] int
+END
+
+
+
+/******************************************************************************
+**  Nombre: Sickness Table
+**  Descripcion: Alter for table Sickness Table in order to include the
+**  audit fields createdBy, createdOn, updatedBy, updatedOn
+**
+**  Autor: Lizeth Salazar
+**
+**  Fecha: 06/07/2018
+*******************************************************************************
+**                            Change History
+*******************************************************************************
+**  Fecha:       Autor:            Descripcion:
+** --------     -----------       ---------------------------------------------
+** 06/07/2018   Lizeth Salazar    Initial version
+*******************************************************************************/
+
+IF NOT EXISTS(SELECT * FROM sys.columns WHERE Name = N'createdBy' AND Object_ID = Object_ID(N'dbo.Sickness'))
+BEGIN
+ALTER TABLE dbo.FunctionManual ADD [createdBy]   int default 0
+END
+
+IF NOT EXISTS(SELECT * FROM sys.columns WHERE Name = N'createdOn' AND Object_ID = Object_ID(N'dbo.Sickness'))
+BEGIN
+ALTER TABLE dbo.FunctionManual ADD [createdOn] int
+END
+
+IF NOT EXISTS(SELECT * FROM sys.columns WHERE Name = N'updatedBy' AND Object_ID = Object_ID(N'dbo.Sickness'))
+BEGIN
+ALTER TABLE dbo.FunctionManual ADD [updatedBy]   int default 0
+END
+
+IF NOT EXISTS(SELECT * FROM sys.columns WHERE Name = N'updatedOn' AND Object_ID = Object_ID(N'dbo.Sickness'))
+BEGIN
+ALTER TABLE dbo.FunctionManual ADD [updatedOn] int
+END
