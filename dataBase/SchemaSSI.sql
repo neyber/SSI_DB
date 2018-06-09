@@ -150,7 +150,7 @@ BEGIN
 				,auditObjective VARCHAR(100) NOT NULL
 				,auditScope VARCHAR(100) NOT NULL
 				,auditType VARCHAR(50) NOT NULL
-				,employeeId INT NOT NULL
+				,employeeId INT
 				,periodicity VARCHAR(50) NOT NULL
 				,DepartmentId INT NOT NULL
 
