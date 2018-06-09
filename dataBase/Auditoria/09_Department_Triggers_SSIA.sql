@@ -1,6 +1,6 @@
 /******************************************************************************
 **  Nombre: TG_Department(Audit)_InsertUpdate
-**  Descripcion: 
+**  Descripcion:
 **
 **  Autor: Lizeth Salazar
 **
@@ -10,7 +10,8 @@
 *******************************************************************************
 **  Fecha:       Autor:           Descripcion:
 ** --------     -----------      -----------------------------------------------
-** 05/29/2018   Lizeth Salazar   Initial version
+** 05/29/2018   Lizeth Salazar    Initial version
+** 06/08/2018   Lizeth Salazar    Completing fields to be completely mapped
 *******************************************************************************/
 
 
@@ -19,8 +20,8 @@ USE ssiA;
 /*
 ** Reviewing the trigger does not exist, if it does, the script will remove it.
 */
-IF EXISTS (SELECT * FROM sys.objects 
-    WHERE object_id = OBJECT_ID(N'[dbo].[TG_Department(Audit)_InsertUpdate]') 
+IF EXISTS (SELECT * FROM sys.objects
+    WHERE object_id = OBJECT_ID(N'[dbo].[TG_Department(Audit)_InsertUpdate]')
     AND type = 'TR')
 BEGIN
   DROP TRIGGER [dbo].[TG_Department(Audit)_InsertUpdate];
@@ -30,15 +31,15 @@ GO
 
 CREATE TRIGGER [dbo].[TG_Department(Audit)_InsertUpdate]
 ON [dbo].[Department]
-FOR INSERT, UPDATE
+FOR INSERT, UPDATE, DELETE
 AS
 BEGIN
-  IF TRIGGER_NESTLEVEL(@@ProcID) > 1 
+  IF TRIGGER_NESTLEVEL(@@ProcID) > 1
     RETURN
- 
+
   SET NOCOUNT ON;
   SET XACT_ABORT ON;
- 
+
   DECLARE @CurrDate DATETIME = GETUTCDATE();
 
   /**********************
@@ -47,19 +48,25 @@ BEGIN
   ***********************/
   IF UPDATE(Name)
   BEGIN
-    INSERT INTO [dbo].[AuditHistory_SSI](TableName, 
-										ColumnName, 
-										ID, 
-										Date, 
-										OldValue, 
-										NewValue) 
-    SELECT TableName    = 'Department', 
+    INSERT INTO [dbo].[AuditHistory_SSI](tableName,
+										columnName,
+										idFeature,
+										oldValue,
+										newValue,
+										createdDate,
+										createdBy,
+										modifiedDate,
+										modifiedBy)
+    SELECT TableName    = 'Department',
            ColumnName   = 'Name',
-           ID1          = i.id, 
-           Date         = @CurrDate, 
-           OldValue     = d.name, 
-           NewValue     = i.name         
-    FROM deleted d 
+           ID1          = i.id,
+           OldValue     = d.name,
+           NewValue     = i.name,
+           CreatedDate  = i.createdOn,
+           CreatedBy    = i.createdBy,
+           ModifiedDate = i.updatedOn,
+           ModifiedBy   = i.updatedBy
+    FROM deleted d
     FULL OUTER JOIN inserted i ON (d.id = i.id)
     WHERE ISNULL(d.name, '') != ISNULL(i.name, '');
   END
@@ -71,19 +78,25 @@ BEGIN
   ***********************/
   IF UPDATE(Description)
   BEGIN
-    INSERT INTO [dbo].[AuditHistory_SSI](TableName, 
-										ColumnName, 
-										ID, 
-										Date, 
-										OldValue, 
-										NewValue) 
-    SELECT TableName    = 'Department', 
+    INSERT INTO [dbo].[AuditHistory_SSI](tableName,
+										columnName,
+										idFeature,
+										oldValue,
+										newValue,
+										createdDate,
+										createdBy,
+										modifiedDate,
+										modifiedBy)
+    SELECT TableName    = 'Department',
            ColumnName   = 'Description',
-           ID1          = i.id, 
-           Date         = @CurrDate, 
-           OldValue     = d.description, 
-           NewValue     = i.description         
-    FROM deleted d 
+           ID1          = i.id,
+           OldValue     = d.description,
+           NewValue     = i.description,
+           CreatedDate  = i.createdOn,
+           CreatedBy    = i.createdBy,
+           ModifiedDate = i.updatedOn,
+           ModifiedBy   = i.updatedBy
+    FROM deleted d
     FULL OUTER JOIN inserted i ON (d.id = i.id)
     WHERE ISNULL(d.description, '') != ISNULL(i.description, '');
   END
